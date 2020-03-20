@@ -1,0 +1,33 @@
+参考：<br>
+[Django signal 使用总结](https://segmentfault.com/a/1190000008455657)
+
+官方描述:
+> Django includes a “signal dispatcher” which helps allow decoupled applications get notified when actions occur elsewhere in the framework.In a nutshell, signals allow certain senders to notify a set of receivers that some action has taken place. They’re especially useful when many pieces of code may be interested in the same events.
+
+翻译：Django包含一个“信号调度程序”，它有助于在框架中的其他位置发生操作时通知解耦应用程序。简而言之，信号允许某些发件人通知一组接收器已经发生了某些操作。**当许多代码可能对同一事件感兴趣时，它们特别有用。**
+
+<br>
+
+#### 我的理解：像信息通知类的处理，如果收到了某特定信息，就去通知其他 module 做特定的处理
+<br>
+
+## 最佳使用场景
+##### 通知类　
+通知是signal最常用的场景之一。<br>例如，在论坛中，在帖子得到回复时，通知楼主。<br>从技术上来讲，我们可以将通知逻辑放在回复保存时，但是这并不是一个好的处理方式，这样会时程序耦合度增大，不利于系统的后期扩展维护。<br>如果我们在回复保存时，只发一个简单的信号，外部的通知逻辑拿到信号后，再发送通知，这样回复的逻辑和通知的逻辑做到了分开，后期维护扩展都比较容易。
+
+##### 初始化类
+信号的另一个列子便是事件完成后，做一系列的初始化工作。
+
+<br>
+
+## 其他一些使用场景总结
+#### 以下情况可以使用signal:
+signal的receiver需要同时修改对多个model时
+将多个app的相同signal引到同一receiver中处理时
+在某一model保存之后将cache清除时
+无法使用其他方法, 但需要一个被调函数来处理某些问题时
+
+#### 以下情况不要使用signal:
+signal与一个model紧密相关, 并能移到该model的save()时
+signal能使用model manager代替时
+signal与一个view紧密相关, 并能移到该view中时

@@ -1,3 +1,5 @@
+# 目录
+
 [toc]
 
 ---
@@ -400,37 +402,46 @@ dis.dis(swap2)
 
 通过字节码可以看出，swpa1 对应的字节码中有 2 个 `LOAD_FAST` 指令、2 个 `STORE_FAST` 指令和 1 个 `ROT_TWO` 指令，而 swap2 函数对应的共生成了 3 个 `LOAD_FAST` 指令和 3 个 `STORE_FAST` 指令。而指令 `ROT_TWO` 的主要作用是交换两个栈的最顶层元素，它比执行一个 `LOAD_FAST + STORE_FAST` 指令更快。
 
-## 10：充分利用 Lazy evaluation 的特性
+## **10**：充分利用 **Lazy evaluation** 的特性 √
 
-Lazy evaluation 常被译为“延迟计算”或“惰性计算”，指的是仅仅在真正需要执行的时候才计算表达式的值。充分利用 Lazy evaluation 的特性带来的好处主要体现在以下两个方面：
+Lazy evaluation 常被译为“延迟计算”或“惰性计算”，指的是仅仅在真正需要执行的时候才计算表达式的值。
 
-* 避免不必要的计算，带来性能上的提升。对于 Python 中的条件表达式 `if x and y`，在 x 为 false 的情况下 y 表达式的值将不再计算。而对于 `if x or y`，当 x 的值为 true 的时候将直接返回，不再计算 y 的值。因此编程中应该充分利用该特性。例如：
+充分利用 Lazy evaluation 的特性带来的好处主要体现在以下两个方面：
 
-  ```python
-  from time import time
-  t = time()
-  abbreviations = ["cf.", "e.g.", "ex.", "etc.", "flg."]
-  for i in xrange(100000):
-      for w in ("Mr.", "Hat", "is", "chasing", "."):
-          if w in abbreviations and w[-1]=='.': # 这句性能较差
-          # if w[-1] == '.' and w in abbreviations: # 性能好
-              pass
-  print time() - t
-  ```
+- **①、避免不必要的计算，带来性能上的提升。**
+
+对于 Python 中的条件表达式 `if x and y`，在 x 为 false 的情况下 y 表达式的值将不再计算。而对于 `if x or y`，当 x 的值为 true 的时候将直接返回，不再计算 y 的值。
+因此编程中应该充分利用该特性。例如：
+
+```python
+from time import time
+t = time()
+abbreviations = ["cf.", "e.g.", "ex.", "etc.", "flg."]
+for i in xrange(100000):
+    for w in ("Mr.", "Hat", "is", "chasing", "."):
+        if w in abbreviations and w[-1]=='.': # 这句性能较差
+        # if w[-1] == '.' and w in abbreviations: # 性能好
+            pass
+print time() - t
+```
 
   如果使用注释的那一条 if 语句，运行的时间大约会节省 10%。总结来说，对于 or 条件表达式应该将值为真可能性较高的变量写在 or 的前面，而 and 则应该推后。
 
-* 节省空间，使得无限循环的数据结构成为可能。Python 中最典型的使用延迟计算的例子就是生成器表达式了。比如斐波那契：
+- **②、节省空间，使得无限循环的数据结构成为可能。**
 
-  ```python
-  def fib():
-      a, b = 0, 1
-      while True:
-          yield a
-          a, b = b, a + b
-  from itertools import islice
-  print list(islice(fib(), 5))
-  ```
+Python 中最典型的使用延迟计算的例子就是 <u>**生成器表达式**</u> 了。
+比如斐波那契：
+
+```python
+def fib():
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a + b
+from itertools import islice
+print list(islice(fib(), 5))
+```
+<br>
 
 ## 11：理解枚举替代实现的缺陷
 
@@ -1049,6 +1060,7 @@ if __name__ == "__main__":
 从分析测试结果图表示，`join()` 方法的效率要高于 `+` 操作符。当用操作符 `+` 连接字符串的时候，由于字符串是不可变对象，其工作原理实际上是这样的：如果要连接如下字符串：`S1+S2+S3+...+SN`，执行一次 `+` 操作便会在内存中申请一块新的内存空间，并将上一次操作的结果和本次操作的右操作数复制到新申请的内存空间，在 `N` 个字符串连接的过程中，会产生 `N-1` 个中间结果，每产生一个中间结果都需要申请和复制一次内存，总共需要申请 `N-1` 次内存，从而严重影响了执行效率，时间复杂度近似为 `O(n^2)`。
 
 而当用 `join()` 方法连接字符串的时候，会首先计算需要申请的总的内存空间，然后一次性申请所需内存并将字符序列中的每一个元素复制到内存中去，所以 `join` 操作的时间复杂度为 `O(n)`。
+<br>
 
 ## 28：格式化字符串时尽量使用 `.format` 方式而不是 `%`
 
@@ -1211,10 +1223,19 @@ def foo(a):
         print(i)
 foo(i for i in range(3) if i % 2 == 0)
 ```
+<br>
 
-## 31：记住函数传参既不是传值也不是传引用
+## **31**：记住函数传参既不是传值也不是传引用 **√**
 
-对于 Python 函数参数是传值还是传引用这个问题的答案是：都不是。正确的叫法应该是传对象（call by object）或者说传对象的引用（call-by-object-reference）。函数参数在传递的过程中将整个对象传入，对可变对象的修改在函数外部以及内部都可见，调用者和被调用者之间共享这个对象，而对于不可变对象，由于并不能真正被修改，因此，修改往往是通过生成一个新对象然后赋值来实现的。
+- 问：Python <u>**函数参数是传值还是传引用**</u> ？
+答：都不是。
+正确的叫法应该是 ==**传对象**== (call by object) 或者说 ==**传对象的引用**== (call-by-object-reference)。
+
+函数参数在传递的过程中<u>将整个对象传入</u>：
+- 对 <u>**可变对象**</u> 的修改：
+在函数外部以及内部都可见，调用者和被调用者之间共享这个对象。
+- 对于 <u>**不可变对象**</u> ：
+由于并不能真正被修改，因此，修改往往是通过 ==**生成一个新对象**== 然后赋值来实现的。
 
 ```python
 # 自己的测试
@@ -3402,6 +3423,7 @@ Python 的迭代器集成在语言之中，不像 C++ 中那样需要专门去�
 从 Python2.3 版本开始，`itertools` 成为了标准库的一员已经充分印证这个观点。
 <br>
 
+
 ### **`itertools` 模块**
 
 
@@ -3469,6 +3491,9 @@ A1A3
 A1B1
 ....
 ```
+<br>
+<br>
+
 
 ## 66：熟悉 Python 的生成器
 
@@ -3505,6 +3530,9 @@ foo
 ```
 
 通过 `contextmanager` 对 `next()`、`throw()`、`close()` 的封装，yield 大大简化了上下文管理器的编程复杂度，对提高代码可维护性有着极大的意义。除此之外，`yield` 和 `contextmanager` 也可以用以“池”模式中对资源的管理和回收。
+
+<br>
+<br>
 
 ## 67：基于生成器的协程及 greenlet
 

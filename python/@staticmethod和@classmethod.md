@@ -1,3 +1,7 @@
+[toc]
+
+---
+
 ## 3 @staticmethod和@classmethod
 
 Python其实有3个方法,即

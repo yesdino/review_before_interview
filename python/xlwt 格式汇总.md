@@ -1,3 +1,7 @@
+[toc]
+
+---
+
 #### easyxf
 ```
 sheet.write(0, 0, xlwt.easyxf('font: bold 1')) # bold

@@ -1,3 +1,7 @@
+[toc]
+
+---
+
 [原文](https://mp.weixin.qq.com/s?__biz=MjM5OTMyODA4Nw==&mid=2247484084&idx=1&sn=573989b9526aef01a3d515ab09afe86a&chksm=a73c628c904beb9a39adef9b95a1ce6560245b7f4e2a39207a55abc1a293935be203a35bcb13&scene=21#wechat_redirect)
 
 
@@ -14,6 +18,8 @@
 每个进程在执行过程中拥有<u>独立的内存单元</u> | 一个线程的多个线程在执行过程中<u>共享内存</u>。
 
 <br>
+
+## 比喻
 网上有篇阮一峰的博客曾对进程和线程做出了一个非常浅显的解释，我在这里贴出来方便大家理解。
 
 -  计算机的核心是CPU，它承担了所有的计算任务。它就像一座工厂，时刻在运行。
@@ -43,8 +49,8 @@
 http://www.ruanyifeng.com/blog/2013/04/processes_and_threads.html
 
 
-# 多进程
-## multiprocess 模块
+# **多进程**
+## **`multiprocess`** 模块
 
 python的多进程编程主要依靠 **multiprocess** 模块。
 
@@ -119,6 +125,7 @@ if __name__=='__main__':
 - 新创建的进程与进程的切换都是要耗资源的，所以平时工作中进程数不能开太大。
 - 同时可以 **运行的进程数一般受制于CPU的核数**。
 - 除了使用Process方法，我们还可以使用Pool类创建多进程。
+<br>
 
 ### Pool 类 创建进程
 利用multiprocess模块的Pool类创建多进程
@@ -270,8 +277,10 @@ if __name__=='__main__':
 # Get C from queue.
 ```
 
-# 多线程
-## threading 模块
+---
+
+# **多线程**
+## **`threading`** 模块
 
 python 3中的多进程编程主要依靠threading模块。
 <u>创建新线程与创建新进程的方法非常类似。</u>
@@ -361,7 +370,7 @@ if __name__=='__main__':
 当我们设置多线程时，主线程会创建多个子线程，在python中，默认情况下主线程和子线程独立运行互不干涉。<br>如果希望让主线程等待子线程实现线程的同步，我们需要使用join()方法。
 
 ### setDaemon()
-如果我们希望一个<u>主线程结束时不再执行子线程</u>, <br>我们可以使用 **线程.setDaemon(True)** ，代码如下所示。
+如果我们希望一个<u>**主线程结束时不再执行子线程**</u>, <br>我们可以使用 **`线程.setDaemon(True)`** ，代码如下所示。
 
 ```py
 import threading
@@ -385,6 +394,7 @@ if __name__=='__main__':
     end = time.time()
     print("总共用时{}秒".format((end - start)))
 ```
+<br>
 
 ### 通过继承Thread类重写run方法创建新进程
 
@@ -439,6 +449,7 @@ if __name__=='__main__':
 # 结束子进程2
 # 总共用时2.005445718765259秒
 ```
+<br>
 
 ## 不同线程间的数据共享
 
@@ -492,6 +503,7 @@ if __name__ == "__main__":
 
     print('The final balance is: {}'.format(account.balance))
 ```
+<br>
 
 ### 使用消息队列queue
 另一种实现不同线程间数据共享的方法就是使用消息队列queue。<br>不像列表，queue是线程安全的，可以放心使用，见下文。

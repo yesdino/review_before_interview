@@ -1,3 +1,7 @@
+[toc]
+
+---
+
 [文章链接](https://blog.csdn.net/gzlaiyonghao/article/details/2762251)
 Pythonic到底是什么玩意儿？<?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" />
 

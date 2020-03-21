@@ -1,3 +1,7 @@
+[toc]
+
+---
+
 参考 [官网](https://docs.python.org/3.6/library/queue.html)
 
 # queue 模块

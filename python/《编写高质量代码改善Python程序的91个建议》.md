@@ -4,7 +4,7 @@
 
 ---
 
-[source: github](https://github.com/L1nwatch/writing_solid_python_code_gitbook)
+[出处: github](https://github.com/L1nwatch/writing_solid_python_code_gitbook)
 
 # 编写高质量代码改善 Python 程序的 91 个建议
 

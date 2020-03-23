@@ -3,8 +3,11 @@
 ---
 
 ## defaultdict
+<u></u>
 
-value 有默认默认值的 dict, 不用进行“++如果 key not in dict, 设定 value 默认值++” 的这个动作
+<!-- <b style="color:red">11111</b> -->
+
+value 有默认默认值的 dict, 不用进行 “<u>**如果 key not in dict, 设定 value 默认值**</u>” 的这个动作
 ```py
 # 复制到 vscode 看用法
 from collections import defaultdict

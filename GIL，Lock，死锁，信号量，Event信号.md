@@ -315,7 +315,7 @@ import time
 
 lock_a = lock_b = RLock()
 
- 
+
 class MyThread(Thread):
 
     def run(self):

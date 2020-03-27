@@ -1,4 +1,7 @@
-""" 示例16-8　coro_exc_demo.py：学习在协程中处理异常的测试代码 """
+""" 
+示例16-8　coro_exc_demo.py：
+学习在协程中处理异常的测试代码 
+"""
 
 class DemoException(Exception):
     """为这次演示定义的异常类型。"""

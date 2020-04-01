@@ -30,9 +30,10 @@ def slow_function():                        # ➎ 现在，slow_function 函数�
     return 42
 
 
-@asyncio.coroutine
+@asyncio.coroutine                          # @asyncio.coroutine 用于装饰使用 yield from 语法而没使用 async/await 的协程
 def supervisor():                           # ➐ 现在，supervisor 函数也是协程，因此可以使用 yield from 驱动 slow_function 函数。
-    spinner = asyncio.async(spin('thinking!')) # ➑ asyncio.async(...) 函数排定 spin 协程的运行时间，使用一个 Task 对象包装 spin 协程，并立即返回 Task 对象给 spinner 。
+    # spinner = asyncio.async(spin('thinking!')) # ➑ asyncio.async(...) 函数排定 spin 协程的运行时间，使用一个 Task 对象包装 spin 协程，并立即返回 Task 对象给 spinner 。
+    spinner = asyncio.create_task(spin('thinking!'))    # asyncio.async 在 py3.7 已经弃用
     print('spinner object:', spinner)       # ➒ 显示 Task 对象 spinner 。输出类似于<Task pending coro=<spin() running at spinner_asyncio.py:12>>。    
     result = yield from slow_function()     # ➓ yield from 驱动 slow_function() 函数。结束后，获取返回值。同时，事件循环继续运行，因为 slow_function 函数最后使用yield from asyncio.sleep(3) 表达式把控制权交回给了主循环。
     spinner.cancel()                        # 11 Task 对象可以取消；取消后会在协程当前暂停的 yield 处抛出 asyncio.CancelledError异常。协程可以捕获这个异常，也可以延迟取消，甚至拒绝取消。

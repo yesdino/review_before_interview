@@ -1302,6 +1302,7 @@ Python 支持可变长度的参数列表，可以通过在函数定义的时候�
     - 用户实现`__repr__()` 方法的时候最好保证其返回值可以用 eval() 方法使对象重新还原。
     
     
+
 <br><br>
 
 ## **35**：分清 staticmethod 和 classmethod 的适用场景 √
@@ -1630,7 +1631,7 @@ CSV（Comma Separated Values）作为一种逗号分隔型值的纯文本格式�
       quoting = QUOTE_MINIMAL	# 是否在字段前加引号，QUOTE_MINIMAL 表示仅当一个字段包含引号或者定义符号的时候才加引号
   ```
 
-  ​
+  
 
 * `csv.write(csvfile, dialect="excel", **fmtparams)`，用于写入 CSV 文件。参数同上。例子：
 
@@ -1788,7 +1789,6 @@ Pandas 中处理 CSV 文件的函数主要为 `read_csv()` 和 `to_csv()` 这两
   >>> for i in tree.iterfind("system/purpose"):
       print(i.text)
   ```
-
 
 ***
 
@@ -2257,6 +2257,7 @@ import os
 import Queue
 import threading
 import urllib2
+
 class DownloadThread(threading.Thread):
     def __init__(self, queue):
         threading.Thread.__init__(self)
@@ -2277,6 +2278,7 @@ class DownloadThread(threading.Thread):
                 if not chunk:
                     break
                 f.write(chunk)
+                
 if __name__ == "__main__":
     urls = ["https://www.createspace.com/3611970","http://wiki.python.org/moni.WebProgramming"]
     queue = Queue.Queue()

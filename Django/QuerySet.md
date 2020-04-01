@@ -1236,8 +1236,7 @@ entries = Entry.objects.filter(blog__name__in=inner_qs)
 下面的代码却会抛出异常，原因是内部的查询会尝试匹配两个字段值，但只有一个是有用的：
 ```py
 # Bad code! Will raise a TypeError.
-inner_qs = Blog.objects.filter(name__contains='Ch').values(
-                                                'name', 'id')
+inner_qs = Blog.objects.filter(name__contains='Ch').values('name', 'id')
 entries = Entry.objects.filter(blog__name__in=inner_qs)
 ```
 
@@ -1250,6 +1249,7 @@ query 属性本是一个不公开的内部属性，虽然他在上面的代码�
 有些数据库，比如著名的MySQL，就不能很好地优化嵌套查询。
 所以在上面的案例中，先在第一个查询中提取值列表，然后再将其传递给第二个查询，会对性能有较高的提升。
 说白了，就是<u>**用两个高效的查询替换掉一个低效的查询：**</u>
+
 ```py
 values = Blog.objects.filter(
         name__contains='Cheddar').values_list('pk', flat=True)

@@ -7,7 +7,7 @@
 
 # 练习
 
-## 1. 给定的数求和的不同方式。Number Problem
+## 1. 给定的数求和的不同方式（Number Problem
 
 [程式：Ex.1 Number Problem](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex1)
 
@@ -23,17 +23,18 @@ def coin(n):
         dp[i] = dp[i-1] + dp[i-3] + dp[i-4]   # D(n) = D(n-1) + D(n-3) + D(n-4)
     return dp[n]
 
-
-if __name__ == "__main__":
-    print(coin(5))      # 6
-    print(coin(10))     # 64
+# ---------------------------------------------
+# if __name__ == "__main__":
+#     print(coin(5))      # 6
+#     print(coin(10))     # 64
 ```
 <br>
 
 
 
+<!-- -------------------------------------------------------- -->
 
-## 2. 入室抢劫。 House Robber
+## 2. 入室抢劫（House Robber
 [程式：Ex.2 House Robber](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex2)
 
 **题：**
@@ -63,10 +64,10 @@ def rob(nums):
         dp[i][1] = nums[i-1] + dp[i-1][0]       # let's do it
     return max(dp[n][0], dp[n][1])
 
-
-if __name__ == "__main__":
-    nums = [2, 7, 9, 3, 1]
-    print(rob(nums))
+# ---------------------------------------------
+# if __name__ == "__main__":
+#     nums = [2, 7, 9, 3, 1]
+#     print(rob(nums))
 ```
 
 
@@ -80,10 +81,10 @@ def rob(nums):
         no, yes = max(no, yes), i + no
     return max(no, yes)
 
-
-if __name__ == "__main__":
-    nums = [2,7,9,3,1]
-    print(rob(nums))
+# ---------------------------------------------
+# if __name__ == "__main__":
+#     nums = [2,7,9,3,1]
+#     print(rob(nums))
 ```
 
 <br>
@@ -91,7 +92,14 @@ if __name__ == "__main__":
 
 
 
-## 3. 入室抢劫（进阶）House Robber II
+
+
+
+
+
+<!-- -------------------------------------------------------- -->
+
+## 3. 入室抢劫（进阶）（House Robber II
 
 [程式：Ex.3 House Robber II](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex3)
 
@@ -107,71 +115,256 @@ if __name__ == "__main__":
 不同点在于: 抢了第1个房子的话就不能抢最后一个(第n个)房子（圆形头尾相邻）
 ```
 
-
-
+**解：**
 ```python
+def rob(nums):
+    if len(nums) == 0:
+        return 0
+    if len(nums) == 1:
+        return nums[0]
+    return max(robRange(nums, 0, len(nums)-1), robRange(nums, 1, len(nums)))
 
-```
-<br>
+def robRange(nums, start, end):         # helper
+    yes, no = nums[start], 0
+    for i in range(start + 1, end):
+        no, yes = max(no, yes), i + no
+    return max(no, yes)
 
-<!-- ## 4. 组织聚会 Planning Party -->
-
-<!-- [程式：Ex.4](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex4) -->
-
-
-```python
-
-```
-<br>
-
-<!-- ## 5. 瓷砖问题 -->
-
-<!-- [程式：Ex.5](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex5) -->
-
-
-```python
-
-```
-<br>
-
-<!-- ## 6. 最小台阶问题 -->
-
-<!-- [程式：Ex.6](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex6) -->
-
-
-```python
-
-```
-<br>
-
-<!-- ## 7. 求编码方式 Decode Way -->
-
-<!-- [程式：Ex.7](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex7) -->
-
-
-```python
-
-```
-<br>
-
-<!-- ## 8. 独特二叉树的搜索路径 Unique Binary Search Tree -->
-
-<!-- [程式：Ex.8](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex8) -->
-
-
-```python
-
+# ---------------------------------------------
+# if __name__ == "__main__":
+#     nums = [2, 7, 9, 3, 1]
+#     print(rob(nums))
 ```
 <br>
 
 
-<!-- ## 9. 最大子序列乘积 Maximum Product Subarray -->
-
-<!-- [程式：Ex.9](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex9) -->
 
 
+
+<!-- -------------------------------------------------------- -->
+
+## 4. 组织聚会（Planning Party **TODO**
+
+[程式：Ex.4](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex4)
+
+这题没讲 code 自己尝试按照思路写一下
 ```python
 
+```
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+<!-- -------------------------------------------------------- -->
+
+## 5. 瓷砖问题（Tile tiles Problem **TODO**
+
+[程式：Ex.5](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex5)
+
+
+这题没讲 code 自己尝试按照思路写一下
+```python
+
+```
+<br>
+<br>
+
+
+
+
+
+
+
+
+<!-- -------------------------------------------------------- -->
+
+## 6. 最小台阶问题（Min Cost Climbing Stairs
+
+[程式：Ex.6](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex6)
+
+**题目：**
+有一个楼梯，需要你从最底下到最上面，你可以一次走一步或者一次走两步
+限制：每一层楼梯都要交费，每层收费不同 (给一个数组 cost_lis 告诉每层收费)
+
+求：如何走才话费最少？
+
+**思路：**
+这题原理与入室抢劫的原理是一样的，都是边走边算，只不过公式不同
+```
+公式：
+dp(i) = min( dp[i-2]+cost_lis[i-2], dp[i-1]+cost_lis[i-1] )
+到第 i 层台阶的花费 = ( 跨了 1 个台阶上来的的花费 or 垮了 2 个台阶上来的花费 ) 哪个花费小选哪个
+
+其中：
+跨了 1 台阶上来的的花费 = cost_lis[i-1] + dp[i-1] ：( 前面那个台阶的花费+到前面那个台阶之前的花费总和 )
+垮了 2 个台阶上来的花费 = cost_lis[i-2] + dp[i-2] ：( 前面那个台阶的花费+到前面那个台阶之前的花费总和 )
+```
+
+**解：**
+```python
+# 解
+# 时间复杂度：O(n), 空间复杂度：O(n)
+def minCostClimbingStairs(cost_lis):
+    n = len(cost_lis) + 1
+    dp = [0] * n            # dp 数组: 到达第 i 个台阶所需要的花费
+    for i in range(2, n):   # i = 2,3,4,...,n-1
+        dp[i] = min(dp[i-2] + cost_lis[i-2], dp[i-1] + cost_lis[i-1])   # dp[i] : 到达第 i 个台阶所需要的花费
+    return dp[-1]
+
+# ---------------------------------------------------
+# if __name__ == "__main__":
+#     cost_lis = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
+#     ret = minCostClimbingStairs(cost_lis)
+#     print(ret)
+```
+
+**改进**：空间复杂度
+```python
+# 解 2
+# 时间复杂度：O(n), 空间复杂度：O(1)
+def minCostClimbingStairs2(cost_lis):
+    dp0, dp1, dp2 = 0, 0, 0
+    for i in range(2, len(cost_lis)+1):   # i = 2,3,4,...,n-1
+        dp2 = min(dp0 + cost_lis[i-2], dp1 + cost_lis[i-1])
+        dp0, dp1 = dp1, dp2     # 为下一轮更新前两级台阶的花费
+    return dp2
+
+# ---------------------------------------------------
+# if __name__ == "__main__":
+#     cost_lis = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
+#     ret = minCostClimbingStairs2(cost_lis)
+#     print(ret)
+```
+<br>
+<br>
+
+
+
+
+
+
+<!-- -------------------------------------------------------- -->
+
+## 7. 求编码方式（Decode Way
+
+[程式：Ex.7](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex7)
+
+**题：**
+一段包含着 A-Z 的短信用以下方式进行编码：
+```
+'A' -> 1 
+'B' -> 2 
+... 
+'Z' -> 26 
+```
+
+要求：给定一段编码的短信，求编码的方式有几种：
+```
+Input: "12"
+Output: 2
+Explanation: It could be decoded as "AB" (1 2) or "L" (12).
+
+Input: "226"
+Output: 3
+Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
+```
+
+**思路：**
+
+TODO 回去把图片上传到简书然后补全笔记
+
+**解：**
+```python
+# 解
+def numDecodings(string):
+    if string == '' or string[0] == '0':
+        return 0
+    dp = [1, 1]                             # 前面的不用算，从 2 才开始算
+    for i in range(2, len(string)+1):       # i: 2, 3, 4, ..., len(string)
+        # if it is 0, then dp[i]=0
+        result = 0
+        if 10 <= int(string[i-2: i]) <= 26: # 任何两个相邻数字的值在 [10,26] 范围内
+            result = dp[i - 2]
+        if string[i - 1] != '0':
+            result += dp[i - 1]             # 任何一个数字的值不等于 0
+        dp.append(result)
+    return dp[len(string)]
+
+# -----------------------------------
+# if __name__ == "__main__":
+#     ret = numDecodings("226")
+#     print(ret)
+```
+<br>
+<br>
+
+
+
+
+
+
+
+
+<!-- -------------------------------------------------------- -->
+
+## 8. 独特二叉树的搜索路径（Unique Binary Search Tree
+
+[程式：Ex.8](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex8)
+
+**题：**
+给定 n，用 1, 2..., n 来表达 Binary Search Tree，求有几种表达方式？
+
+**思路：**
+TODO 回去把图片上传到简书然后补全笔记
+
+**解：**
+```python
+def numTrees(n):
+    if n <= 2:
+        return n
+    sol = [0] * (n+1)       # dp 数组
+    sol[0] = sol[1] = 1
+    for i in range(2, len(n)+1):
+        for left in range(0, i):
+            sol[i] += (sol[left] * sol[i-1-left])
+    return sol[n]
+
+# ----------------------------------------
+# if __name__ == "__main__":
+#     ret = [numTrees(i) for i in range(1, 6)]
+#     print(ret)
+```
+<br>
+
+
+## 9. 最大子序列乘积（Maximum Product Subarray
+
+[程式：Ex.9](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex9)
+
+TODO 回去把图片上传到简书然后补全笔记
+
+```python
+# 解：
+def maxProduct(nums):
+    if len(nums) == 0:
+        return 0
+    maxinum = mininum = result = nums[0]    # init
+    for i in range(1, len(nums)):           # i: 1, 2, 3, ..., len(nums)-1
+        num1 = maxinum * nums[i]
+        num2 = mininum * nums[i]
+        maxinum, mininum = max(num1, num2, nums[i]), min(num1, num2, nums[i])
+        result = max(result, maxinum)
+    return 
+
+# nums = [2,3,-2,4]
+# ret = maxProduct(nums)
+# print(ret)
 ```
 
 

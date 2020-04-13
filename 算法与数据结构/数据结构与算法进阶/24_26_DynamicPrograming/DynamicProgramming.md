@@ -147,7 +147,15 @@ def robRange(nums, start, end):         # helper
 
 [程式：Ex.4](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex4)
 
+思路：
+<img style="width:400px" 
+src="../img/Planning_Party_2.jpg"></img>
+
+TODO: 思路补全
+
 这题没讲 code 自己尝试按照思路写一下
+
+
 ```python
 
 ```
@@ -163,10 +171,15 @@ def robRange(nums, start, end):         # helper
 
 <!-- -------------------------------------------------------- -->
 
-## 5. 瓷砖问题（Tile tiles Problem **TODO**
+## 5. 瓷砖问题（Tile Problem **TODO**
 
 [程式：Ex.5](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex5)
 
+
+
+思路：
+<img style="width:200px" 
+src="../img/Tiles_Problem.jpg"></img>
 
 这题没讲 code 自己尝试按照思路写一下
 ```python
@@ -196,7 +209,7 @@ def robRange(nums, start, end):         # helper
 
 **思路：**
 这题原理与入室抢劫的原理是一样的，都是边走边算，只不过公式不同
-```
+```py
 公式：
 dp(i) = min( dp[i-2]+cost_lis[i-2], dp[i-1]+cost_lis[i-1] )
 到第 i 层台阶的花费 = ( 跨了 1 个台阶上来的的花费 or 垮了 2 个台阶上来的花费 ) 哪个花费小选哪个
@@ -277,7 +290,8 @@ Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
 
 **思路：**
 
-TODO 回去把图片上传到简书然后补全笔记
+<img style="width:300px" 
+src="../img/Decode_Way_2.png"></img>
 
 **解：**
 ```python
@@ -321,7 +335,16 @@ def numDecodings(string):
 给定 n，用 1, 2..., n 来表达 Binary Search Tree，求有几种表达方式？
 
 **思路：**
-TODO 回去把图片上传到简书然后补全笔记
+
+<img style="width:600px" 
+src="../img/Unique_Binary_Search_Tree.png"></img>
+
+**重点：** 
+此题为 ==**卡特兰特**== 公式应用。Catalan 公式 ： 
+
+<img style="width:200px" 
+src="../img/Unique_Binary_Search_Tree_2.png"></img>
+
 
 **解：**
 ```python
@@ -343,11 +366,13 @@ def numTrees(n):
 <br>
 
 
-## 9. 最大子序列乘积（Maximum Product Subarray
+## 9. 最大子序列乘积（Maximum Product Subarray 
 
 [程式：Ex.9](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex9)
 
-TODO 回去把图片上传到简书然后补全笔记
+跟上面入室抢劫求和的思路差不多，也是 **边走边算**。
+不同的是：
+需要 maintain 一个 max, 一个 min (当负数*负数时会咸鱼翻身为max)
 
 ```python
 # 解：

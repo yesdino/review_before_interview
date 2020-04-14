@@ -11,7 +11,13 @@
 
 [程式：Ex.1 Number Problem](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex1)
 
+**题：**
 给一个 n, 求 1,3,4 相加得到 n 的所有相加方式
+
+**思路：**
+<img style="width:300px" 
+src="../img/Number_Problem.jpg"></img>
+
 
 ```python
 def coin(n):
@@ -32,6 +38,7 @@ def coin(n):
 
 
 
+---
 <!-- -------------------------------------------------------- -->
 
 ## 2. 入室抢劫（House Robber
@@ -97,6 +104,7 @@ def rob(nums):
 
 
 
+---
 <!-- -------------------------------------------------------- -->
 
 ## 3. 入室抢劫（进阶）（House Robber II
@@ -141,17 +149,36 @@ def robRange(nums, start, end):         # helper
 
 
 
+---
 <!-- -------------------------------------------------------- -->
 
 ## 4. 组织聚会（Planning Party **TODO**
 
 [程式：Ex.4](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex4)
 
-思路：
-<img style="width:400px" 
-src="../img/Planning_Party_2.jpg"></img>
+**题：**
+你是一个劫匪，实现知道一个公司开年会，你知道去的每个员工身上有多少钱
 
-TODO: 思路补全
+条件：抢了一个员工，就不能继续抢他的上级或者下属，否则大家将会互相通知来抓住你
+
+求如何才能抢到最多钱？
+
+**思路：**
+从每一条分支的 叶子节点从下往上，按照上面一排房子的思路来解
+对除了叶子节点的每一个 node 进行下面操作：
+<img style="width:300px" 
+src="../img/Planning_Party_2.jpg"></img>
+```
+抢当前节点   = 所有子节点都不抢的和 + 当前节点的值
+不抢当前节点 = 所以子节点求和（max（每个子节点抢/不抢））
+
+Yes(CurNode)= No(all childNode)加和 + CurNodeValue
+No(CurNode) = max( Yes(i), No(i)(每个子节点抢/不抢的max) )加和 
+```
+
+
+
+TODO: 
 
 这题没讲 code 自己尝试按照思路写一下
 
@@ -169,32 +196,41 @@ TODO: 思路补全
 
 
 
+---
 <!-- -------------------------------------------------------- -->
 
-## 5. 瓷砖问题（Tile Problem **TODO**
+## 5. 瓷砖问题（Tile Problem
 
 [程式：Ex.5](http://39.100.240.159:1234/notebooks/24-26_Dynamic_Programming/23_01_DynamicProgramming.ipynb#Ex5)
 
+**题：**
+给你一种 2*1 尺寸的瓷砖，要求你铺一块宽为 2，长为 n 的区域，求有几种铺法？
 
 
-思路：
+
+**思路：**
 <img style="width:200px" 
 src="../img/Tiles_Problem.jpg"></img>
 
-这题没讲 code 自己尝试按照思路写一下
+这题没讲 code 下面的 code 是自己写的
 ```python
+def tails(n):
+    dp = [1, 1]
+    for i in range(2, n+1):
+        result = dp[i-1] + dp[i-2]
+        dp.append(result)
+    return dp
 
+# -----------------------------
+# print(tails(6))
 ```
+
 <br>
 <br>
 
 
 
-
-
-
-
-
+---
 <!-- -------------------------------------------------------- -->
 
 ## 6. 最小台阶问题（Min Cost Climbing Stairs
@@ -261,7 +297,7 @@ def minCostClimbingStairs2(cost_lis):
 
 
 
-
+---
 <!-- -------------------------------------------------------- -->
 
 ## 7. 求编码方式（Decode Way
@@ -290,7 +326,7 @@ Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
 
 **思路：**
 
-<img style="width:300px" 
+<img style="width:250px" 
 src="../img/Decode_Way_2.png"></img>
 
 **解：**
@@ -301,8 +337,7 @@ def numDecodings(string):
         return 0
     dp = [1, 1]                             # 前面的不用算，从 2 才开始算
     for i in range(2, len(string)+1):       # i: 2, 3, 4, ..., len(string)
-        # if it is 0, then dp[i]=0
-        result = 0
+        result = 0                          # if it is 0, then dp[i]=0
         if 10 <= int(string[i-2: i]) <= 26: # 任何两个相邻数字的值在 [10,26] 范围内
             result = dp[i - 2]
         if string[i - 1] != '0':
@@ -324,7 +359,7 @@ def numDecodings(string):
 
 
 
-
+---
 <!-- -------------------------------------------------------- -->
 
 ## 8. 独特二叉树的搜索路径（Unique Binary Search Tree
@@ -343,7 +378,7 @@ src="../img/Unique_Binary_Search_Tree.png"></img>
 此题为 ==**卡特兰特**== 公式应用。Catalan 公式 ： 
 
 <img style="width:200px" 
-src="../img/Unique_Binary_Search_Tree_2.png"></img>
+src="../img/Catalan_.png"></img>
 
 
 **解：**
@@ -365,6 +400,8 @@ def numTrees(n):
 ```
 <br>
 
+
+---
 
 ## 9. 最大子序列乘积（Maximum Product Subarray 
 

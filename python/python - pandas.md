@@ -757,8 +757,8 @@ df = pd.DataFrame([[1.0, np.nan, 3.0, 4.0],
                   [9.0, np.nan, np.nan, 12.0],
                   [13.0, np.nan, 15.0, 16.0]])
  
-print("df:\n{}\n".format(df));
-print("df:\n{}\n".format(pd.isna(df)));****
+print("df:\n{}\n".format(df))
+print("df:\n{}\n".format(pd.isna(df)))
  
 # 这段代码输出如下：
 df:

@@ -139,10 +139,10 @@ def findKthLargest(nums, k):
     return heapq.heappop(heap)
 
 # --------------------------------
-nums = [5,11,3,6,12,9,8,10,14,1,4,2,7,15]
-k = 5
-ret = findKthLargest(nums, k)
-print(ret)
+# nums = [5,11,3,6,12,9,8,10,14,1,4,2,7,15]
+# k = 5
+# ret = findKthLargest(nums, k)
+# print(ret)
 ```
 
 ---
@@ -303,7 +303,8 @@ def uglyNumber(num):
 3、在取出数的同时，将 当前取出的数 i*2, i*3, i*5 得到的数依次放入 list
 4、重复步骤 2,3
 
-TODO:  在 pad 上画思路图，力求清晰明了
+==**TODO :**==
+在 pad 上画思路图，力求清晰明了
 
 **解：**
 ```python

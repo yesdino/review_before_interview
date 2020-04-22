@@ -242,6 +242,7 @@ python 对于计算密集型的任务开多线程的效率并不能带来多大�
 from threading import Thread, Lock
 import time
 
+# 创建互斥锁。互斥锁对资源锁定之后就一定要解锁，否则资源会一直处于锁定状态，其他线程无法修改
 lock_a = Lock()
 lock_b = Lock()
  

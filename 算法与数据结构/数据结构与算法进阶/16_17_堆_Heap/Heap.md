@@ -113,6 +113,18 @@ class HeapPriorityQueue(priorityQueueBase):
 # 练习
 
 
+
+## 0. 计算二维数组的每一列的前 K 大个元素 **TODO**
+
+TODO
+
+
+
+
+
+
+
+
 ## 1. 数组中第 k 个最大的元素
 
 [code line](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_03_heap_PracticeI.ipynb)
@@ -168,7 +180,7 @@ def findKthLargest(nums, k):
 
 <!-- ------------------------------------ -->
 
-## 2. TopK 问题
+## 2. 出现频率的前 k 大的元素
 
 [code line](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_03_heap_PracticeI.ipynb)
 
@@ -310,14 +322,16 @@ def uglyNumber(num):
 ```python
 import heapq
 
+# 正解
 def nthUglyNumber(n):
     p1, p2, p3 = [2], [3], [5]
     ugly = 1        # 注意 1 也是 ugly number
 
     # 要遍历 3 个动态列表合并的堆
-    for num in heapq.merge(p1, p2, p3):
+    for num in heapq.merge(p1, p2, p3): # heapq.merge : 融合排序序列,将返回多个序列融合之后排好序的列表
+        print("num: {}".format(num))
         if n == 1:
-            return ugly
+            return ugly     # ugly: 上一轮循环的 num
         if num > ugly:      # 注意有可能会出现重复的数字
             ugly = num
             p1.append(num * 2)
@@ -374,7 +388,32 @@ return: [1,1] [1,1]
 
 **解：**
 ```python
+# 时间复杂度：k*lg(k)
+import heapq
 
+def kSmallestPairs(num1, num2, k):
+    heap = []
+    def push(idx1, idx2):
+        if idx1 < len(num1) and idx2 < len(num2):
+            item = (num1[idx1] + num2[idx2], idx1, idx2)    # 注意元祖item 以第一个元素比较大小(这里用加和值比较大小)
+            heapq.heappush(heap, item)
+    push(0, 0)
+    pair = []
+    while heap and len(pair) < k:
+        _, i, j = heapq.heappop(heap)
+        pair.append((num1[i], num2[j]))
+        push(i, j+1)
+        if j == 0:
+            push(i+1, j)
+    return pair
+
+
+# -----------------------------------------
+num1 = [1,7,11]
+num2 = [2,4,6]
+k = 20
+ret = kSmallestPairs(num1, num2, k)
+print(ret)
 ```
 
 ---
@@ -389,16 +428,17 @@ return: [1,1] [1,1]
 
 
 <!-- ------------------------------------ -->
-<!-- 
+
 # 练习 2
 
-## 1. 合并 k 个有序序列 Merge K Sorted List
+## 1. 合并 k 个有序序列 Merge K Sorted List **TODO**
 
 [code line](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_01_heap.ipynb)
 
 **题：**
 给你 k 个有序链表，将它们都合并在一个有序链表中
 
+TODO: 整理思路图
 
 **思路：**
 
@@ -406,23 +446,94 @@ return: [1,1] [1,1]
 
 **解：**
 ```python
+from queue import PriorityQueue
+from clas.LinkedList import LinkedList
+from clas.LinkedList import Node
 
+def mergeKLists(lists):
+    dummy = Node()  # 哨兵结点: 记录合并以后的链表的头，完成之后直接返回
+    cur = dummy
+    q = PriorityQueue()
+    # 先把每个链表的第一个结点先放进去
+    for node in lists:
+        if node is not None:
+            q.put((node.value, node))
+    while q.qsize() > 0:
+        min_node = q.get()[1]
+        cur.next = min_node
+        cur = cur.next
+        if cur.next:
+            q.put((cur.next.value, cur.next))
+    return dummy.next       # 注意：返回的时候不能返回哨兵节点，而是哨兵的next 头结点
+
+# ------------------------------------------
+lst1 = LinkedList()
+lst1.add_last(1)
+lst1.add_last(4)
+lst1.add_last(5)
+
+lst2 = LinkedList()
+lst2.add_last(1)
+lst2.add_last(3)
+lst2.add_last(4)
+
+lst3 = LinkedList()
+lst3.add_last(2)
+lst3.add_last(6)
+
+# -------------------------
+lists = [
+    lst1.head.next, 
+    lst2.head.next, 
+    lst3.head.next
+]
+node = mergeKLists(lists)   # <----
+result = LinkedList()
+
+result.head.next = node
+result.printlist()
 ```
 
+[leetcode](https://leetcode-cn.com/problems/merge-k-sorted-lists/) : 
+注意一下在 leetcode 上面给出的 **ListNode** 类型怎么使用
+
+```python
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def mergeKLists(self, lists):
+        """
+        :type lists: List[ListNode]
+        :rtype: ListNode 链表
+        """
+        import heapq
+        h = []
+        dummy = ListNode(0)  # 注意获取哨兵节点的方式
+        cur = dummy
+        for head in lists:
+            if head:
+                heapq.heappush(h, (head.val, head))
+        while h:
+            _, min_node = heapq.heappop(h)
+            cur.next = min_node
+            cur = cur.next
+            if cur.next:
+                heapq.heappush(h, (cur.next.val, cur.next))
+        return dummy.next
+```
+
+
+
 ---
- -->
-
-
-
-
-
-
-
 
 
 <!-- ------------------------------------ -->
-<!-- 
-## 2.从数据流中获取中位数 Find Median From Data Stream
+
+## 2.从数据流中获取中位数 Find Median From Data Stream **TODO**
 
 [code line](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_01_heap.ipynb)
 
@@ -430,23 +541,33 @@ return: [1,1] [1,1]
 从一个数据流中获取中位数
 （数据流：不知道什么时候，才会停止增加的数据，不知道数据长度）
 
+要求：
+设计一个支持以下两种操作的数据结构：
+`void addNum(int num)` - 从数据流中添加一个整数到数据结构中。
+`double findMedian()` - 返回目前所有元素的中位数。
+
+
 **思路：**
+
+TODO:
+
+这题比较复杂，在pad上画出容易理解的思路图
 
 
 
 **解：**
+
 ```python
 
 ```
 
+
+
+[leetcode](https://leetcode-cn.com/problems/shu-ju-liu-zhong-de-zhong-wei-shu-lcof/)
+
+
+
 ---
-
-
- -->
-
-
-
-
 
 
 

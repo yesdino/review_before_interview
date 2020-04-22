@@ -15,7 +15,7 @@ def nthUglyNumber(n):
     ugly = 1        # 注意 1 也是 ugly number
 
     # 要遍历 3 个动态列表合并的堆
-    for num in heapq.merge(p1, p2, p3):     # heapq.merge : 融合排序序列,将返回多个序列融合之后排好序的列表
+    for num in heapq.merge(p1, p2, p3): # heapq.merge : 融合排序序列,将返回多个序列融合之后排好序的列表
         print("num: {}".format(num))
         if n == 1:
             return ugly     # ugly: 上一轮循环的 num

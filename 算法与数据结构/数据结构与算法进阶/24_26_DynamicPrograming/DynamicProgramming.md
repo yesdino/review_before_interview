@@ -16,7 +16,7 @@
 
 **思路：**
 <img style="width:300px" 
-src="../img/Number_Problem.jpg"></img>
+src="../img/DynamicProgramming/Number_Problem.jpg"></img>
 
 
 ```python
@@ -167,7 +167,7 @@ def robRange(nums, start, end):         # helper
 从每一条分支的 叶子节点从下往上，按照上面一排房子的思路来解
 对除了叶子节点的每一个 node 进行下面操作：
 <img style="width:300px" 
-src="../img/Planning_Party_2.jpg"></img>
+src="../img/DynamicProgramming/Planning_Party_2.jpg"></img>
 ```
 抢当前节点   = 所有子节点都不抢的和 + 当前节点的值
 不抢当前节点 = 所以子节点求和（max（每个子节点抢/不抢））
@@ -210,7 +210,7 @@ TODO:
 
 **思路：**
 <img style="width:200px" 
-src="../img/Tiles_Problem.jpg"></img>
+src="../img/DynamicProgramming/Tiles_Problem.jpg"></img>
 
 这题没讲 code 下面的 code 是自己写的
 ```python
@@ -327,7 +327,7 @@ Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
 **思路：**
 
 <img style="width:250px" 
-src="../img/Decode_Way_2.png"></img>
+src="../img/DynamicProgramming/Decode_Way_2.png"></img>
 
 **解：**
 ```python
@@ -372,13 +372,13 @@ def numDecodings(string):
 **思路：**
 
 <img style="width:600px" 
-src="../img/Unique_Binary_Search_Tree.png"></img>
+src="../img/DynamicProgramming/Unique_Binary_Search_Tree.png"></img>
 
 **重点：** 
 此题为 ==**卡特兰特**== 公式应用。Catalan 公式 ： 
 
 <img style="width:200px" 
-src="../img/Catalan_.png"></img>
+src="../img/DynamicProgramming/Catalan_.png"></img>
 
 
 **解：**

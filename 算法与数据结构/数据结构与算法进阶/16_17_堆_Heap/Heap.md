@@ -358,7 +358,7 @@ def nthUglyNumber(n):
 
 <!-- ------------------------------------ -->
 
-## 5. 求加和值最小的 k 对 pair（上一题延伸
+## 5. 求加和值最小的 k 对 pair（Find K Pairs with Smallest Sums
 
 [code line](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_03_heap_PracticeI.ipynb)
 
@@ -374,17 +374,20 @@ return: [1,2] [1,4] [1,6]
 list1 = [1,1,2]  list2 = [1,2,3]  k=2 
 return: [1,1] [1,1]
 ```
+==这不是动态候选池的解法，这是一道非常简单的堆的 pop 最小值的问题，只是进行了变形而已==
 
 
 **思路：**
-例如：list1 = [1,7,11]  list2 = [2,4,6]  k=3
+
+例如：`list1 = [1,7,11]  list2 = [2,4,6]  k=3`
 1、定义一个 heap 放候选的 pair。先将基本的 pair : [1,2] [7,2] [11,2] 放入 heap
 2、在 heap 中新增候选 pair [1,4]
 3、在此时 heap 的所有候选 pair 中找到最小的加值 pair : [1,2]
 4、重复步骤 2，3
 
-这不是动态候选池的解法，这是一道非常简单的堆的 pop 最小值的问题，只是进行了变形而已
+<img style="width:250px" src="../img/Heap/Find_K_Pairs_with_Smallest_Sums.png"></img>
 
+TODO：感觉思路没缕清晰，有空画个更容易懂的
 
 **解：**
 ```python
@@ -438,10 +441,13 @@ print(ret)
 **题：**
 给你 k 个有序链表，将它们都合并在一个有序链表中
 
-TODO: 整理思路图
 
 **思路：**
+<img style="width:500px" src="../img/Heap/Merge_K_Sorted_List.png"></img>
 
+TODO: 上面的思路图不太对，有空再画一个
+
+TODO: 整理思路
 
 
 **解：**

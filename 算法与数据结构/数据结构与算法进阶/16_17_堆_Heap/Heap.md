@@ -197,8 +197,6 @@ def findKthLargest(nums, k):
 import collections
 import heapq
 import functools
-import heapq
-import functools
 
 @functools.total_ordering
 class Element:
@@ -374,20 +372,21 @@ return: [1,2] [1,4] [1,6]
 list1 = [1,1,2]  list2 = [1,2,3]  k=2 
 return: [1,1] [1,1]
 ```
-==这不是动态候选池的解法，这是一道非常简单的堆的 pop 最小值的问题，只是进行了变形而已==
 
 
 **思路：**
-
-例如：`list1 = [1,7,11]  list2 = [2,4,6]  k=3`
+```
+例如：list1 = [1,7,11]  list2 = [2,4,6]  k=3
 1、定义一个 heap 放候选的 pair。先将基本的 pair : [1,2] [7,2] [11,2] 放入 heap
 2、在 heap 中新增候选 pair [1,4]
 3、在此时 heap 的所有候选 pair 中找到最小的加值 pair : [1,2]
 4、重复步骤 2，3
-
+```
 <img style="width:250px" src="../img/Heap/Find_K_Pairs_with_Smallest_Sums.png"></img>
 
 TODO：感觉思路没缕清晰，有空画个更容易懂的
+
+==这不是动态候选池的解法，这是一道非常简单的堆的 pop 最小值的问题，只是进行了变形而已==
 
 **解：**
 ```python
@@ -443,11 +442,15 @@ print(ret)
 
 
 **思路：**
-<img style="width:500px" src="../img/Heap/Merge_K_Sorted_List.png"></img>
-
-TODO: 上面的思路图不太对，有空再画一个
-
-TODO: 整理思路
+<img style="width:600px" src="../img/Heap/Merge_K_Sorted_List2.png"></img>
+```
+联想之前合并两个有序序列时，用的是 i, j 两个指针。现在有 k 个序列，那需要 maintain k 个指针。
+这时可用 heap 来 maintain 这 k 个序列的指针
+1. 定义一个 heap 放 k 个序列的当前元素指针。先将k个序列最前面的元素放入 heap
+2. 此时 heap 中有 k 个元素，获取最小(最大,看题意要求)的元素
+3. 将步骤 2 中选中的最值元素的下一个元素放入 heap 中（相当于原来合并2个序列的指针下移）
+4. 重复步骤 2，3
+```
 
 
 **解：**
@@ -465,11 +468,11 @@ def mergeKLists(lists):
         if node is not None:
             q.put((node.value, node))
     while q.qsize() > 0:
-        min_node = q.get()[1]
-        cur.next = min_node
-        cur = cur.next
+        min_node = q.get()[1]                   # ①
+        cur.next = min_node                     # ②
+        cur = cur.next                          # ③
         if cur.next:
-            q.put((cur.next.value, cur.next))
+            q.put((cur.next.value, cur.next))   # ④
     return dummy.next       # 注意：返回的时候不能返回哨兵节点，而是哨兵的next 头结点
 
 # ------------------------------------------
@@ -568,7 +571,38 @@ class Solution(object):
 **解：**
 
 ```python
+from heapq import *
 
+class MedianFinder:
+
+    def __init__(self):
+        self.heaps = [], []     # 一个最大堆，一个最小堆
+
+    def addNum(self, num):
+        min_heap, max_heap = self.heaps
+        heappush(min_heap, -heappushpop(max_heap, num))
+        # 如果最大堆的个数比最小堆个数小，把最小堆堆顶放去最大堆
+        if len(max_heap) < len(min_heap):
+            heappush(max_heap, -heappop(min_heap))
+
+    def findMedian(self):
+        min_heap, max_heap = self.heaps
+        if len(max_heap) > len(min_heap):
+            return float(max_heap[0])
+        if len(max_heap) == 0:
+            return None
+        return (heappop(max_heap) - heappop(min_heap)) / 2.0
+
+# ---------------------------------------------------
+finder = MedianFinder()
+ret = finder.findMedian()
+print(ret)
+finder.addNum(2)
+ret = finder.findMedian()
+print(ret)
+finder.addNum(3)
+ret = finder.findMedian()
+print(ret)
 ```
 
 
@@ -582,8 +616,8 @@ class Solution(object):
 
 
 <!-- ------------------------------------ -->
-<!-- 
-## 3. 管理你的项目 Manage Your Project (IPO)
+
+## 3. 管理你的项目 Manage Your Project (IPO)**TODO**
 
 [code line](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_01_heap.ipynb)
 
@@ -602,7 +636,7 @@ class Solution(object):
 ```
 
 ---
- -->
+
 
 
 

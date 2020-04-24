@@ -9,7 +9,7 @@
 
 ## 自己写一个 Heap
 
-[code line](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_01_heap.ipynb)
+[code link](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_01_heap.ipynb)
 
 ```python
 class priorityQueueBase:
@@ -116,9 +116,38 @@ class HeapPriorityQueue(priorityQueueBase):
 
 ## 0. 计算二维数组的每一列的前 K 大个元素 **TODO**
 
+
+[code link](http://localhost:8888/notebooks/MyJupyterNote/old/16-17__Heap/16_02_PythonHeap.ipynb)
+
 TODO
 
+```python
+import numpy as np
+import heapq
 
+x = np.array(
+    [
+        [1, 2, 3, 4, 5, 6],
+        [2, 3, 5, 7, 8, 1], 
+        [7, 9, 6, 6, 3, 2], 
+        [8, 9, 0, 1, 4, 7]
+    ], 
+    np.int32
+)
+
+
+cols = x.shape[1]           # x.shape 返回 (行数，列数)
+for col_idx in range(cols):
+    col = x[:, col_idx]     # col: 每一列
+    h = []
+    for e in col:
+        heapq.heappush(h, e)
+        if len(h) > 2:
+            heapq.heappop(h)# 把小的 pop 出去
+    print(h)
+ret = np.sort(x, axis=0)[-2:]
+print(ret)
+```
 
 
 
@@ -127,7 +156,7 @@ TODO
 
 ## 1. 数组中第 k 个最大的元素
 
-[code line](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_03_heap_PracticeI.ipynb)
+[code link](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_03_heap_PracticeI.ipynb)
 
 **题：**
 要求第 k 大的元素
@@ -182,7 +211,7 @@ def findKthLargest(nums, k):
 
 ## 2. 出现频率的前 k 大的元素
 
-[code line](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_03_heap_PracticeI.ipynb)
+[code link](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_03_heap_PracticeI.ipynb)
 
 **题：**
 求出给定数组中的元素的出现频率的前 k 大的元素
@@ -253,7 +282,7 @@ def topKFrequent(words, k):
 
 ## 3. Ugly Number
 
-[code line](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_03_heap_PracticeI.ipynb)
+[code link](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_03_heap_PracticeI.ipynb)
 
 **题：**
 判断一个数是否为 Ugly Number
@@ -275,7 +304,7 @@ def uglyNumber(num):
     while num % 2 == 0:
         num = num / 2
     while num % 3 == 0:
-        num = num /3
+        num = num / 3
     while num % 5 == 0:
         num = num / 5
      
@@ -299,9 +328,9 @@ def uglyNumber(num):
 
 <!-- ------------------------------------ -->
 
-## 4. Ugly Number II （==动态候选池==问题）（TODO
+## 4. Ugly Number II （==动态候选池==问题）（**TODO**
 
-[code line](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_03_heap_PracticeI.ipynb)
+[code link](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_03_heap_PracticeI.ipynb)
 
 **题：**
 给定一个 n, 求出最小的 n 个  Ugly Number
@@ -358,7 +387,7 @@ def nthUglyNumber(n):
 
 ## 5. 求加和值最小的 k 对 pair（Find K Pairs with Smallest Sums
 
-[code line](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_03_heap_PracticeI.ipynb)
+[code link](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_03_heap_PracticeI.ipynb)
 
 **题：**
 给出两个排好序的 list。
@@ -411,11 +440,11 @@ def kSmallestPairs(num1, num2, k):
 
 
 # -----------------------------------------
-num1 = [1,7,11]
-num2 = [2,4,6]
-k = 20
-ret = kSmallestPairs(num1, num2, k)
-print(ret)
+# num1 = [1,7,11]
+# num2 = [2,4,6]
+# k = 20
+# ret = kSmallestPairs(num1, num2, k)
+# print(ret)
 ```
 
 ---
@@ -433,9 +462,9 @@ print(ret)
 
 # 练习 2
 
-## 1. 合并 k 个有序序列 Merge K Sorted List **TODO**
+## 1. 合并 k 个有序序列 Merge K Sorted List
 
-[code line](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_01_heap.ipynb)
+[code link](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_01_heap.ipynb)
 
 **题：**
 给你 k 个有序链表，将它们都合并在一个有序链表中
@@ -476,31 +505,31 @@ def mergeKLists(lists):
     return dummy.next       # 注意：返回的时候不能返回哨兵节点，而是哨兵的next 头结点
 
 # ------------------------------------------
-lst1 = LinkedList()
-lst1.add_last(1)
-lst1.add_last(4)
-lst1.add_last(5)
+# lst1 = LinkedList()
+# lst1.add_last(1)
+# lst1.add_last(4)
+# lst1.add_last(5)
 
-lst2 = LinkedList()
-lst2.add_last(1)
-lst2.add_last(3)
-lst2.add_last(4)
+# lst2 = LinkedList()
+# lst2.add_last(1)
+# lst2.add_last(3)
+# lst2.add_last(4)
 
-lst3 = LinkedList()
-lst3.add_last(2)
-lst3.add_last(6)
+# lst3 = LinkedList()
+# lst3.add_last(2)
+# lst3.add_last(6)
 
-# -------------------------
-lists = [
-    lst1.head.next, 
-    lst2.head.next, 
-    lst3.head.next
-]
-node = mergeKLists(lists)   # <----
-result = LinkedList()
+# # -------------------
+# lists = [
+#     lst1.head.next, 
+#     lst2.head.next, 
+#     lst3.head.next
+# ]
+# node = mergeKLists(lists)   # <----
+# result = LinkedList()
 
-result.head.next = node
-result.printlist()
+# result.head.next = node
+# result.printlist()
 ```
 
 [leetcode](https://leetcode-cn.com/problems/merge-k-sorted-lists/) : 
@@ -544,11 +573,13 @@ class Solution(object):
 
 ## 2.从数据流中获取中位数 Find Median From Data Stream **TODO**
 
-[code line](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_01_heap.ipynb)
+[code link](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_01_heap.ipynb)
 
 **题：**
 从一个数据流中获取中位数
 （数据流：不知道什么时候，才会停止增加的数据，不知道数据长度）
+
+==这一题应用的场景就是：有一个动态变化的序列，经常变化也有可能长度很大，要求很快地拿到它的中位数==
 
 要求：
 设计一个支持以下两种操作的数据结构：
@@ -558,6 +589,8 @@ class Solution(object):
 
 **思路：**
 <img style="width:500px" src="../img/Heap/Find_Median_From_Data_Stream.png"></img>
+
+TODO ： 图再画详细一些
 
 注意几点：
 - 1、**将最大堆和最小堆的长度差保持在 1 之内**，就可将最大堆与最小堆的整体数据按照中位数划分
@@ -580,27 +613,27 @@ class MedianFinder:
 
     def addNum(self, num):
         min_heap, max_heap = self.heaps
-        heappush(min_heap, -heappushpop(max_heap, num))
+        max_pop = heappushpop(max_heap, num)    # 先去 max，然后去 min
+        heappush(min_heap, -max_pop)            # 因为 python 中的 heap 是最小堆，所以用负号来实现最大堆
         # 如果最大堆的个数比最小堆个数小，把最小堆堆顶放去最大堆
-        if len(max_heap) < len(min_heap):
+        if len(max_heap) < len(min_heap):   
             heappush(max_heap, -heappop(min_heap))
 
     def findMedian(self):
         min_heap, max_heap = self.heaps
         if len(max_heap) > len(min_heap):
-            return float(max_heap[0])
-        if len(max_heap) == 0:
-            return None
-        return (heappop(max_heap) - heappop(min_heap)) / 2.0
+            return float(max_heap[0])               # 可直接用索引 0 获取堆顶元素
+        return (max_heap[0] - min_heap[0]) / 2.0
 
 # ---------------------------------------------------
 finder = MedianFinder()
-ret = finder.findMedian()
-print(ret)
+finder.addNum(7)
 finder.addNum(2)
-ret = finder.findMedian()
-print(ret)
 finder.addNum(3)
+finder.addNum(5)
+finder.addNum(4)
+finder.addNum(8)
+finder.addNum(6)
 ret = finder.findMedian()
 print(ret)
 ```
@@ -617,13 +650,16 @@ print(ret)
 
 <!-- ------------------------------------ -->
 
-## 3. 管理你的项目 Manage Your Project (IPO)**TODO**
+## 3. 管理你的项目 Manage Your Project (IPO) **TODO**
 
-[code line](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_01_heap.ipynb)
+[code link](http://localhost:8888/notebooks/MyJupyterNote/old/16-17_Heap/16_01_heap.ipynb)
 
 
 **题：**
+你现在有很多项目，每个项目有启动资金为 C, 能挣多少钱为 P
+开始的时候你手上有的钱为 W
 
+你可以从很多项目中做 K 个项目，要求你作完这 K 个项目之后盈利为最大
 
 
 **思路：**

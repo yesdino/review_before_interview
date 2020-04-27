@@ -352,6 +352,17 @@ data = data.loc[data['WorkOrder'].str.contains('01677')]
 data = data[data['UutID'].isin(uut_lis)]
 ```
 
+3. 筛选符合条件的行
+```python
+# 某字段为无效的行去掉
+n_data2 = n_data2[pd.notnull(n_data2['UutLocationIsValid'])]
+# 条件筛选
+valid_uutloc_data = uutloc_data[uutloc_data['UutLocationIsValid']==True]
+# 多条件筛选
+n_data1 = n_data1[(n_data1.IsVirtual == False) | (n_data1.IsNodeLoc == True)]
+# n_data1.query('(IsVirtual != True) | (IsNodeLoc != False)')
+```
+
 
 ## filter()
 ```python

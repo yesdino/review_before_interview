@@ -44,15 +44,17 @@ yum install -y docker-io
 
 - 1、登录阿里云仓库
 
-- 2、到控制台那里去复制上面提示的国内镜像地址
+- 2、到控制台那里去复制上面提示的国内镜像地址。我的地址：`https://d6reefsh.mirror.aliyuncs.com`
 
 - 3、把地址写入 docker 的配置文件中去
 
 ```
 vim /etc/docker/daemon.json
+```
 
+```
 {
-    "registry-mirrors": [地址]
+    "registry-mirrors": [https://d6reefsh.mirror.aliyuncs.com]
 }
 ```
 - 4、重启 docker
@@ -219,8 +221,8 @@ docker run -it -p [containerID]
 -P  : 随机分配端口
 ```
 
-例：`docker run -it -p 8888:8080 tomcat`
-启动之后，浏览器访问 `hostIP:8888` 能访问到 tomcat 页面，即第一个是对外暴露的端口，第二个是容器内部映射过去的端口
+例：`docker run -it -p 8888:8080 tomcat`：启动之后，浏览器访问 `hostIP:8888` 能访问到 tomcat 页面。
+即第一个是对外暴露的端口，第二个是容器内部映射过去的端口
 
 例：`docker run -it -P tomcat` 用 `docker ps` 查到分配端口号 32768
 启动之后，浏览器访问 `hostIP:32768` 能访问到 tomcat 页面
@@ -569,7 +571,7 @@ docker run -iy --name dc03 --volumes-from dc01 zzyy/contos
 
 ## **DockerFile**
 
-基本步骤：
+**基本步骤：**
 - **编写**：手动编写一个 dockerfile 文件，必须符合 dockerfile 规范
 - **构建**：使用 `docker bulid` 命令执行这个 dockerfile 文件，获得一个 dockerfile 文件定义的镜像。
 - **执行**：`docker run` 这个镜像
@@ -577,6 +579,7 @@ docker run -iy --name dc03 --volumes-from dc01 zzyy/contos
 
 ### DockerFile 是什么
 
+[link](https://www.bilibili.com/video/BV1Vs411E7AR?p=22)
 DockerFile 是由一系列命令和参数构成，用来构建 Docker 镜像的脚本文件。
 
 DockerFile 定义了进程需要的需要的一起东西。
@@ -584,7 +587,8 @@ DockerFile 设计的内容包括执行代码或者是文件、环境变量、依
 （==**其实就是个虚拟机镜像的终端版**==）
 
 ### 关于 /bin/bash 指令
-注意
+[link](https://www.bilibili.com/video/BV1Vs411E7AR?p=23)
+**注意：**
 很多 dockerfile 文件都会在最后一行有 `CMD ["/bin/bash"]` 这表示在 run 这个镜像的时候，它会自动执行 `/bin/bash` 指令。
 你 run 的时候可以自己加 `/bin/bash` 指令也可以不加，如果自己 run 的时候再加了，其实是运行了两遍 `/bin/bash` 指令，也没有问题。
 但如果有些 dockerfile 文件都会在最后一行没有 `CMD ["/bin/bash"]` ，所以==最好自己 run 的时候要加上 `/bin/bash` 指令==
@@ -594,15 +598,15 @@ DockerFile 设计的内容包括执行代码或者是文件、环境变量、依
 
 #### 基本规则
 
-- 每条 **保留字指令** 都必须为大写字母并后面都要跟随至少一个参数
+- 每条 **保留字指令** 都必须为**大写字母**并后面都要跟随至少一个参数
 - 指令从上到下顺序执行
 - `#` 表注释
-- <u>每条指令都胡创建一个新的镜像层，并对镜像进行提交</u>
+- <u>每条指令都会创建一个新的镜像层，并对镜像进行提交</u>
 
 #### 执行 DockerFile 的大致流程
 
 - 1、docker 从 `FROM` 指定的源镜像运行一个容器
-- 2、执行一条指令并对容器进行修改
+- 2、执行逐条指令并对容器进行修改
 - 3、执行类似 `docker commit` 的操作提交一个新的镜像层
 - 4、docker 再 <u>基于刚提交的镜像</u> 运行一个新容器
 - 5、执行 dockerfile 中下一条指令直到所有指令都执行完成
@@ -618,6 +622,7 @@ DockerFile 设计的内容包括执行代码或者是文件、环境变量、依
 
 
 ### **保留字指令**
+[link](https://www.bilibili.com/video/BV1Vs411E7AR?p=24)
 
 ```python
 FROM        : 源镜像 or 基础镜像。即当前镜像是基于哪个镜像来的
@@ -634,7 +639,8 @@ ENV         : 在构建镜像的过程中设置环境变量
 
 ADD         : 将宿主机目录下的文件拷贝进镜像（自动处理 URL 和解压 tar 压缩包）
 
-COPY        : 类似ADD，但只拷贝不解压。(有下面两种格式)
+COPY        : 拷贝文件和目录到镜像像中。从<源路径>的文件/目录 复制到 新的一层的镜像内的<目标路径>位置
+              (类似ADD，但只拷贝不解压。有下面两种格式：)
               1. COPY src dest
               2. COPY ["src", "dest"]
 
@@ -659,6 +665,7 @@ ONBUILD     : 当构建一个被继承的 DockerFile 时运行命令，
 
 
 #### 案例 1
+[link](https://www.bilibili.com/video/BV1Vs411E7AR?p=25)
 
 我们从 docker hub 中拉下来的 centos 镜像是最精简的，不能使用 `vim` `ifconfig` 指令。
 现在我们用 DockerFile 做一个能够使用`vim` `ifconfig` 指令，并且指令登录时落脚的目录的镜像。

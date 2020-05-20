@@ -28,6 +28,16 @@
 - 仓库分为公开库、私有库。最大的公开库为Docker Hub(慢）,国内公开库有阿里云、网易云
 
 
+## docker 安装
+```py
+# 安装依赖
+yum install -y epel-release
+# 安装 docker
+yum install -y docker-io
+# 安装后的配置文件位置
+/etc/sys
+```
+
 ## 安装完 docker 之后替换仓库源
 
 由于 docker hub 是国外的服务器，访问下载非常慢，国内阿里云、网易云已经将镜像拷贝到了他们的服务器上可以免费拉下来，所以替换仓库源非常有必要,这里以阿里云为例：
@@ -80,14 +90,14 @@ docker run 后面跟的是容器，即要跑哪个容器。那么 docker 接到 
 
 docker 是一个 ==Client-Server== 结构的系统。
 
-docker 守护进程 docker-daemon 运行在主机上，++**docker-daemon 通过 ==Socket== 连接从客户端接收命令并管理运行在主机上的容器**++
+docker 守护进程 docker-daemon 运行在主机上，<u>**docker-daemon 通过 ==Socket== 连接从客户端接收命令并管理运行在主机上的容器**</u>
 
 ### docker 架构
 ![image](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578069293898&di=9f16d7ec562fa59361b62de054f9b143&imgtype=0&src=http%3A%2F%2Fimg1.mukewang.com%2F5b783ab700016b6a08840463.jpg)
 
 看右上角的蓝色鲸鱼，鲸鱼背上有集装箱
 
-```
+```py
 蓝色的大海  ：宿主机 (centos)
 鲸鱼        ：docker
 集装箱      ：容器 （form 镜像）

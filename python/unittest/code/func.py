@@ -13,3 +13,17 @@ def sort_lis(lis, sort_key, desc):
         sort_key = 'Location'   # default
         lis = sorted(lis, key=lambda x: (x['Rack'],x['Bay'],x['Inline']))
     return lis
+
+
+def test_sort_lis():
+    # 正常值
+
+
+    # 异常值
+
+
+    # 边界值
+
+    pass
+
+

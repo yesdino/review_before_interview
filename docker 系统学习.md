@@ -225,6 +225,15 @@ docker ps
 ```
 ![docker_ps_参数说明.png](https://upload-images.jianshu.io/upload_images/11876740-87efb53bf68b894a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
+```
+参数：
+-a  : 
+-l  : 
+-n  : 
+-q  : 
+--no-trunc  :
+```
+
 
 #### 退出容器
 
@@ -723,9 +732,9 @@ ENTRYPOINT ["curl", "-s", "http://ip.cn"]
 ```
 FROM centos 
 MAINTAINER zzyy<zzyy@163.com>
-COPY c.txt /usr/local/cincontainer.txt      # 把宿主机当前目录下的 c.txt 文件拷贝到后面指定的镜像路径中 /use/local，重命名为 cincontainer.txt，不带后面的 txt 就表直接拷贝到 /use/local
-ADD apache-tomcat-9.0.8.tar.gz /use/local/  # 把宿主机当前目录下的压缩包拷贝到镜像路径 /use/local 并解压
-ADD jdk-8u171-linux-x64.tar.gz /use/local/  # 同上
+COPY c.txt /usr/local/cincontainer.txt      # 把宿主机当前目录下的 c.txt 文件拷贝到后面指定的镜像路径中 /use/local，重命名为 cincontainer.txt，不带后面的 txt 就表直接拷贝到 /usr/local
+ADD apache-tomcat-9.0.8.tar.gz /usr/local/  # 把宿主机当前目录下的压缩包拷贝到镜像路径 /usr/local 并解压
+ADD jdk-8u171-linux-x64.tar.gz /usr/local/  # 同上
 RUN yum -y install vim
 ENV MYPATH /usr/local
 WORKDIR $MYPATH
@@ -854,7 +863,7 @@ docker run -p 12345:3306 --name mysql
 
 ## 一、什么是 Docker Compose
 
-Compose 项目是Docker官方的开源项目，负责实现Docker容器集群的快速编排，开源代码在https://github.com/docker/compose 上
+Compose 项目是Docker官方的开源项目，负责实现Docker容器集群的快速编排，开源代码在 https://github.com/docker/compose 上
 
 我们知道使用Dockerfile模板文件可以让用户很方便的定义一个单独的应用容器，其实在工作中，经常会碰到需要多个容器相互配合来完成的某项任务情况，例如工作中的web服务容器本身，往往会在后端加上数据库容器，甚至会有负责均衡器，比如LNMP服务
 
@@ -862,8 +871,8 @@ Compose 就是来做这个事情的，它允许用户通过一个单独的docker
 
 Compose 中有两个重要的概念：
 
-服务(service):一个应用的容器，实际上可以包括若干运行相同镜像的容器实例
-项目(project):由一组关联的应用容器组成的一个完整业务单元，在docker-compose.yml中定义
+- 服务(service):一个应用的容器，实际上可以包括若干运行相同镜像的容器实例
+- 项目(project):由一组关联的应用容器组成的一个完整业务单元，在docker-compose.yml中定义
 
 
 ## 二、基本原理
@@ -944,12 +953,12 @@ Compose 大部分命令的对象即可以是项目的本身，也可以是指定
 docker-compose [-f=<arg>...] [options] [COMMAND] [ARGS]
 
 参数选项
--f,--file file指定模板文件，默认是docker-compose.yml模板文件,可以多次指定
--p,--project-name name指定项目名称，默认使用所在目录名称作为项目名称
---x-networking 使用Docker的后端可插拔网络特性
---x-networking-driver driver指定网络的后端驱动，默认使用bridge
---verbose 输入更多的调试信息
--v,--version 输出版本信息
+-f,--file               : file 指定模板文件，默认是 docker-compose.yml 模板文件,可以多次指定
+-p,--project-name       : name 指定项目名称，默认使用所在目录名称作为项目名称
+--x-networking          : 使用 Docker 的后端可插拔网络特性
+--x-networking-driver   : driver 指定网络的后端驱动，默认使用bridge
+--verbose               : 输入更多的调试信息
+-v,--version            : 输出版本信息
 ```
 
 

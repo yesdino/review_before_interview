@@ -75,15 +75,22 @@
 比如现在 To 处的为工程 project1 ， From 处的为工程 project ，如果 project1 相对于 project 而言，有文件 a ，没有文件 b ，换句话说 project1 相对于 project 而言，“新增了 a ，删除了 b ”，那么此处 merge 的结果就是会将“新增 a ，删除 b ”的操作应用于本地 working copy 的工程，那为什么 From 处的 project 不能指定为最新的 Revision 呢，既 HEAD Revision ？试想一下，假如主干（ trunk ）在拉取了分支（ branch ）之后，主干（ trunk ）和分支（ branch ）都有在并行开发，那么必然主干（ trunk ）上会有新增的功能，这样就会有新增的代码，这些代码在分支（ trunk ）上并不存在，在 To 和 From 比较过程中，就会出现“删除 xxx ”的操作，这在 merge 过程中会应用在本地 working copy 中，本来这个“ xxx ”是主干新功能的代码，在将分支合并过来的时候，不应该删除，所以不能用主干最新的版本和分支最新的版本做对比，应该是将当时拉取分支的时候的主干版本和当前最新的分支版本进行对比，应用到本地 working copy 中才对，所以这边的 From 必须选取当时拉取当前分支的主干版本，不然主干上面新增的代码会丢失，之前我对 From 和 To 的顺序，以及 revision 的选取也是迷糊了大半天，我希望对读者而言，我这边已经说清楚了 如果还有什么不清楚的欢迎加群交流
 
 
-## resolve conflic
+### resolve conflic
 
 [source](https://stackoverflow.com/questions/7679113/differences-between-svn-merge-left-right-working-files-after-conflicts)
 
-Let's say there are two branches, and last (HEAD) revision in branch A is **`9`**, while it is 6 in branch B.
+有两个分支`A` `B`，最新的 revision (HEAD) 分别为 `A`:`(9)`，`B`：`(6)`
 
-When cd B; svn merge -r 5:8 ^/braches/A is ran, svn will try to apply delta between 5 and 8 from branch A on top of branch B.
+当
+```py
+cd B; 
+svn merge -r 5:8 ^/braches/A
+```
 
-(In other words, change sets 7 and 8 will be applied to B)
+SVN 将提交  A 分支上 `(5)`~`(8)` 的改动到分支 B 的最前面
+
+（换言之，`(7)` 和 `(8)` 的改动记录都将提交到分支 B 上）
+
 ```
 common
 ancestor      left     right
@@ -93,26 +100,26 @@ ancestor      left     right
      ┗━(2)━━(4)━━(6)              # branch B
                working
 ```
-If the delta applies cleanly, it's all good.
 
-Let's say some lines were modified in change set 3, and same source lines were modified differently in change set 4.
+假设一些 lines 在分支 A 的`(3)`中被修改，在分支 B 的 `(4)` 同样的源 lines 也被修改且修改处不同
 
-If delta (5→8) doesn't touch those lines, all is still good.
+如果在 `(5)`~`(8)` 版本迭代的过程中没有涉及上面的 lines 的改动，那不没有问题
 
-If delta (5→8) also modified what 3 and 4 did, changes cannot be merged automatically, and svn leaves a file in conflict state:
+但如果在 `(5)`~`(8)` 迭代的过程同样修改了 `(3)` `(4)` 修改的行，将会产生冲突，这时就不会自动做合并了，因为 SVN 无法判断要保留哪些，会生成下列几个 file：
 
-file --- file with (working, left, right) delimited
-file.working --- state of file in branch B@6
-file.merge-left --- state of file in branch A@5
-file.merge-right --- state of file in branch A@8
-If you edit such a file manually, you have a few choices --- keep working (your version), keep right (their version; the other branch version) or merge the changes manually.
+- `file.working`：分支 B `(6)`，既被合并的分支最新的版本
+- `file.merge-left`：分支 A `(5)`，既将要合并的分支选择的最前面的版本
+- `file.merge-right`：分支 A `(8)`，既将要合并的分支选择的最后面的版本
 
-Left is not useful in itself, there's no point to keep left (their old version) in the file.
+如果你手动编辑 conflict 冲突文件，你有以下几个选择：
 
-It is, however, useful for tools. left→right is the change set.
+保留 `working` (你被合并的版本)，保留 `right`(合并过来的版本) 或者 手动做合并。
+（`left` 本身并不怎么有用，在文件中保留 left (分支的旧版本) 是没有意义的。
+然而，它对于工具是有用的。`left` →`right`为更改集。）
 
-When you see, for example:
+例如：
 
+```
 <<<<<<< .working
 
     life_universe_and_everything = 13
@@ -126,11 +133,13 @@ When you see, for example:
     life_universe_and_everything = "42"
 
 >>>>>>> .merge-right.r8
-In branch A, "13" (str) was changed to "42".
+```
 
-Branch B had 13 (int).
+在分支 A 中，`"13"(str)`  modify 为 `"42"(str)`
 
-Perhaps you want 42 (int) when you reconcile this conflict manually.
+在分支 B 中为 `13(int)`
+
+当然，你手动合并解决冲突的时候可能会想要`42(int)`
 
 
 

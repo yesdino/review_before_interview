@@ -21,7 +21,7 @@ cel.conf.beat_schedule = {
         # 'schedule': 1.0,
         # 'schedule': crontab(minute="*/1"),
         'schedule': timedelta(seconds=2),           # 每隔 2 秒执行一次
-        'args': ('test',)                           # 任务传递的参数
+        'args': ('time_task',)                           # 任务传递的参数
     },
     # 2. 特定时间执行
     # 'add-every-12-seconds': {

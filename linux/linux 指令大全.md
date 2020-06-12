@@ -204,7 +204,7 @@ mv file /           # 把文件file移动到根目录中
 mv file file_bak    # 把文件 file 重命名为 file_bak。
 ```
 
-## cp命令
+## cp 
 拷贝文件/目录。
 英文缩写 copy
 
@@ -212,7 +212,7 @@ mv file file_bak    # 把文件 file 重命名为 file_bak。
 cp file file_bak    # 拷贝一份file为file_bak
 cp dir dir_bak ‐r   # 拷贝一个目录 dir 并命名为 dir_bak, ‐r 参数代表递归拷贝，把 dir 目录中的文件也拷贝过去
 ```
-拷贝目录并重命名，可直接用于目录备份
+拷贝目录并 重命名，可直接用于 **目录备份**
 ```
 [dino@172 test]$ ls
 celery_test  ch01  ch02  git_test  read_execl
@@ -223,7 +223,7 @@ celery_test  ch01  ch01_cp  ch02  git_test  read_execl
 ```
 
 
-## cat命令
+## cat 
 
 用来查看文件内容，以及 **将几个文件连成一个文件**，
 英文缩写 concatenate (连锁)

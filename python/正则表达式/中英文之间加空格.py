@@ -7,12 +7,7 @@ import os
 
 string = '''
 
-解释：open函数接收一个参数，此参数为将被读取内容的文件名，在调用之后返回表示这个文件的对象，Python将之存储在后面的变量（file_obj）中，关键字 with 在我们不再需要使用文件的时候将其关闭。
-
- 上面的代码中open() 函数中传入的是一个相对路径，相对路径会从当前文件（reader.py）所在文件夹下查找指定文件(resource.txt)，如果文件不在当前文件夹下，可以使用绝对路径。Linux系统绝对路径如：
-
-/home/joker/dic这样的，Windows系统的绝对路径如：C:/pyhton_workspace/dic 这样的。
-
+举例来说，使用datetime.datetime.utcnow()、datetime.datetime.now()输出的类似2015-05-11 09:10:33.080451就是不带时区的时间（naive time），而使用django.util.timezone.now()输出的类似2015-05-11 09:05:19.936835+00:00的时间就是带时区的时间（Active time），其中+00:00表示的就是时区相对性。
 
 '''
 

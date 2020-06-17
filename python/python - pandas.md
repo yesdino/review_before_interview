@@ -341,18 +341,17 @@ Name: note, dtype: object
 
 ## 直接筛选
 
-1. 使用 `loc[]`
+### 1. 使用 `loc[]`
 ```python
 # 数据为 data，过来 WorkOrder 列中包含 01677 子串的行
 data = data.loc[data['WorkOrder'].str.contains('01677')]
 ```
-2. 
+
+### 2. 筛选符合条件的行
 
 ```python
 data = data[data['UutID'].isin(uut_lis)]
 ```
-
-3. 筛选符合条件的行
 ```python
 # 某字段为无效的行去掉
 n_data2 = n_data2[pd.notnull(n_data2['UutLocationIsValid'])]
@@ -360,9 +359,17 @@ n_data2 = n_data2[pd.notnull(n_data2['UutLocationIsValid'])]
 valid_uutloc_data = uutloc_data[uutloc_data['UutLocationIsValid']==True]
 # 多条件筛选
 n_data1 = n_data1[(n_data1.IsVirtual == False) | (n_data1.IsNodeLoc == True)]
-# n_data1.query('(IsVirtual != True) | (IsNodeLoc != False)')
+n_data1.query('(IsVirtual != True) | (IsNodeLoc != False)')
 ```
-
+### 3. 直接筛选想要/不想要的列
+直接筛选想要的列
+```python
+ret_df = all_type_datas[['DeviceTag', 'LocationID', 'MacAddress', 'SerialNumber', 'UutID']]
+```
+不想要的列
+```python
+n_data1 = n_data1.drop(['UutID_C', 'HaveChassis', 'IsNodeLoc'], axis=1)
+```
 
 ## filter()
 ```python
@@ -507,7 +514,7 @@ score = lambda x: (x - x.mean()) / x.std()*10
 print (grouped.transform(score))
 ```
 
-## filter
+## filter 过滤
 ```python
 # ***************************************************************************************
 # #过滤根据定义的标准过滤数据并返回数据的子集。filter()函数用于过滤数据
@@ -523,6 +530,19 @@ print("返回分组后组长度大于3的组元素:")
 filter = grouped.filter(lambda x: len(x) >= 3)  # x :一个组，返回组长度大于3的组元素
 print ("filter:\n", filter)
 print("-------------------------------")
+```
+```py
+# 筛选组内的 Chassis 或 Node 其中有一为有效 Location, 全都没有 Location 的过滤
+all_type_datas = all_type_datas.groupby(["UutID_C"],as_index=False).filter(lambda x: group_is_loc(x['UutID'], valid_uutloc_uutid_s))
+
+def group_is_loc(Series, valid_uutloc_uutid_s):
+    '''判断某一组的 Chassis or Node 是否有一为 Location '''
+    res = False
+    values = Series.values
+    for val in values:
+        if val in valid_uutloc_uutid_s:
+            res = True
+    return res
 ```
 
 # 转为字典

@@ -988,7 +988,7 @@ Computational tools
 
 # **==使用 example==**
 
-```
+```py
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Time    : 2018/5/24 15:03

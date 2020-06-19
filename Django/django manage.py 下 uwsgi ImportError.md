@@ -98,7 +98,7 @@ setting.py 注释使用了 uwsgi module 的 APP，url.py 注释使用了 uwsgi m
 
 ```
 try:
-    uwsgi
+    import uwsgi
 except ImportError:
     pass
 ```

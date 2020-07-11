@@ -225,9 +225,9 @@ TCP 以一个段为单位，每发一个段进行一次确认应答的处理
 [link 49:48](https://www.bilibili.com/video/BV17b411W78h?p=11)
 在使用窗口控制中，如果出现段丢失该怎么办？
 
-### ACK 丢失
+### ①ACK 丢失
 
-- **①** 首先，我们先考虑 ACK 确认应答未能返回的情况。
+- 首先，我们先考虑 ACK 确认应答未能返回的情况。
 
 在这种情况下，**<u>==数据已经到达对端==，是不需要再进行重发的</u>**。
 然而，在没有使用窗口控制的时候，没有收到确认应答的数据都会被重发。
@@ -236,9 +236,9 @@ TCP 以一个段为单位，每发一个段进行一次确认应答的处理
 <img src="img/窗口控制与重发控制.png" style="width:600px"></img>
 
 
-### 数据报文丢失
+### ②数据报文丢失
 
-- **②** 其次，我们来考虑一下某个报文段丢失的情况。
+- 其次，我们来考虑一下某个报文段丢失的情况。
 
 #### 超时重传
 [link 53:37](https://www.bilibili.com/video/BV17b411W78h?p=11)
@@ -507,7 +507,15 @@ TCP 中为了**提高网络的利用率**，经常使用一个叫做 Nagle 的�
 
 **捎带应答**
 
-[link 73:17](https://www.bilibili.com/video/BV17b411W78h?p=12)
+[link 73:17](https://www.bilibili.com/video/BV17b411W78h?p=12) 
+[link 05:13](https://www.bilibili.com/video/BV17b411W78h?p=13)
+
+<img src="img/捎带应答3.png" style="width:200px"></img>
+其实也是延时确认，本来是去一个 S 回一个 ACK，然后又回一个 S, 这边再回一个 ACK。
+**==现在我第一个 ACK 先不着急回去，我等等，看看有没有数据要一起回去的，
+然后等到了要回去的 S，ACK 就捎带着 S 一起回去。==**
+
+
 在此类通信当中，
 <u>TCP 的 **确认应答+回执数据** 一起回来</u>，叫做捎带应答(Piggy Back Acknowledgement)。
 通过这种机制，可以**使收发的数据量减少**。
@@ -521,6 +529,86 @@ TCP 中为了**提高网络的利用率**，经常使用一个叫做 Nagle 的�
 
 [link 76:06](https://www.bilibili.com/video/BV17b411W78h?p=12)
 <img src="img/捎带应答.png" style="width:900px"></img>
+
+
+
+
+---
+
+# TCP 的 4 个应用协议
+
+## **Telnet** 协议
+
+Telnet 协议是 TCP/IP 协议族中的一员，
+<u>是 Internet 远程登陆服务的标准协议和主要方式。</u>
+它为用户提供了在本地计算机上完成远程主机工作的能力 。
+
+在终端使用者电脑上使思在 telnet 程序中输入命令，这些命令会在服务器上运行，就像直接在服务器的控制台上输入一样。
+可以在本地就能控制服务器。
+
+要开始一个 telnet 会话，必须输入用户名和密码来登签录服务器。
+Telnet 是常用的远程控制路由器的方法。
+
+
+**==Telnet 协议不可靠==**
+[link 抓包 00:33](https://www.bilibili.com/video/BV17b411W78h?p=13)
+<img src="img/telnet不可靠.png" style="width:900px"></img>
+啥都没有，不做保护，非常不可靠，安全隐患很大
+
+
+
+
+[link 抓包2 04:28](https://www.bilibili.com/video/BV17b411W78h?p=13)
+交互式数据流，一去一回
+<img src="img/Telnet_OmniPeek抓包.png" style="width:900px"></img>
+
+
+<br>
+
+---
+
+## **SSH** 协议
+
+Secure Shell( SSH)is a cryptographic network protocol for operating network
+services securely over an unsecured network. The best known example application is forremote login to computer systems by users.
+(用户远程登录）
+architec SSH provides a secure channel over an unsecured network in a client-server
+architecture, connecting an SSH client application with an SSH server. Common applicationsinclude remote command-line login and remote command execution, but any networkservice can be secured with SSH
+**( 任何网络服务都可以被SSH保护 )**。 
+The protocolspecification distinguishes between two major versions, referred to as SSH1 and SSH2(推荐使用SSHv2)
+SSH was designed as a replacement for Telnet
+**( ==用于替代不安全的 Telnet== )**
+and for unsecured remote shell protocols such as the Berkeley rlogin, rsh, and rexec protocols
+Those protocols send information, notably passwords, in plaintext, rendering them
+susceptible to interception and disclosure using packet analysis. The encryption used by SSHis intended to provide confidentiality and integrity of data over an unsecured network, such asthe Internet, although files leaked by Edward Snowden indicate that the National Security
+Agency can sometimes decrypt SSH, allowing them to read the contents of SSH sessions
+
+
+配置一个 SSH 
+[link 01:06](https://www.bilibili.com/video/BV17b411W78h?p=14)
+
+
+
+
+### 公钥，SSH 工作原理
+
+[link 06:33](https://www.bilibili.com/video/BV17b411W78h?p=14)
+<img src="img/SSH公钥密钥工作原理_.png" style="width:400px"></img>
+双向认证，比 Telnet 安全
+
+
+[这一 P 没看完 看到 11:00](https://www.bilibili.com/video/BV17b411W78h?p=14)
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -145,7 +145,11 @@ def send_channel_msg(channel_name, msg):
 ```
 
 ## 生产部署
-大多数django的应用部署方式都采用的是nginx+uwsgi进行部署，当django集成channels时候，由于uwsgi不能处理websocket请求，所以我们需要asgi服务器来处理websocket请求，官方推荐使用daphne。下一篇文章将介绍nginx+supervisor+daphne+uwsgi进行生产部署。
+
+大多数 django 的应用部署方式都采用的是 nginx+uwsgi 进行部署，**==当 django 集成 channels 时候，由于 uwsgi 不能处理 websocket 请求==**，
+所以我们需要 asgi 服务器来处理 websocket 请求，官方推荐使用 daphne 。
+
+下一篇文章将介绍 nginx+supervisor+daphne+uwsgi 进行生产部署。
 
 
 

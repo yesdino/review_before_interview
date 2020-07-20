@@ -25,15 +25,34 @@
 
 [引用出处](https://www.cnblogs.com/devinzhang/archive/2012/01/13/2321826.html)
 
-socket 编程：
+你可以自己体会一下两个终端之间的 socket 交互：
 ```py
-# client
+# client.py
+import socket
 
-```
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect(('127.0.0.1', 8888))
+s.sendall(b'hello world')
 
-```py
-# server
+data = s.recv(1024)
+print(data.decode())
+s.close()
 
+# ---------------------------------------------
+# server.py
+import socket
+import time
+
+s = socket.socket()
+s.bind(('127.0.0.1', 8888))
+s.listen()
+
+while True:
+    client, addr = s.accept()
+    print(client)
+    timestr = time.ctime(time.time()) + '\r\n'
+    client.send(timestr.encode())
+    client.close()
 ```
 
 而由于我们需要与前端做交互，所以我们需要用到的是 websocket:
@@ -117,8 +136,12 @@ anaconda-ks,cfg  <-[0m<-[01;34mdino<-[0m  <-[01;34mgrub<-[0m
     };
 ```
 这里当我们在 term 输入数据时，你输入的每一个字符每一个键值都是传到后台，由后台传到另一台远程终端。
-然后，从远程终端上抓到输出回传到后台，后台回传到前端显示的。即你在前端的终端中输入一个a, 你看到它显示在界面终端上了，但其实它是经历了一个过程之后从远程终端回来的。而不是像输入框那样，你打一个字段就显示在上面一样。
-天知道这个坑了我多久，狗带！
+然后，从远程终端上抓到输出回传到后台，后台回传到前端显示的。
+<u>**即你在前端的终端中输入一个a，你看到它显示在界面终端上了，但其实它是经历了一去一回从远程终端回来的。**</u>
+而不是像输入框那样，你打一个字段就显示在上面一样。
+
+<img src="../计算机网络/课/img/Telnet回显2.png" style="width:500px"></img>
+
 
 <br>
 

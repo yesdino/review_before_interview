@@ -87,6 +87,8 @@ def removeDuplicates2(nums):
 
 **思路：** <sup style="color:#ccc">23-03 00:00:57~00:02:33</sup>
 
+这个思路跟前面两题也是一样的，i 是下一个要置换的正确的数的位置，i 前面的都是已经置换好的正确的子数组。
+那么你只需要把不等于 val 的数都置换到 i 前面的子数组去就可以了
 
 **code：** <sup style="color:#ccc">23-03 00:02:35~ Ex.</sup>
 [link]()
@@ -104,14 +106,15 @@ def removeElement(nums, val):
 ---
 
 
-## . 
-**题：** <sup style="color:#ccc"></sup>
+## 4. Maximum Average Subarray
+**题：** <sup style="color:#ccc">23-04 00:00:08~00:06:27</sup>
+
+给一个数组 nums, 一个窗口大小 k。
+<u>要求你在 num 中每 k 个元素求一个平均值。</u>
 
 
 
-
-
-**思路：** <sup style="color:#ccc"></sup>
+**思路：** <sup style="color:#ccc">23-05 00:09:12~00::</sup>
 
 
 **code：** <sup style="color:#ccc"> Ex.</sup>

@@ -13,7 +13,7 @@ async def main():
 
     # Wait until both tasks are completed (should take
     # around 2 seconds.)
-    await task1
+    await task1     # 相当于线程的 join(), 主协程等待子协程执行完毕
     await task2
 
     print(f"finished at {time.strftime('%X')}")

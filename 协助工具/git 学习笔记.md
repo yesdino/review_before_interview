@@ -169,6 +169,61 @@ git pull
 ![本地库and远程库.png](https://upload-images.jianshu.io/upload_images/11876740-11b192d576a7a385.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
+## 添加到追踪区 add
+
+[出处](https://www.cnblogs.com/grooovvve/p/9732491.html)
+
+```py
+git add [file1] [file2]
+```
+如果要同时添加多个文件
+```py
+# 可以添加同类型的所有文件
+git add *.扩展名
+```
+添加 **新增**、**修改**、**删除** 的文件
+```py
+git add .
+```
+u 代表 updata，你更新你已经跟踪的文件；
+如果你添加了新文件，那么你是不会主动跟踪，并提交的。
+<u>**所以这条指令无法探测新增文件！**</u>
+这条命令还是有用的，如果你只是把一些你不想add的文件放在目录而已，那就用这条命令去add已经建立跟踪的文件
+```py
+git add -u .
+```
+
+包括了前两项
+```py
+git add -A .
+```
+
+遇到不知道的，要懂得查help
+```py
+git add -h
+```
+```py
+usage: git add [<options>] [--] <pathspec>...
+
+    -n, --dry-run         dry run
+    -v, --verbose         be verbose
+
+    -i, --interactive     交互式选择 interactive picking
+    -p, --patch[=<patch-mode>]
+                          选择大块交互 select hunks interactively
+    -e, --edit            编辑当前的 diff 并提交 edit current diff and apply
+    -f, --force           允许添加忽略文件 allow adding otherwise ignored files
+    -u, --update          update 已经在追踪区的文件 update tracked files
+    --renormalize         renormalize EOL of tracked files (implies -u)
+    -N, --intent-to-add   record only the fact that the path will be added later
+    -A, --all             add changes from all tracked and untracked files
+    --ignore-removal      ignore paths removed in the working tree (same as --no-all)
+    --refresh             don't add, only refresh the index
+    --ignore-errors       just skip files which cannot be added because of errors
+    --ignore-missing      check if - even missing - files are ignored in dry run
+    --chmod (+|-)x        override the executable bit of the listed files
+```
+
 ## 设置签名 config
 
 
@@ -181,6 +236,20 @@ git pull
 
 ## 查看历史记录 log
 
+```py
+# 完整 log 信息
+git log
+
+# 一行 log
+git log --pretty==oneline
+
+# 一行 log
+git lof --onelone
+
+# 版本 log 信息
+git reflog
+```
+
 
 ![查看历史记录里.png](https://upload-images.jianshu.io/upload_images/11876740-b2ba89d8377aab01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -189,7 +258,7 @@ git pull
 
 ## 版本切换 reset
 
-先打错所有版本信息：
+先打出所有版本信息：
 
 ```
 git reflog

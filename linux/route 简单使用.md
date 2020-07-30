@@ -23,8 +23,8 @@ dev         : 为路由指定的 *网络接口* （可选）
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 0.0.0.0         192.168.1.1     0.0.0.0         UG    100    0        0 ens3 (不想要这条)
-0.0.0.0         10.41.95.1      0.0.0.0         UG    101    0        0 ens8
-10.41.95.0      0.0.0.0         255.255.255.0   U     101    0        0 ens8
+0.0.0.0         10.41.**.1      0.0.0.0         UG    101    0        0 ens8
+10.41.**.0      0.0.0.0         255.255.255.0   U     101    0        0 ens8
 192.168.1.0     0.0.0.0         255.255.255.0   U     100    0        0 ens3
 192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0
 ```
@@ -37,8 +37,8 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 [root@localhost ~]# route -n
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-0.0.0.0         10.41.95.1      0.0.0.0         UG    101    0        0 ens8
-10.41.95.0      0.0.0.0         255.255.255.0   U     101    0        0 ens8
+0.0.0.0         10.41.**.1      0.0.0.0         UG    101    0        0 ens8
+10.41.**.0      0.0.0.0         255.255.255.0   U     101    0        0 ens8
 192.168.1.0     0.0.0.0         255.255.255.0   U     100    0        0 ens3
 192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0
 ```
@@ -51,8 +51,8 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 [root@localhost ~]# route -n
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-0.0.0.0         10.41.95.1      0.0.0.0         UG    101    0        0 ens8
-10.41.95.0      0.0.0.0         255.255.255.0   U     101    0        0 ens8
+0.0.0.0         10.41.**.1      0.0.0.0         UG    101    0        0 ens8
+10.41.**.0      0.0.0.0         255.255.255.0   U     101    0        0 ens8
 192.168.1.0     192.168.1.1     255.255.255.0   UG    0      0        0 ens3 (加了这条)
 192.168.1.0     0.0.0.0         255.255.255.0   U     100    0        0 ens3
 192.168.122.0   0.0.0.0         255.255.255.0   U     0      0        0 virbr0
@@ -68,12 +68,12 @@ PING 192.168.1.2 (192.168.1.2) 56(84) bytes of data.
 --- 192.168.1.2 ping statistics ---
 2 packets transmitted, 2 received, 0% packet loss, time 999ms
 rtt min/avg/max/mdev = 0.030/0.031/0.033/0.005 ms
-[root@localhost ~]# ping 10.41.95.1
-PING 10.41.95.1 (10.41.95.1) 56(84) bytes of data.
-64 bytes from 10.41.95.1: icmp_seq=1 ttl=64 time=3.31 ms
-64 bytes from 10.41.95.1: icmp_seq=2 ttl=64 time=1.65 ms
+[root@localhost ~]# ping 10.41.**.1
+PING 10.41.**.1 (10.41.**.1) 56(84) bytes of data.
+64 bytes from 10.41.**.1: icmp_seq=1 ttl=64 time=3.31 ms
+64 bytes from 10.41.**.1: icmp_seq=2 ttl=64 time=1.65 ms
 ^C
---- 10.41.95.1 ping statistics ---
+--- 10.41.**.1 ping statistics ---
 2 packets transmitted, 2 received, 0% packet loss, time 1001ms
 rtt min/avg/max/mdev = 1.650/2.483/3.317/0.834 ms
 [root@localhost ~]# 

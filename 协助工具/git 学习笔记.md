@@ -80,23 +80,23 @@ git commit -m 'first commit. Base on server code'
 ### 5、 关联远程 git 仓库
 > git remote add origin 远程库地址(用户@IP:git仓库目录路径)
 ```
-$ git remote add origin git@10.41.95.207:/home/git/git/hugin.git
+$ git remote add origin git@IP:/home/git/git/hugin.git
 ```
-$ git remote add origin git@10.41.95.207:/home/git/git/tracking_management.git
+$ git remote add origin git@IP:/home/git/git/tracking_management.git
 
 ### 6、 将本地 git 仓库改动全部同步到远程 git 仓库
 > 第一次p ush 的时候,加上 -u 参数,
 Git 就会把本地的 master 分支和远程的 master 分支进行关联起来, 我们以后的 push 操作就不再需要加上 -u 参数了
 ```
 $ git push -u origin master
-git@10.41.95.207's password:
+git@IP's password:
 Enumerating objects: 764, done.
 Counting objects: 100% (764/764), done.
 Delta compression using up to 8 threads
 Compressing objects: 100% (735/735), done.
 Writing objects: 100% (764/764), 2.71 MiB | 5.61 MiB/s, done.
 Total 764 (delta 80), reused 0 (delta 0)
-To 10.41.95.207:/home/git/git/hugin.git
+To IP:/home/git/git/hugin.git
  * [new branch]      master -> master
 Branch 'master' set up to track remote branch 'master' from 'origin'.
 ```
@@ -124,7 +124,7 @@ Resolving deltas: 100% (80/80), done.
 hugin
 ```
 
-git clone git@10.41.95.207:/home/git/git/tracking_management.git
+git clone git@IP:/home/git/git/tracking_management.git
 
 看了一下目录的内容，有成功同步
 

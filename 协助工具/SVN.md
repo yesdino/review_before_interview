@@ -57,7 +57,7 @@
 当然，我们也可以用这个选项将分支（ branch ）修改的内容合并回主干（ trunk ）。选择 Merge two different trees ，点击 Next。
 
 上步之后，会出现如下对话框
-![img](img/TortoiseSVN/Merge_two_different_trees.png)
+![img](../img/TortoiseSVN/Merge_two_different_trees.png)
 
 **注意，我们现在是将分支（ branch ）合并回主干（ trunk ）**，
 

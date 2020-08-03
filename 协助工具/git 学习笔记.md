@@ -64,13 +64,11 @@ nothing added to commit but untracked files present (use "git add" to track)
 ```
 
 ### 3、 追踪除了忽略文件以外所有文件
-```
-Z17023031@ZHS-W54001050 MINGW64 /e/code/SVN/Hugin/L11RackMonitor/trunk/sourcecode (master)
-$ git add .
+```py
+git add .
 ```
 
 ### 4、 将文件提交到本地仓库 （本地仓库可多次提交
-> git commit -m '提交信息'
 ```
 git commit -m 'first commit'
 ```
@@ -85,7 +83,7 @@ $ git remote add origin git@IP:/home/git/git/hugin.git
 $ git remote add origin git@IP:/home/git/git/tracking_management.git
 
 ### 6、 将本地 git 仓库改动全部同步到远程 git 仓库
-> 第一次p ush 的时候,加上 -u 参数,
+> 第一次 push 的时候,加上 -u 参数,
 Git 就会把本地的 master 分支和远程的 master 分支进行关联起来, 我们以后的 push 操作就不再需要加上 -u 参数了
 ```
 $ git push -u origin master
@@ -148,16 +146,14 @@ git pull
 
 # ---------------------------------
 
-# B 站
 
 
 ## 本地库 and 远程库
 
-[忘记了可以直接看教程](https://www.bilibili.com/video/av24441039?p=9)
+[link](https://www.bilibili.com/video/av24441039?p=9)
 
 - 本地库：自己电脑上的仓库（用于个人开发）
 - 远程库：服务器上的仓库（用于部门内部团队协作开发）
-- 
 
 ![工作区暂存区本地仓库.png](https://upload-images.jianshu.io/upload_images/11876740-db8128c632460e1d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -166,12 +162,18 @@ git pull
 
 当然，远程库与远程库之间可以进行 **跨部门/跨公司** 的协作开发
 
-![本地库and远程库.png](https://upload-images.jianshu.io/upload_images/11876740-11b192d576a7a385.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![本地库and远程库.png](https://upload-images.jianshu.io/upload_images/11876740-1219078c265aac64.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+
+
+
+<!-- ![本地库and远程库.png](https://upload-images.jianshu.io/upload_images/11876740-11b192d576a7a385.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 
 ## 添加到追踪区 add
 
-[出处](https://www.cnblogs.com/grooovvve/p/9732491.html)
+[link](https://www.cnblogs.com/grooovvve/p/9732491.html)
 
 ```py
 git add [file1] [file2]
@@ -202,7 +204,7 @@ git add -A .
 ```py
 git add -h
 ```
-```py
+```
 usage: git add [<options>] [--] <pathspec>...
 
     -n, --dry-run         dry run
@@ -227,10 +229,70 @@ usage: git add [<options>] [--] <pathspec>...
 ## 设置签名 config
 
 
-[忘记了可以直接看教程](https://www.bilibili.com/video/av24441039?p=11)
+[link](https://www.bilibili.com/video/av24441039?p=11)
 
 
-![设置签名.png](https://upload-images.jianshu.io/upload_images/11876740-ebe5b24fff2763bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**作用**：区分不同开发人员的身份
+**辨析**：这里设置的签名和登录远程库（代码托管中心）的账号、密码没有任何关系命令
+
+**级别优先级**：
+- 就近原则：**项目级别 > 系统用户级别**，二者都有时采用项目级别的签名
+- 如果只有系统用户级别的签名，就以系统用户级别的签名为准
+- 二者都没有不允许
+
+例如，下面是开发人员的信息：
+用户名：`tom`
+Emai地址：`goodMorning@atguigu.com`
+- 项目级别/仓库级别：仅在 **当前本地库** 范围内有效
+```py
+git config user.name tom_pro
+git config user.email goodMorning@atguigu.com
+```
+- 系统用户级别：登录当前 **操作系统** 的用户范围
+```py
+git config --global user.name tom_pro
+git config --global goodMorning@atguigu.com
+```
+
+### config 信息保存位置
+
+- 项目/仓库级别
+```py
+$ cat .git/config
+```
+```py
+[core]
+        repositoryformatversion = 0
+        filemode = false
+        bare = false
+        logallrefupdates = true
+        symlinks = false
+        ignorecase = true
+[remote "origin"]
+        url = https://github.com/yesdino/review_before_interview.git
+        fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+        remote = origin
+        merge = refs/heads/master
+[gui]
+        wmstate = normal
+        geometry = 818x435+104+104 175 196
+[user]
+        email = 915678808@qq.com
+        name = dino_comp
+```
+
+- 系统用户级别
+
+<img width="500" src="https://upload-images.jianshu.io/upload_images/11876740-f0ff19e11f8d5123.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></img>
+
+
+
+<!-- ![设置签名.png](https://upload-images.jianshu.io/upload_images/11876740-ebe5b24fff2763bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
+
+
+<br>
 
 
 
@@ -240,18 +302,18 @@ usage: git add [<options>] [--] <pathspec>...
 # 完整 log 信息
 git log
 
-# 一行 log
+# 一行 log（完整哈希值）
 git log --pretty==oneline
 
-# 一行 log
+# 一行 log（缩略哈希值）
 git lof --onelone
 
 # 版本 log 信息
 git reflog
 ```
 
+<!-- <img width="500" src="https://upload-images.jianshu.io/upload_images/11876740-b2ba89d8377aab01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></img> -->
 
-![查看历史记录里.png](https://upload-images.jianshu.io/upload_images/11876740-b2ba89d8377aab01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 
@@ -260,17 +322,17 @@ git reflog
 
 先打出所有版本信息：
 
-```
+```py
 git reflog
 ```
-![git版本指针HEAD](https://upload-images.jianshu.io/upload_images/11876740-752c97cb5581f3e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+<img width="550" src="https://upload-images.jianshu.io/upload_images/11876740-752c97cb5581f3e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></img>
 
 - 前面的黄色部分数字表示这个历史版本的==索引值==
-- ==HEAD== 指针指向当前远程仓库中的 master 分支所在的版本
+- ==**HEAD**== 指针指向当前远程仓库中的 master 分支所在的版本
 
 当我们想要回到某一个历史版本的时候，使用下面指令：
 
-```
+```py
 git reset --hard 版本索引值
 ```
 
@@ -289,15 +351,18 @@ reset 回到历史版本指令有3个不同的参数：
 
 ## 比较版本差异 diff
 
-[忘记了可以点进去看讲解](https://www.bilibili.com/video/av24441039?p=23)
+[link](https://www.bilibili.com/video/av24441039?p=23)
 
 用 diff 指令：
 
-```
+```py
 git diff [filename]
 ```
 
 ![git_diff比较文件差异.png](https://upload-images.jianshu.io/upload_images/11876740-c68485358a78bf19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+
 
 
 ## 分支 branch
@@ -305,7 +370,7 @@ git diff [filename]
 ### 查看当前所有分支
 
 查看当前所有分支，并显示当前所在的分支（==绿色的==）
-```
+```py
 git branch -v
 ```
 
@@ -314,7 +379,7 @@ git branch -v
 
 ### 新建分支
 
-```
+```py
 git branch [分支名]
 ```
 
@@ -322,7 +387,7 @@ git branch [分支名]
 
 ### 切换分支
 
-```
+```py
 git checkout [分支名]
 ```
 
@@ -330,22 +395,39 @@ git checkout [分支名]
 
 ### 合并分支
 
-切换到接受合并的分支上面：
-```
-git merge [其他的分支]
+第一步：切换到接受修改的分支（被合并，增加新内容）上
+```py
+git checkout [被合并分支名]
 ```
 
+第二步：执行 merge 命令
+```py
+git merge [有新内容分支名]
+```
 
-![合并分支.png](https://upload-images.jianshu.io/upload_images/11876740-d4d61cf27da5d358.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+<!-- ![合并分支.png](https://upload-images.jianshu.io/upload_images/11876740-d4d61cf27da5d358.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 ![合并分支2.png](https://upload-images.jianshu.io/upload_images/11876740-03fc1b2d0aaffe61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ### 解决合并冲突
 
 
-[忘记了可以点进去看讲解](https://www.bilibili.com/video/av24441039?p=25)
+[link](https://www.bilibili.com/video/av24441039?p=25)
 
-![解决冲突.png](https://upload-images.jianshu.io/upload_images/11876740-30cef31cf2ca9d2f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+解决冲突
+
+**冲突的表现**：
+
+<img width="400" src="https://upload-images.jianshu.io/upload_images/11876740-f16de71a6c6cd68d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></img>
+
+**冲突的解决**：
+①：编辑文件，删除特殊符号
+②：把文件修改到满意的程度，保存退出
+③： `git add [文件名]`
+④： `git commit -m "日志信息"`（注意：此时 `commit` 一定不能带具体文件名
+
+<!-- ![解决冲突.png](https://upload-images.jianshu.io/upload_images/11876740-30cef31cf2ca9d2f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 
 ![合并分支2.png](https://upload-images.jianshu.io/upload_images/11876740-bd18e4e60ec3a86c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -371,8 +453,15 @@ git remote add [自己定的别名] [远程git仓库地址]
 
 ## 克隆 clone
 
+```py
+git clone [远程地址]
+```
+效果：
+- 完整的把远程库下载到本地
+- 创建 origin远程地址别名
+- 初始化本地库
 
-![clone命令.png](https://upload-images.jianshu.io/upload_images/11876740-8acda7f4471ef367.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+<!-- ![clone命令.png](https://upload-images.jianshu.io/upload_images/11876740-8acda7f4471ef367.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 
 
@@ -388,7 +477,7 @@ git push [别名] [分支]
 接着会开始提示需要输入账号密码
 
 - 如果是创建远程.git仓库的那个账号密码，代表身份是远程.git 仓库的拥有者，可以直接推送
-- 如果 **不是** 创建远程.git仓库的那个账号密码，需要远程仓库的拥有者进行一项操作：添加这个用户为这个远程仓库的协作开发人员，邀请其对远程.git仓库进行修改（[视频](https://www.bilibili.com/video/av24441039?p=37)只讲了 github 的同意操作，私人服务器没讲，自己度娘吧）
+- 如果 **不是** 创建远程.git仓库的那个账号密码，需要远程仓库的拥有者进行一项操作：添加这个用户为这个远程仓库的协作开发人员，邀请其对远程.git仓库进行修改（[link](https://www.bilibili.com/video/av24441039?p=37)只讲了 github 的同意操作，私人服务器没讲，自己度娘吧）
 
 
 ## 拉取 fetch/merge or pull
@@ -423,7 +512,7 @@ git pull [别名] [分支名]
 
 ## push request 
 
-[视频](https://www.bilibili.com/video/av24441039?p=40) 以 github push request 做演示，自己搭的服务器的话原理相同 怎么操作度娘吧。
+[link](https://www.bilibili.com/video/av24441039?p=40) 以 github push request 做演示，自己搭的服务器的话原理相同 怎么操作度娘吧。
 
 目前用不到，暂时不研究。
 

@@ -121,7 +121,7 @@ def removeElement(nums, val):
 1. 第一个 [1~k] 区间的值的总和 
 2. 接下来，每向前移动一个值，就加上 `nums[i]`，减掉 `nums[i-k]`
 
-<img src="../img/SlidingWindow/4_Maximum_Average_Subarray.png" width=300></img>
+<img src="../img/SlidingWindow/4_Maximum_Average_Subarray.png" width=400></img>
 
 **code：** <sup style="color:#ccc"> Ex.</sup>
 [link]()
@@ -210,7 +210,7 @@ the subarray `[4, 3]` has the minimal length under the problem constraint
 1. 如何定义窗口。（什么是好窗口，坏窗口，什么时候打破窗口，恢复窗口
 2. 什么时候移动左指针，什么时候移动右指针
 
-模板：<sup style="color:#ccc">23-06 00:07:25</sup>
+**模板**：<sup style="color:#ccc">23-06 00:07:25</sup>
 ```py
 # 两个 while 循环，
 while j < len(nums):
@@ -220,73 +220,175 @@ while j < len(nums):
 
     ...
 ```
-时间复杂度：<sup style="color:#ccc">23-06 00:08:56</sup>
+**时间复杂度：**<sup style="color:#ccc">23-06 00:08:56</sup>
 注意，不是 `O(n^2)`, `i`, `j` 都各自只走了一遍数组长度，是 `O(n)`
 
 **code：** <sup style="color:#ccc">23-06 00:09:36 Ex.</sup>
 [link]()
 ```python
+import sys
 
+def minsubarray(alist, target):
+    if not len(alist):
+        return 0
+
+    i = j = 0
+    sums = 0
+    min_len = sys.maxsize
+    
+    while j < len(alist):
+        sums += alist[j]
+        j += 1                      # 扩展窗口
+        while sums >= target:       # 找到有效窗口了
+            cur_len = j - i
+            min_len = min(min_len, cur_len) # 更新全局的最小长度
+            sums -= alist[i]
+            i += 1                  # 打破窗口
+
+    if min_len == sys.maxsize:
+        min_len = 0
+    return min_len
+
+alist = [2, 3, 1, 2, 8]
+target = 7
+ret = minsubarray(alist, target)
 ```
 
 
 ------------------------------------------------------
 
 
-## . 
+## 7. 实现 strStr() 函数 | Implement strStr()
+
+<!-- 7_Implement_strStr -->
+
+`Return the index of the first occurrence of needle in haystack,`
+`or -1 if needle is not part of the haystack`
+
+找到子串所在的索引
+
 **题：** <sup style="color:#ccc"></sup>
+ 
 
 
 
 
+**思路：** <sup style="color:#ccc">23-07 00:08:40~</sup>
 
-**思路：** <sup style="color:#ccc"></sup>
 
-
-**code：** <sup style="color:#ccc"> Ex.</sup>
+**code：** <sup style="color:#ccc">23-07 00:11:03~ Ex.</sup>
 [link]()
 ```python
-
+def strStr(string, substr):
+    if len(string) < len(substr):
+        return None
+    
+    len1 = len(string)
+    len2 = len(substr)
+    # i: 子串的头指针
+    # j: 当匹配到前面的字符之后子串的头指针偏移数
+    for i in range((len1 - len2) + 1):  # i 只需要走 len1,len2 的距离差再加 1
+        j = 0                           # j 实际上是偏移数
+        while j < len2 and substr[j] == string[i+j]:
+            j += 1
+        if j == len2:
+            return i
+    return -1
 ```
+**时间复杂度：**<sup style="color:#ccc">23-07 00:13:08</sup>
+这种算法如果遇到极端情况的话，时间复杂度会较高，`O(n*m)`。不过在大多数情况下，这种算法的效率还是比较高的
+
+
+（还有一种解法没讲）
+
+
 
 
 ------------------------------------------------------
 
 
-## . 
-**题：** <sup style="color:#ccc"></sup>
+## 8. 子数组乘积小于 K | Subarray Product Less Than K
+<!-- 8_Subarray_Product_Less_Than_K -->
+**题：** <sup style="color:#ccc">23-08 00:00:11~</sup>
+
+`You are given an array of positive integers nums`
+`Count and print the number of (contiguous) subarrays where the product(乘积) of all the elements in the subarray is less than k`
+
+求乘积小于 k 的子数组的个数
 
 
 
 
+**思路：** <sup style="color:#ccc">23-08 00:03:36~</sup>
+小于 k 时，就是 valid windows，此时 `j++`
+大于 k 时，就是 invalid windows，此时 `i++`
 
-**思路：** <sup style="color:#ccc"></sup>
 
-
-**code：** <sup style="color:#ccc"> Ex.</sup>
+**code：** <sup style="color:#ccc">23-08 00:11:00~ Ex.8</sup>
 [link]()
 ```python
-
+# 暴力解 O(n)（虽然是暴力解但是还是很快的）
+def bruteforce(nums, k):
+    count = 0
+    for i in range(len(nums)):
+        product = 1
+        for j in range(i, len(nums)):
+            product *= nums[j]
+            if (product >= k):
+                break
+            count += 1 
+    return count
 ```
 
 
 ------------------------------------------------------
 
+# 练习 2
 
-## . 
-**题：** <sup style="color:#ccc"></sup>
+<!-- 10_Longest_Substring_Without_Repeating_Characters -->
+
+## 1. 最小窗口子串 | Longest Substring Without Repeating Characters 
+**题：** <sup style="color:#ccc">23-09 00:00:29</sup>
+```py
+Given a string, find the length of the longest substring without repeating characters
+
+Example:
+Given 'abcabcbb', the answer is 'abc', which the length is 3.
+Given 'bbbbb', the answer is 'b', which the length is 1.
+Given 'pwwkew', the answer is 'wke', which the length is 3.
+(Note that the answer must be a substring, 'pwke' is a subsequence and not a substring)
+```
+从字符串中找到**最长**的子串，这个子串没有重复的字母，
+要求你返回这个字符串的长度
+
+
+**思路：** <sup style="color:#ccc">23-09 00:04:47</sup>
 
 
 
 
 
-**思路：** <sup style="color:#ccc"></sup>
-
-
-**code：** <sup style="color:#ccc"> Ex.</sup>
+**code：** <sup style="color:#ccc">23-10 00:00:08 Ex.1</sup>
 [link]()
 ```python
+def lengthOfLongestSubstring(string):
+    i = 0   # 左指针 有效窗口的头指针
+    j = 0   # 右指针 遍历字符的指针
 
+    char_s = set()  # 检测重复
+    max_len = 0
+    n = len(string)
+    while i < n and j < n:
+        if string[j] in char_s:     # 遇到了重复的字符
+            char_s.remove(string[i])
+            i += 1
+        else:                       # 没有重复
+            char_s.add(string[j])
+            j += 1
+            # 更新最大子串长度
+            cur_len = j - i
+            max_len = max(max_len, cur_len)
+    return max_len
 ```
 
 

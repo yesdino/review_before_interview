@@ -29,20 +29,19 @@ Python 也一样，
 **然而** 因为 CPython 是大部分环境下默认的 Python 执行环境。
 所以在很多人的概念 里 CPython 就是 Python ，
 也就想当然的把 GIL 归结为 Python 语言的缺陷。
- 
+
 所以这里要先明确一点：
 ==GIL 并不是 Python 的特性， Python 完全可以不依赖于 GIL==
 
 <br>
 
 # 2. **GIL**：保证同一时间只能有一个线程执行
-　　
+
 ==GIL 本质就是一把 **互斥锁**。== 
 用于 <u>保证同一时间只能有一个线程来执行</u>
 
 既然是互斥锁，所有互斥锁的本质都一样，都是将 <u>**并发运行变成串行**</u>，
 以此来 <u>控制同一时间内共享数据 ==只能被一个任务所修改== ，进而保证数据安全。</u>
-
 
 可以肯定的一点是：
 <u>保护不同的数据的安全，就应该加不同的锁。 </u>
@@ -52,7 +51,7 @@ Python 也一样，
 例如 `python test.py`, `python aaa.py`, `python bbb.py` 会产生 3 个不同的 python 进程
 
 验证 python test.py 只会产生一个进程：
-```py
+```pyhton
 # test.py 内容
 import os,time
 print(os.getpid())
@@ -227,7 +226,6 @@ python 对于计算密集型的任务开多线程的效率并不能带来多大�
 
 要用到的时候再去看[原文](https://www.cnblogs.com/wj-1314/p/9056555.html)
 
-
 <br>
 
 
@@ -237,7 +235,7 @@ python 对于计算密集型的任务开多线程的效率并不能带来多大�
 若无外力作用，他们都将无法推进下去，此时称系统处于死锁状况或系统产生了死锁。
 这些永远在互相等待的进程称为死锁进程。
 
-```py
+```python
 # 进程死锁
 from threading import Thread, Lock
 import time

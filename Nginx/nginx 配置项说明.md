@@ -4,7 +4,7 @@
 ```py
 # 运行用户
 user www-data;    
-# 启动进程,通常设置成和cpu的数量相等
+# 启动进程,通常设置成和 cpu 的数量相等
 worker_processes  1;
 
 # 全局错误日志及PID文件
@@ -13,21 +13,21 @@ pid        /var/run/nginx.pid;
 
 # 工作模式及连接数上限
 events {
-    use   epoll;             # epoll是多路复用IO(I/O Multiplexing)中的一种方式,但是仅用于linux2.6以上内核,可以大大提高nginx的性能
-    worker_connections  1024;# 单个后台worker process进程的最大并发链接数
+    use   epoll;              # epoll 是多路复用 IO(I/O Multiplexing) 中的一种方式 , 但是仅用于 linux2.6 以上内核 , 可以大大提高 nginx 的性能
+    worker_connections  1024; # 单个后台 worker process 进程的最大并发链接数
     #  multi_accept on; 
 }
 
-# 设定http服务器，利用它的反向代理功能提供负载均衡支持
+# 设定 http 服务器，利用它的反向代理功能提供负载均衡支持
 http {
-    # 设定mime类型,类型由mime.type文件定义
+    # 设定 mime 类型, 类型由 mime.type 文件定义
     include       /etc/nginx/mime.types;
     default_type  application/octet-stream;
     # 设定日志格式
     access_log    /var/log/nginx/access.log;
 
-    # sendfile 指令指定 nginx 是否调用 sendfile 函数（zero copy 方式）来输出文件，对于普通应用，
-    # 必须设为 on,如果用来进行下载等应用磁盘IO重负载应用，可设置为 off，以平衡磁盘与网络I/O处理速度，降低系统的uptime.
+    # sendfile 指令指定 nginx 是否调用 sendfile 函数（ zero copy 方式）来输出文件，对于普通应用，
+    # 必须设为 on, 如果用来进行下载等应用磁盘 IO 重负载应用，可设置为 off ，以平衡磁盘与网络 I/O 处理速度，降低系统的 uptime.
     sendfile        on;
     # tcp_nopush     on;
 
@@ -36,7 +36,7 @@ http {
     keepalive_timeout  65;
     tcp_nodelay        on;
     
-    # 开启gzip压缩
+    # 开启 gzip 压缩
     gzip  on;
     gzip_disable "MSIE [1-6]\.(?!.*SV1)";
 
@@ -49,15 +49,15 @@ http {
 
     # 设定负载均衡的服务器列表
     upstream mysvr {
-        # weigth参数表示权值，权值越高被分配到的几率越大
-        # 本机上的Squid开启3128端口
+        # weigth 参数表示权值，权值越高被分配到的几率越大
+        # 本机上的 Squid 开启 3128 端口
         server 192.168.8.1:3128 weight=5;
         server 192.168.8.2:80  weight=1;
         server 192.168.8.3:80  weight=6;
     }
 
    server {
-        listen       80;            # 侦听80端口
+        listen       80;            # 侦听 80 端口
         server_name  www.xx.com;    # 定义使用www.xx.com访问
 
         # 设定本虚拟主机的访问日志
@@ -85,7 +85,7 @@ http {
             expires 30d;    # 过期30天，静态文件不怎么更新，过期可以设大一点，如果频繁更新，则可以设置得小一点。
         }
 
-        # PHP 脚本请求全部转发到 FastCGI处理. 使用FastCGI默认配置.
+        # PHP 脚本请求全部转发到 FastCGI 处理 . 使用 FastCGI 默认配置 .
         location ~ \.php$ {
             root /root;
             fastcgi_pass 127.0.0.1:9000;

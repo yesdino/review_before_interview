@@ -84,7 +84,7 @@ query 属性是一个不透明的对象。这就意味着它的内部结构并�
 
 **多条件查询**
 
-```
+```py
 def order_list(request):
     
     if request.method == 'GET':
@@ -1186,7 +1186,7 @@ Entry.objects.get(headline__contains='Lennon')
 等价于 SQL ：
 
 1
-```
+```sql
 SELECT ... WHERE headline LIKE '%Lennon%';
 ```
 要注意，上述语句将匹配大标题 'Today Lennon honored' ，但不能匹配 'today lennon honored'。

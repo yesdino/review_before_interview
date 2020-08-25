@@ -201,6 +201,10 @@ TCP 还设有一个保活计时器，显然，客户端如果出现故障，服�
 
 
 
+## 直接在 Linux 中抓包查看握手挥手
+
+[link](https://www.bilibili.com/video/BV1Ma4y1Y7Xg?p=3)
+
 
 </u>
 

@@ -29,8 +29,8 @@ UDP 是一种没有复杂控制，提供 **面向无连接** 通信服务的一�
 **==确认可靠性有可能在应用层，也有可能在传输层==**
 
 [link 02:30](https://www.bilibili.com/video/BV17b411W78h?p=11)
-<img src="img/kekaoxing.png"></img>
-
+<img width='600' src="https://upload-images.jianshu.io/upload_images/11876740-a018414ff00590a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></img>
+<!-- ![kekaoxing.png](https://upload-images.jianshu.io/upload_images/11876740-a018414ff00590a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 ## 1.连接的管理
 
@@ -51,17 +51,21 @@ TCP 会在数据通信之前，
 一个连接的 **==建立==** 与 **==断开==**，正常过程至少需要来回发送 <u>7 个</u>包能完成。(<u>3次</u>握手+<u>4次</u>挥手)
 
 [link 07:47](https://www.bilibili.com/video/BV17b411W78h?p=11)
-<img src="img/TCP_UDP.png" style="width:450px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-592ad554fce389ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:450px"></img>
+<!-- ![TCP_UDP.png](https://upload-images.jianshu.io/upload_images/11876740-592ad554fce389ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 [link 08:45](https://www.bilibili.com/video/BV17b411W78h?p=11)
 
-<img src="img/3handshake.png" style="width:350px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-b1275a7c3905a3a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:350px"></img>
+<!-- ![3handshake.png](https://upload-images.jianshu.io/upload_images/11876740-b1275a7c3905a3a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
+
 
 
 ### **三次握手 四次挥手**
 [link 09:25](https://www.bilibili.com/video/BV17b411W78h?p=11)
 
-<img src="img/3次握手4次挥手.png" style="width:450px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-2574efb5abdfe742.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:450px"></img>
+<!-- <img src="img/3次握手4次挥手.png" style="width:450px"></img> -->
 
 <br>
 
@@ -84,7 +88,8 @@ TCP 会在数据通信之前，
 [link 12:56](https://www.bilibili.com/video/BV17b411W78h?p=11)
 
 **TCP ACK 确认工作示意图：**
-<img src="img/ACK确认丢包.png" style="width:950px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-42248a0c30f21b11.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:950px"></img>
+<!-- <img src="img/ACK确认丢包.png" style="width:950px"></img> -->
 
 
 
@@ -107,7 +112,8 @@ TCP 会在数据通信之前，
 
 
 
-<img src="img/序列号_.png" style="width:500px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-4a939dd14210c7e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:500px"></img>
+<!-- <img src="img/序列号_.png" style="width:500px"></img> -->
 
 
 
@@ -115,17 +121,21 @@ TCP 会在数据通信之前，
 将自己 **下一步应该接收的序列号==作为确认应答==** 返送回去。</u>[(19:23)](https://www.bilibili.com/video/BV17b411W78h?p=11)
 就这样，通过序列号和确认应答号 TCP 可以实现可靠传输。
 [link 20:38](https://www.bilibili.com/video/BV17b411W78h?p=11)
-<img src="img/序列号示意图_.png" style="width:800px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-2366f2c253505b77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:800px"></img>
+<!-- <img src="img/序列号示意图_.png" style="width:800px"></img> -->
+
 
 **序列号初始化 ( ISN )：** 
 [link 21:57](https://www.bilibili.com/video/BV17b411W78h?p=11)
 三次握手数据包、ISN 序列号
-<img src="img/序列号初始化.png" style="width:500px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-a9d8cad0a43aaf9a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:500px"></img>
+<!-- ![序列号初始化.png](https://upload-images.jianshu.io/upload_images/11876740-a9d8cad0a43aaf9a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 **序列号增长：** 
 [link 26:00](https://www.bilibili.com/video/BV17b411W78h?p=11)
 黑客攻击 TCP 方法
-<img src="img/序列号增长.png" style="width:500px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-8ac827ca67ce73f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:500px"></img>
+<!-- ![序列号增长.png](https://upload-images.jianshu.io/upload_images/11876740-8ac827ca67ce73f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 <br>
 
@@ -142,7 +152,8 @@ TCP 会在数据通信之前，
 TCP 在传送大量数据时，是以 MSS 的大小将数据进行<u>分割发送</u>。
 进行重发时也是以 MSS 为单位。
 
-<img src="img/TCP_MSS切割.png" style="width:700px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-433551a82c358783.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:700px"></img>
+<!-- ![TCP_MSS切割.png](https://upload-images.jianshu.io/upload_images/11876740-433551a82c358783.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 
 ### MSS 协商
@@ -153,7 +164,8 @@ MSS 是在 <u>==**三次握手**==</u> 的时候，在两端主机之间被计�
 然后会 <u>**在两者之间选择一个 ==较小的值== 投人使用**</u>
 
 **MSS 协商示意图：**
-<img src="img/MSS协商.png" style="width:700px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-e28270c342f0ad7e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:700px"></img>
+<!-- ![MSS协商.png](https://upload-images.jianshu.io/upload_images/11876740-e28270c342f0ad7e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 
 <br>
@@ -170,7 +182,8 @@ TCP 以一个段为单位，每发一个段进行一次确认应答的处理
 这样的传输方式有一个缺点：**包的往返时间越长通信性能就越低**。
 
 如下图。
-<img src="img/停止等待.png" style="width:500px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-d0b9cdeb91735ba3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:500px"></img>
+<!-- ![停止等待.png](https://upload-images.jianshu.io/upload_images/11876740-d0b9cdeb91735ba3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 
 
@@ -186,7 +199,8 @@ TCP 以一个段为单位，每发一个段进行一次确认应答的处理
 也就是说，发送端主机，在发送了一个段之后不必要一直等待确认应答，
 而是继续发送窗口大小就是指无需等待确认应答而可以继续发送数据的最大值。
 下图中，窗口大小为4个段。
-<img src="img/滑动窗口.png" style="width:600px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-0959e580034e38f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:600px"></img>
+<!-- ![滑动窗口.png](https://upload-images.jianshu.io/upload_images/11876740-0959e580034e38f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 **==窗口大小其实就是你可以 <u>不用等我确认(ACK)</u>，能一口气发给我接收的数据大小。==**
 但是你发到我的窗口值了就不能再发了，要等我这边处理完缓存里面的数据了，回给你 ACK 确认之后才能再发。
@@ -215,7 +229,8 @@ TCP 以一个段为单位，每发一个段进行一次确认应答的处理
 ==**窗口是接收方的流控机制。**==
 
 
-<img src="img/滑动窗口2.png" style="width:600px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-0d9d819980008647.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:600px"></img>
+<!-- ![滑动窗口2.png](https://upload-images.jianshu.io/upload_images/11876740-0d9d819980008647.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 <br>
 
@@ -233,7 +248,8 @@ TCP 以一个段为单位，每发一个段进行一次确认应答的处理
 然而，在没有使用窗口控制的时候，没有收到确认应答的数据都会被重发。
 而使用了窗口控制，就如下图所示，**<u>某些 ACK 确认应答即便丢失也无需重发</u>**。
 
-<img src="img/窗口控制与重发控制.png" style="width:600px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-36ab26573feed592.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:600px"></img>
+<!-- ![窗口控制与重发控制2_.png](https://upload-images.jianshu.io/upload_images/11876740-a637c2b202f51c56.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 
 ### ②数据报文丢失
@@ -242,7 +258,8 @@ TCP 以一个段为单位，每发一个段进行一次确认应答的处理
 
 #### 超时重传
 [link 53:37](https://www.bilibili.com/video/BV17b411W78h?p=11)
-<img src="img/超时重传_.png" style="width:500px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-cdc56244fa675bf8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:500px"></img>
+<!-- ![超时重传_.png](https://upload-images.jianshu.io/upload_images/11876740-cdc56244fa675bf8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 
 
@@ -255,17 +272,19 @@ TCP 以一个段为单位，每发一个段进行一次确认应答的处理
 发送端主机如果连续 3 次收到同一个确认应答，就会将其所对应的数据进行童发。
 这种机制比之前提到的超时管理更加高效，因此也被称作 **高速重发控制**。
 
-<img src="img/窗口控制与重发控制2_
-.png" style="width:950px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-a637c2b202f51c56.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:950px"></img>
+<!-- ![窗口控制与重发控制2_.png](https://upload-images.jianshu.io/upload_images/11876740-a637c2b202f51c56.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
+
 <br>
 
 ### 滑动窗口工作流程
 
 一共有 17 张工作流程图，点进链接看讲解 [link 01:39~21:32](https://www.bilibili.com/video/BV17b411W78h?p=12)
 
-<img src="img/滑动窗口工作流程.png" style="width:900px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-1f4c272cf05344a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:900px"></img>
 
-
+<!-- ![滑动窗口工作流程.png](https://upload-images.jianshu.io/upload_images/11876740-1f4c272cf05344a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+ -->
 
 
 <!-- ## 7.流控制（1) -->
@@ -328,8 +347,9 @@ TCP 首部中，专门有一个字段用来通知窗口大小。
 为避免此类问题的发生，发送端主机会时不时的发送一个叫做窗口探测的数据段，
 此数据段仅含个字节以获取最新的窗口大小信息。
 
-<img src="img/窗口探测yu窗口更新通知_.png" style="width:700px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-304617eaf31f5f92.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:700px"></img>
 
+<!-- ![窗口探测yu窗口更新通知_.png](https://upload-images.jianshu.io/upload_images/11876740-304617eaf31f5f92.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 
 
@@ -372,7 +392,8 @@ TCP 为了防止该间问题的出现，在通信一开始时就会通过一个�
 还可以避免网络拥塞情况的发生
 
 
-<img src="img/慢启动.png" style="width:600px"></img>
+<!-- <img src="img/慢启动.png" style="width:600px"></img> -->
+<img src="https://upload-images.jianshu.io/upload_images/11876740-36c260efc5569d6a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:600px"></img>
 
 
 
@@ -384,7 +405,8 @@ TCP 为了防止该间问题的出现，在通信一开始时就会通过一个�
 为了防止这些，引人了慢启动阈值的概念。
 **只要拥塞窗口的值超出这个阀值，在每收到一次确认应答时，
 只允许以下面这种比例放大拥塞窗口**：
-<img src="img/慢启动阈值.png" style="width:500px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-b70a99e862345da3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></img>
+<!-- ![慢启动.png](https://upload-images.jianshu.io/upload_images/11876740-36c260efc5569d6a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 TCP的通信开始时，并没有设置相应的慢启动阀值，
 慢启动阀值的设置是 **==在超时重发时，才会设置为当时拥塞窗口一半的大小==**。
@@ -405,11 +427,13 @@ TCP的通信开始时，并没有设置相应的慢启动阀值，
 ### 拥塞窗口的变化过程 
 [link 49:53](https://www.bilibili.com/video/BV17b411W78h?p=12)
 
-<img src="img/拥塞窗口的变化过程_.png" style="width:600px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-d27e1327c3c3f096.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:600px"></img>
+<!-- ![拥塞窗口的变化过程_.png](https://upload-images.jianshu.io/upload_images/11876740-d27e1327c3c3f096.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 注意上图中 <span style="color:rgb(237, 28, 36);font-weight:bold;">拥塞避免</span> 是当用塞窗口的大小增长到当前的 <span style="color:rgb(69, 72, 204);font-weight:bold;">慢启动阈值</span> 之后的线性增长比例。
 大小为：
-<img src="img/慢启动阈值.png" style="width:500px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-b70a99e862345da3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:500px"></img>
+<!-- ![慢启动阈值.png](https://upload-images.jianshu.io/upload_images/11876740-b70a99e862345da3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 <br>
 
 
@@ -420,7 +444,8 @@ TCP的通信开始时，并没有设置相应的慢启动阀值，
 由于 FC 远程备份数据需要很大的数据喷发，
 所以不能慢慢等慢启动到达需要的拥塞窗口值，
 而是可以直接配置带宽，即一上来就到了我们设置的那个拥塞窗口值
-<img src="img/FCIP屏蔽慢启动_.png" style="width:700px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-6a2fa49695f8c350.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:700px"></img>
+<!-- ![FCIP屏蔽慢启动_.png](https://upload-images.jianshu.io/upload_images/11876740-6a2fa49695f8c350.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 <br>
 
@@ -474,7 +499,8 @@ TCP 中为了**提高网络的利用率**，经常使用一个叫做 Nagle 的�
 
 事实上，大可不必为每一个数据段都进行一次确认应答。TCP采用滑动窗口的控制机制，因此通常确认应答少一些也无妨。TCP文件传输中，绝大多数是每两个数据段返回一次确认应答。
 
-<img src="img/延退ACK确认应答.png" style="width:500px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-dffcf180c3d87ba1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:500px"></img>
+<!-- ![延退ACK确认应答.png](https://upload-images.jianshu.io/upload_images/11876740-dffcf180c3d87ba1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 <br>
 
@@ -501,8 +527,10 @@ TCP 中为了**提高网络的利用率**，经常使用一个叫做 Nagle 的�
 **Telnet 的回显经历了哪些**：
 
 [link 69:43~73:17](https://www.bilibili.com/video/BV17b411W78h?p=12)
-<img src="img/Telnet回显2.png" style="width:500px"></img>
-<img src="img/Telnet回显.png" style="width:900px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-56f16568a29069a1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:500px"></img>
+<!-- ![Telnet回显2.png](https://upload-images.jianshu.io/upload_images/11876740-56f16568a29069a1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
+<img src="https://upload-images.jianshu.io/upload_images/11876740-cbc9559d3707b5a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:900px"></img>
+<!-- ![Telnet回显.png](https://upload-images.jianshu.io/upload_images/11876740-cbc9559d3707b5a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 
 **捎带应答**
@@ -510,7 +538,9 @@ TCP 中为了**提高网络的利用率**，经常使用一个叫做 Nagle 的�
 [link 73:17](https://www.bilibili.com/video/BV17b411W78h?p=12) 
 [link 05:13](https://www.bilibili.com/video/BV17b411W78h?p=13)
 
-<img src="img/捎带应答3.png" style="width:200px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-c0d58685d6559b27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:200px"></img>
+<!-- ![捎带应答3.png](https://upload-images.jianshu.io/upload_images/11876740-c0d58685d6559b27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
+
 其实也是延时确认，本来是去一个 S 回一个 ACK，然后又回一个 S, 这边再回一个 ACK。
 **==现在我第一个 ACK 先不着急回去，我等等，看看有没有数据要一起回去的，
 然后等到了要回去的 S，ACK 就捎带着 S 一起回去。==**
@@ -525,10 +555,12 @@ TCP 中为了**提高网络的利用率**，经常使用一个叫做 Nagle 的�
 也就是说，如果没有启用延迟确认应答就无法实现捎带应答。
 延迟确认应答是能够提高网络利用率从而降低计算机处理负荷的种较优的处理机制。
 
-<img src="img/捎带应答1.png" style="width:500px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-b546d94c2c104629.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:500px"></img>
+<!-- ![捎带应答1.png](https://upload-images.jianshu.io/upload_images/11876740-b546d94c2c104629.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 [link 76:06](https://www.bilibili.com/video/BV17b411W78h?p=12)
-<img src="img/捎带应答.png" style="width:900px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-57d067d6e60e661f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:900px"></img>
+<!-- ![捎带应答.png](https://upload-images.jianshu.io/upload_images/11876740-57d067d6e60e661f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 
 
@@ -552,7 +584,8 @@ Telnet 是常用的远程控制路由器的方法。
 
 **==Telnet 协议不可靠==**
 [link 抓包 00:33](https://www.bilibili.com/video/BV17b411W78h?p=13)
-<img src="img/telnet不可靠.png" style="width:900px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-dd96816ac1384374.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:900px"></img>
+<!-- ![telnet不可靠.png](https://upload-images.jianshu.io/upload_images/11876740-dd96816ac1384374.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 啥都没有，不做保护，非常不可靠，安全隐患很大
 
 
@@ -560,7 +593,8 @@ Telnet 是常用的远程控制路由器的方法。
 
 [link 抓包2 04:28](https://www.bilibili.com/video/BV17b411W78h?p=13)
 交互式数据流，一去一回
-<img src="img/Telnet_OmniPeek抓包.png" style="width:900px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-c20d320f3d7c70ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:900px"></img>
+<!-- ![Telnet_OmniPeek抓包.png](https://upload-images.jianshu.io/upload_images/11876740-c20d320f3d7c70ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 
 
 <br>
@@ -593,7 +627,8 @@ Agency can sometimes decrypt SSH, allowing them to read the contents of SSH sess
 ### 公钥，SSH 工作原理
 
 [link 06:33](https://www.bilibili.com/video/BV17b411W78h?p=14)
-<img src="img/SSH公钥密钥工作原理_.png" style="width:400px"></img>
+<img src="https://upload-images.jianshu.io/upload_images/11876740-b9c93a3260ea7978.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="width:400px"></img>
+<!-- ![SSH公钥密钥工作原理_.png](https://upload-images.jianshu.io/upload_images/11876740-b9c93a3260ea7978.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) -->
 双向认证，比 Telnet 安全
 
 

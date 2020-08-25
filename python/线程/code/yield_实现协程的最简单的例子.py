@@ -21,6 +21,7 @@ def main():
     t1 = task1()
     t2 = task2()
     while True:
+        # 这里控制协程的执行顺序
         next(t1)
         next(t2)
 

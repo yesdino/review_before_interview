@@ -7,7 +7,7 @@ import os
 
 string = '''
 
-举例来说，使用datetime.datetime.utcnow()、datetime.datetime.now()输出的类似2015-05-11 09:10:33.080451就是不带时区的时间（naive time），而使用django.util.timezone.now()输出的类似2015-05-11 09:05:19.936835+00:00的时间就是带时区的时间（Active time），其中+00:00表示的就是时区相对性。
+sum可以引用外部函数lazy_sum的参数和局部变量
 
 '''
 

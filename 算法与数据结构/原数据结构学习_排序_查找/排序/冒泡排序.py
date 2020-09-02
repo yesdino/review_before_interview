@@ -11,6 +11,8 @@ def bubbleSort(lis):
                 lis[j], lis[j+1] = lis[j+1], lis[j]
     return lis
 
+
+# ----------------------------------------------
 # 测试用例
 def testSort():
     import random

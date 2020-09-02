@@ -15,6 +15,7 @@ class People:
     
     def __ne__(self, other):
         """
+        是否不等
         Not strictly neccessary, but to avoid having both x==y and x!=y
         True at the same time
         """

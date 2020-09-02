@@ -16,7 +16,7 @@ class LinkedList:
     def peek(self):
         """找到头结点（因为第一个是哨兵结点）"""
         if not self.head.next:
-            raise ValueError('LinkedList id empty')
+            raise ValueError('LinkedList is empty')
         return self.head.next
     
     def add_first(self, value):
@@ -39,7 +39,7 @@ class LinkedList:
         if (index < 0 or index >= self.length):
             raise ValueError('index is out of bound')
         if not self.head.next:
-            raise ValueError('LinkedList id empty')
+            raise ValueError('LinkedList is empty')
         
         node = self.head
         for _ in range(index):
@@ -53,13 +53,13 @@ class LinkedList:
     def get_first(self):
         """找到头结点 O(1)"""
         if not self.head.next:
-            raise ValueError('LinkedList id empty')
+            raise ValueError('LinkedList is empty')
         return self.head.next
     
     def get_last(self):
         """找到最后一个结点 O(n)"""
         if not self.head.next:
-            raise ValueError('LinkedList id empty')
+            raise ValueError('LinkedList is empty')
         node = self.head
         while node.next != None:
             node = node.next
@@ -70,7 +70,7 @@ class LinkedList:
         if (index < 0 and  index >= self.length):
             raise ValueError('index is out of bound')
         if not self.head.next:
-            raise ValueError('LinkedList id empty')
+            raise ValueError('LinkedList is empty')
 
         node = self.head.next
         for _ in range(index):
@@ -80,7 +80,7 @@ class LinkedList:
     def remove_first(self):
         """删除头结点"""
         if not self.head.next:
-            raise ValueError('LinkedList id empty')
+            raise ValueError('LinkedList is empty')
         re_node = self.head.next
         self.head.next = self.head.next.next
         self.length -= 1
@@ -89,7 +89,7 @@ class LinkedList:
     def remove_last(self):
         """删除最后一个结点"""
         if not self.head.next:
-            raise ValueError('LinkedList id empty')
+            raise ValueError('LinkedList is empty')
         node_pre = self.head
         node = self.head.next
         while node.next != None:
@@ -104,7 +104,7 @@ class LinkedList:
         if (index < 0 or index >= self.length):
             raise ValueError('index is out of bound')
         if not self.head.next:
-            raise ValueError('LinkedList id empty')
+            raise ValueError('LinkedList is empty')
             
         node = self.head
         for _ in range(index):

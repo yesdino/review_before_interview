@@ -68,6 +68,48 @@ Nothing 没有实例，不能实例化，只是用于类型推断。
 
 Any 是所有类型的父类 
 
+<img width=550 src="https://upload-images.jianshu.io/upload_images/11876740-2dd988ba19ab0e0e.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></img>
+
+
+**一些讲解：**
+|         |                                                                    |
+| :------ | :----------------------------------------------------------------- |
+| **Null**    | Trait 。其唯一实例为 null ，是 Any Reff 的子类，**不是** Anyval 的子类 |
+| **Nothing** | Trait ，所有类型（包括 Anyret 和 Any Val ）的子类，没有实例        |
+| **None**    | Option 的两个子类之一，另一个是 Some ，用于安全的函数返回值       |
+| **Unit**    | 无返回值的函数的类型，和 java 的 void 对应                         |
+| **Nil**     | 长度为 0 的 List                                                   |
+
+### 开始写 Scala 程序
+
+注意事项
+
+1、Scala 中定义的 Object 中的变量、方法都应该是静态的，
+object 叫对象，相当于 Java 中的单例对象。
+
+```scala
+class Person(xname:String, xage:Int) {
+  val name = xname
+  val age = xage
+}
+
+// 成员都要应该是静态的
+object Lesson_ObjectClass {
+  def main(args: Array[String]) : Unit = {
+  }
+}
+```
+2、class 是 Scala 中的对象，对象实例化的时候可以直接传参到默认的构造函数，
+即实例化+构造函数可以一条语句完成。
+```scala
+object Lesson_ObjectClass {
+  def main(args: Array[String]) : Unit = {
+    // 对象实例化，可以直接传参数进默认的构造函数
+    val person = new Person("zhangsan", 18)  
+    println(person.name) 
+  }
+}
+```
 
 
 
@@ -78,6 +120,18 @@ Any 是所有类型的父类
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+<br><br><br><br><br><br><br><br><br>
 
 
 

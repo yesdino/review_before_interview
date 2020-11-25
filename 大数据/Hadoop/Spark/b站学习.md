@@ -1,0 +1,291 @@
+
+
+# 目录
+
+[toc]
+
+---
+
+
+# 历史介绍
+
+## Hadoop 历史
+
+[02:36](https://www.bilibili.com/video/BV174411X7Pk?from=search&seid=5079076188602324962)
+
+Hadoop 历史
+2003，2004 Google 2篇论文
+- 2011 年发布 1.0 版本
+- 2012 年发布稳定版
+- 2013 年发布 2.X 版
+
+
+### 1.0 版本
+
+[08:23](https://www.bilibili.com/video/BV174411X7Pk?from=search&seid=5079076188602324962)
+
+早期版本的架构：
+<img width='650' src='https://upload-images.jianshu.io/upload_images/11876740-73d28b3313bb10a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+
+**1.0 MR 的缺点：**
+mr 基于数据集的计算，所以面向数据
+1. 基本运算规则从存储介质中获取（采集）数据，然后进行计算，最后将结果存储到介质中，所以主要应用于 **一次性计算**，不适合于数据挖掘和机器学习这样的送代计算和图形挖掘计算。
+2. MR 基于文件存储介质的操作，所以性能非常的慢
+3. MR 和 hadoop 紧空耦合在一起
+
+
+### 2.X 版本（Yarn）
+
+[16:38](https://www.bilibili.com/video/BV174411X7Pk?from=search&seid=5079076188602324962)
+
+<img width='650' src='https://upload-images.jianshu.io/upload_images/11876740-6cb40fc474bcefc3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+实现了 **资源(ResourceManager)** 与 **任务(Driver)** 的解耦合，
+AM(ApplicationMaster) 作为中间层，负责资源与任务的中间交互
+
+
+
+## Spark 历史
+[26:47](https://www.bilibili.com/video/BV174411X7Pk?from=search&seid=5079076188602324962)
+
+2013 年 6 月发布
+Spark 基于 Hadoop1.X 架构思想，采用自己的方式改善 Hadoop1.x 中的 题
+Spark 计算基于内存，并且**基于 scala 语法开发**，所以**天生适合迭代式计算**
+
+<img width='450' src='https://upload-images.jianshu.io/upload_images/11876740-a48049b70ece954a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+
+**==spark 与 Hadoop，yarn, HDFS 的关系==**：[34:20](https://www.bilibili.com/video/BV174411X7Pk?from=search&seid=5079076188602324962)
+实际上面的 spark 架构只是计算架构，不包括存储架构，所以还需要搭配使用 Hadoop 的 HDFS 文件系统作为存储架构。
+所以在 Hadoop 的架构中 yarn 支持计算架构的插拔，可以兼容 spark。
+所以如果搭配 HDFS 的话，会变成这样：
+- spark + yarn 作为计算
+- HDFS 作为存储
+
+
+
+## spark 内置模块
+
+[00:50](https://www.bilibili.com/video/BV174411X7Pk?p=2)
+<img width='600' src='https://upload-images.jianshu.io/upload_images/11876740-effd07553811d932.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+
+
+## spark 特点
+
+1) **快**：与 Hadoop 的 Mapreduce 比，Spark 基于内存的运算要快 100 倍人上，基于硬盘的运算也要快 10 倍以上。 
+   Spark 实现了高效的 DAG 执行引擎，可以通过基于内存来高效处理踞流。
+   计算的中间结果是存在于内存中的
+1) **易用**： Spark 支持 Jawa 、 Python 和 sclca 的 API ，还支持超过 8 种高级算法，使用户可以快速构建不同的应用。
+   而且 Spark 支持交互式的 Python 和 Scala 的 Shell ，可以非常方便地在这些 Shel 中使用 Spark 集群来验证解决问题的方法。
+1) **通用**： Spark 提供了统一的解决方案。 
+   Spark 可以用于批处理、交互式查询 (Spark SQL)、实时流处理 ( Spark Streaming)、机器学习 (Spark Millib)和图计算 ( Graphx)。这些不同类型的处理都可以在同个应用中无缝使用。減少了开发和维护的人力成本和部署平台的物力成本。
+2) **兼容性**： Spark 可以非常方便地与其他的开源产品进行融合。
+   比如， Spark 可以使用 Hadoop 的 YARN 和 Apache Mesos 作为它的资源管理和调度器，并且可以处理所有 Hadoop 支持的效据，包括 HDFS 、 Hbase 等。
+   这对于已经部署 Hadoop 集群的用户特别重要，因为不需要做任何数据迁移就可以使用 Spark 虽大处理能的。
+
+
+# 重要角色
+[00:57](https://www.bilibili.com/video/BV174411X7Pk?p=3)
+
+## 实际上的 spark 架构
+
+
+<img width='600' src='https://upload-images.jianshu.io/upload_images/11876740-7a34eea72a629e3e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+由于 spark 是单单的计算架构，所以
+调度：<b style="color:red">Application</b>
+计算：<b style="color:blue">Driver-Executor (其中 Driver 是做管理任务的，Executor 是真正做计算的)</b>
+
+<b style="color:green">Master-Worker</b> 则可能会没有这一层（如果在 yarn 中的话就没有这层）
+
+
+
+## Driver (驱动器)
+
+Spark 的驱动器是执行开发程序中的 main 方法的进程。
+它负责开发人员编写的用来创建 Spark Context 、创建 RDD ，以及进行 RDD 的转化操作和行动操作代码的执行。
+如果你是用 spark shell ，那么当你启动 Spark shell 的时候，系统后台自启了一个 Spark 驱动器程序，就是在 Spark shell 中预加载的**一个叫作 sc 的 Spark Context 对象**。
+如果驱动器程序终止，那么 Spark 应用也就结東了。
+**主要负责**：
+1) 把用户程序转为作业（Job)
+2) 跟踪 Executor 的运行状况
+3) 为执行器节点调度任务 
+4) UI 展示应用运行状况
+
+
+
+
+
+
+## Executor（执行器） 
+
+Spark Executor 是一个工作进程，负责在 Spark 作业中运行任务，**任务间相互独立**。 
+Spark 应用启动时，Executor 节点被同时启动，并且始终伴随着整个 Spark 应用的生命周期而存在。
+<u>如果有 Executor 节点发生了故障或崩溃， Spark 应用也可以继续执行，会将出错节点上的任务调度到其他 Executor 节点上继续运行。</u>
+**主要负责**：
+1) 负责运行组成 Spark 应用的任务，并将结果返回给驱动器进程
+2) 通过自身的块管理器（Block Manager）**为用户程序中要求缓存的 RDD 提供内存式存储**。 
+   RDD 是直接缓存在 Executor 进程内的，因此任务可以在运行时充分利用缓存数据加速运算
+
+
+
+# Local 模式
+Local 模式就是运行在一台计算机上的模式，通常就是用于在本机上练手和測试。它可以通过以下集中方式设置 Mastel
+
+- **`local`** ：所有计算都运行在一个线程当中，没有任何并行计算，通常我们在本机执行一些测測试代码，或者练手，就用这种模式：
+- **`local[K]`** : 指定使用几个线程米运行计算，比如 `local[4]` 就是运行 4 个 Worker 线程。
+  **==通常我们的 Cpu 有几个 Core==**(本地模式时) ，就指定几个线程，最大化利用 Cpu 的计算能力
+- **`local[*]`** ： 这种模式直接帮你按照 Cpu 最多 Cores 来设置线程数了。
+
+
+
+
+# 安装使用
+
+[03:19](https://www.bilibili.com/video/BV174411X7Pk?p=4)
+
+**demo**:
+1) 上传并解压 spark 安装包
+<img width='600' src='https://upload-images.jianshu.io/upload_images/11876740-889ceac9e824fa91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+2) 官方求 PI demo
+<img width='500' src='https://upload-images.jianshu.io/upload_images/11876740-afc4bc7577827223.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+
+## 基本语法，参数说明
+
+[01:33](https://www.bilibili.com/video/BV174411X7Pk?p=5)
+
+**基本语法：**
+```shell
+bin/spark-submit\
+--class <main-class> \  # 执行 jar 包中的那个类
+--master <master-url> \
+--deploy-mode <deploy-mode> \
+--conf<kev>=<value> \
+...# other options
+<application-jar> \     # jar 包
+[application-arguments]
+```
+
+**参数说明：**
+- **`--master`** 指定 Master的地址，默认为 Local
+- **`--class`**：你的应用的启动类（如org. apache. spark, examples. Spark Pi
+- **`--deploy-mode`**：是否发布你的驱动到 worker节点（ cluster）或者作为一个本地客户端（client)(default: client)*.
+- **`--conf`**：任意的 Spark配置属性，格式 key=value。如果值包含空格，可以加引号 "key-value"
+- **`application-jar`**：打包好的应用ja，包含依赖。这个 URL 在集群中全局可见。比如hds：∥共享存储系统，如果是file:/path，那么所有的节点的 path 都包含同样的janr
+- **`application-arguments`**：传给 main() 方法的参数
+- **`--executor-memory 1G`** 指定每个 executor可用内存为1G
+- **`--total- executor-cores 2`** 指定每个 executor使用的cup核数为2个
+
+
+
+## **WordCount**
+
+[02:44](https://www.bilibili.com/video/BV174411X7Pk?p=5)
+
+读取文件
+
+### 思路逻辑
+<img width='600' src='https://upload-images.jianshu.io/upload_images/11876740-a66ee786faae8127.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+<br>
+
+### scala 代码实现
+
+[link](https://www.bilibili.com/video/BV174411X7Pk?p=6)
+<img width='800' src='https://upload-images.jianshu.io/upload_images/11876740-cad2ebb4e054b1da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+```scala
+scala> sc.textfile("input").flatMap(_.split(" ").map((_,1)).reduceByKey(_+_). collect
+res3: Array[(String, Int)] Array((Spark, 1), (World, 1),(Scala, 1), (Hello, 3))
+```
+
+### 数据流分析
+[05:53](https://www.bilibili.com/video/BV174411X7Pk?p=7)
+- **`textfile("input")`**：读取本地文件 inpt 文件夹数据；
+- **`flatmap(spit(""))`**: 压平操作，按照空格分割符将一行数据映射成一个个单词 
+- **`map((_,1))`** : 对每一个元素操作，将单词映射为元组 
+- **`reduceByKey(_+_)`**: 按照 key 将值进行聚合，相加； 
+- **`collect`** ：将数据收集到 Driver 端展示。
+
+<img width='900' src='https://upload-images.jianshu.io/upload_images/11876740-0967b1b923b47b62.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+<br>
+<br>
+<br>
+
+**Spark 通用运行简易流程**
+[01:50](https://www.bilibili.com/video/BV174411X7Pk?p=7)
+<img width='700' src='https://upload-images.jianshu.io/upload_images/11876740-574dc31fd0b8337e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+
+
+
+### IDEA 开发
+
+[00:00](https://www.bilibili.com/video/BV174411X7Pk?p=8)
+
+<img width='750' src='https://upload-images.jianshu.io/upload_images/11876740-3a821731f5d54b04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+
+
+# **==TODO==**
+
+[P9](https://www.bilibili.com/video/BV174411X7Pk?p=9)-P14 没看 先跳过去看 p15 RDD
+
+
+
+# RDD
+[00:00](https://www.bilibili.com/video/BV174411X7Pk?p=15)
+
+RDD 是一种 **装饰者设计模式**
+<img width='800' src='https://upload-images.jianshu.io/upload_images/11876740-f4a9161d6cef92c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+一层一层包装的目的，不是为了直接把数据读过来，
+而是通过 **==在每一层转换数据的结构==** 的方式，达到统计的逻辑
+
+## 装饰者设计模式
+[10:34](https://www.bilibili.com/video/BV174411X7Pk?p=15)
+RDD 只有在 collect() 触发之后才会真正开始去 WordFile 读数据，
+而前面 collect 之前的一层一层其实是在数据到达之前先封装逻辑
+所有 **==RDD 实际上是将数据处理逻辑进行封装==**，类似于装饰器生成器的逻辑，将会大大加快数据处理速度。
+
+
+
+## RDD 概述
+
+### 什么是 RDDS
+[00:00](https://www.bilibili.com/video/BV174411X7Pk?p=16)
+
+RDD (**Resilient Distributed Dataset**）做 **弹性分布式数据集**，
+是 Spark 中最基本的数据(计算逻辑)抽象。
+代码中是一个抽象类，它代表一个不可变、可分区、里面的元素可并行计算的集合。
+
+解释：
+**分布式**：数据来源可以来自各个节点，不管来源，都可以一起读取
+**数据集**：把多个数据来源的数据采集到一起形成一个集合，即为数据集
+**计算逻辑抽象**：将每一个处理数据的逻辑过程抽象成一个 RDD
+**不可变**：RDD 声明之后不可变
+**可分区，可并行计算**：数据存储在不同的分区，运行时跑在不同机器上的 Executor，即并行
+
+
+
+
+
+[看到 00:00](https://www.bilibili.com/video/BV174411X7Pk?p=17)
+
+
+
+
+
+<u></u>
+<img width='' src=''>
+
+<br><br><br><br><br><br><br>
+
+
+
+
+<br>
+<br><br><br><br><br><br><br>

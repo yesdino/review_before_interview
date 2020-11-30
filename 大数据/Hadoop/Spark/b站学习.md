@@ -229,6 +229,82 @@ res3: Array[(String, Int)] Array((Spark, 1), (World, 1),(Scala, 1), (Hello, 3))
 <img width='750' src='https://upload-images.jianshu.io/upload_images/11876740-3a821731f5d54b04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
 
 
+# **Yarn 模式**（spark 部署在 yarn
+
+[00:00](https://www.bilibili.com/video/BV174411X7Pk?p=9)
+
+**Spark 客户端直接连接 Yarn** ，不需要额外构建 Spark 集群。
+有 yarn-client 和 yarn-cluster 两种模式，
+<u>主要区别在于： **Driver 程序的运行节点**。</u>
+- **`yarn-client`**  : Driver 程序运行在客户端，适用于交互、调试，**希望立即看到 app 的输出** 
+- **`yarn-cluster`**: Driver 程序运行在由 RM(Resourcemanager）启动的 AP(APPMaster）适
+用于生产环境。
+
+## 安装使用
+
+1、修改 Hadoop。在 `/hadoop/etc/hadoop` 目录下的配置文件 **`yarn-site.xml`**，添加如下内容：
+<img width='800' src='https://upload-images.jianshu.io/upload_images/11876740-62d8c49e781a8c3d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+
+2、添加如下配置文件配置，在 `spark/conf` 目录下修改 **`spark-env.sh`**(直接修改`.template` 模板文件)，：
+```html
+YARN_CONF_DIR=/opt/module/hadoop/etc/hadoop
+```
+
+<img width='700' src='https://upload-images.jianshu.io/upload_images/11876740-d1697055e8ff13d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+4、执行一个程序
+```html
+[atguiguehadoop102 spark]$ bin/spark-submit \
+--class org.apache.spark.examples.SparkPi \
+-master yarn \
+-deploy-mode client \
+/examples/jars/spark-examples_2.11-2.1.1.jar \
+100
+```
+<b style="color:red;">注意：在提交任务之前需启动 HDFS 以及 YARN 集群。</b>
+(因为 yarn 需要 HDFS 的文件系统，不开启来是会出问题的)
+
+## 日志查看
+
+spark 的执行日志是无法直接查看的，因为部署架构是 spark 做计算，yarn 做资源调度，
+意味着 spark 与 yarn 没有直接关系，只是靠中间的转换让 spark 部署在 yarn 中执行，所以中间的日志无法直接查看。
+得做相关配置让 yarn 看到 spark 的相关执行日志
+
+- 配置 [08:57](https://www.bilibili.com/video/BV174411X7Pk?p=9)
+<img width='650' src='https://upload-images.jianshu.io/upload_images/11876740-90101f3ac6e6f193.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+[13:](https://www.bilibili.com/video/BV174411X7Pk?p=9)
+
+
+## **spark 在 yarn 中的运行原理**
+
+[00:00](https://www.bilibili.com/video/BV174411X7Pk?p=10)
+
+### yarn 架构执行原理
+[03:43](https://www.bilibili.com/video/BV174411X7Pk?p=10)
+
+<img width='' src='https://upload-images.jianshu.io/upload_images/11876740-ac6bb4409d8d828d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+### spark 在 yarn 中执行原理
+注意：**==spark 是关联在 NodeManager 中的 Container 中的==**
+
+[详解 07:43](https://www.bilibili.com/video/BV174411X7Pk?p=10)。 [快速概括 00:00](https://www.bilibili.com/video/BV174411X7Pk?p=11)
+<img width='' src='https://upload-images.jianshu.io/upload_images/11876740-6e0fc2ea49dc07a1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+<img width='' src='https://upload-images.jianshu.io/upload_images/11876740-a05da0781be12a89.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+
+
+## 
+
+[02:47]
+
+
+
+
+
+
 
 # **==TODO==**
 

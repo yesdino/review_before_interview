@@ -301,14 +301,104 @@ spark 的执行日志是无法直接查看的，因为部署架构是 spark 做�
 [02:47]()
 
 
-看到 [00:59](https://www.bilibili.com/video/BV174411X7Pk?p=12)
+
+
+
+# 将 spark 部署到集群（**TODO**）
+[P9 | 将 spark 部署到集群](https://www.bilibili.com/video/BV174411X7Pk?p=9) 
+**看了没整理笔记**
 
 
 
 
-# **==TODO==**
 
-[P9](https://www.bilibili.com/video/BV174411X7Pk?p=9)-P14 没看 先跳过去看 p15 RDD
+<br><br><br>
+
+# yarn 部署 spark 流程图（**TODO**）
+[P10 | yarn 部署 spark 流程图](https://www.bilibili.com/video/BV174411X7Pk?p=10) 
+**看了 没整理笔记**
+
+
+
+
+
+
+<br><br><br>
+
+# 将开发的程序打包到正式环境中运行（**TODO**）
+[P11 | 将开发的程序打包到正式环境中运行](https://www.bilibili.com/video/BV174411X7Pk?p=11) 
+**看了 没整理笔记**
+
+
+
+
+
+
+<br><br><br>
+
+# 本地环境调试
+[P12 | 本地环境调试](https://www.bilibili.com/video/BV174411X7Pk?p=12) 
+
+本地 Spark 程序调试需要使用 local 提交模式，(==**意思是只有 local 模式才能进行调试**==)
+即将本机当做运行环境，Master 和 Worker 都为本机。
+运行时直接加断点调试即可。
+
+如下创建 SparkConf 的时候设置额外属性，表明本地执行：
+**`val conf = new SparkConf().setAppName(WC).setMaster("local[*]")`**
+
+## windows bin winutils Error
+[00:42](https://www.bilibili.com/video/BV174411X7Pk?p=12) 
+如果本机操作系统是 windows ，如果在程序中使用了 hadoop 相关的东西，
+比如写入文件到 HIDFS ，则会遇到如下异常：
+```
+2017-09-14 16: 08: 34 907 ERROR [main] org.apache.hadoop.util.Shell(line:303):
+Failed to locate the winutils binary in the hadoop binary path java. io IOException: 
+Could not locate executable null\bin winutils.exe in the Hadoop binaries.
+```
+<img width='800' src='https://upload-images.jianshu.io/upload_images/11876740-0a269d84dd6427f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+
+
+<br><br><br>
+
+# Standalone 独立部署方式（**TODO**）
+[P13 | 独立部署方式](https://www.bilibili.com/video/BV174411X7Pk?p=13) **没看**
+
+独立部署方式，既不用 yarn，就只用 spark 自己。
+那么少了 yarn 的资源调度，意味着没有了 ResourceManager(RM) 和 NodeManager(NM) 了,
+所以调度资源就会响应的变成 Master 和 Worker
+- Master 对应 ResourceManager
+- Worker 对应 NodeManager
+
+
+
+<br><br><br>
+
+# java io 回顾（**TODO**）
+[P14 | java io 回顾](https://www.bilibili.com/video/BV174411X7Pk?p=14) **没看**
+
+
+<br><br><br>
+
+# ==学习进度==
+
+看到 [p12 00:59](https://www.bilibili.com/video/BV174411X7Pk?p=12)
+
+
+
+
+
+<br><br><br>
+
+
+
+
+
+
+
+
+
+
 
 
 

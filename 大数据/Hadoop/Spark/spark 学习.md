@@ -361,8 +361,8 @@ Could not locate executable null\bin winutils.exe in the Hadoop binaries.
 
 <br><br><br>
 
-# Standalone 独立部署方式（**TODO**）
-[P13 | 独立部署方式](https://www.bilibili.com/video/BV174411X7Pk?p=13) **没看**
+# Standalone 独立部署方式
+[P13 | 独立部署方式](https://www.bilibili.com/video/BV174411X7Pk?p=13)
 
 独立部署方式，既不用 yarn，就只用 spark 自己。
 那么少了 yarn 的资源调度，意味着没有了 ResourceManager(RM) 和 NodeManager(NM) 了,
@@ -372,23 +372,30 @@ Could not locate executable null\bin winutils.exe in the Hadoop binaries.
 
 
 
-<br><br><br>
+<br>
+
+
+[01:18 部署 standalone 独立部署方式](https://www.bilibili.com/video/BV174411X7Pk?p=13)
+
+
+
+
+
+
+<br><br>
+<br>
 
 # java io 回顾（**TODO**）
 [P14 | java io 回顾](https://www.bilibili.com/video/BV174411X7Pk?p=14) **没看**
 
 
-<br><br><br>
-
-# ==学习进度==
-
-看到 [p12 00:59](https://www.bilibili.com/video/BV174411X7Pk?p=12)
 
 
 
 
 
-<br><br><br>
+
+
 
 
 
@@ -419,9 +426,9 @@ RDD 只有在 collect() 触发之后才会真正开始去 WordFile 读数据，
 
 
 
-## RDD 概述
+## 1 RDD 概述
 
-### 什么是 RDDS
+### 1.1 什么是 RDDS
 [00:00](https://www.bilibili.com/video/BV174411X7Pk?p=16)
 
 RDD (**Resilient Distributed Dataset**）做 **弹性分布式数据集**，
@@ -436,22 +443,84 @@ RDD (**Resilient Distributed Dataset**）做 **弹性分布式数据集**，
 **可分区，可并行计算**：数据存储在不同的分区，运行时跑在不同机器上的 Executor，即并行
 
 
+### 1.2 RDD 的属性
+
+
+1) 一组分区(Partition)，即数据集的基本组成单位
+2) 一个计算每个分区的函数；
+3) RDD 之间的依赖关系（A 用到了 B，既 A 依赖 B）。依赖关系又称为 “**血缘**” or “血统”
+4) 一个 Partitioner, 即 RDD 的分片函数
+5) 一个列表，存储存取每个 Partition 的 **优先位置**( prefered location)
+**==移动数据不如移动计算==** [03:10](https://www.bilibili.com/video/BV174411X7Pk?p=17)
 
 
 
-[看到 00:00](https://www.bilibili.com/video/BV174411X7Pk?p=17)
 
 
 
 
+### 1.3 RDD 特点
 
-<u></u>
-<img width='' src=''>
+[08:30](https://www.bilibili.com/video/BV174411X7Pk?p=17)
 
-<br><br><br><br><br><br><br>
+RDD 表示 **只读** 的分区的数据集，
+对 RDD 进行改动，只能通过 RDD 的转换操作，由一个 RDD 得到一个新的 RDD, 
+新的 RDD 包含了从其他 RDD 衍生所必需的信息。 
+
+RDDs 之间存在依赖， RDD 的执行是按照血缘关系延时计算的。
+如果血缘关系较长，可以通过持久RDD 来切断血缘关系。
 
 
 
+#### 1.3.1 分区
+[09:32](https://www.bilibili.com/video/BV174411X7Pk?p=17)
+
+RDD 逻辑上是分区的，每个分区的数据是抽象存在的，计算的时候会通过一个 compute 函数得到每个分区的数据。
+如果 RDD 是通过已有的文件系统构建，则 compute 函数是读取指定文件系统中的数据，
+如果 RDD 是通过其他 RDD 转换而来，则 compute 函数是执行转换逻辑将其他 RDD 的数据进行转换。
+
+RDD 的分区是为什么了能够 **并行计算**
 
 <br>
-<br><br><br><br><br><br><br>
+
+#### 1.3.2 只读
+[09:47](https://www.bilibili.com/video/BV174411X7Pk?p=17)
+RDD 是只读的，要想改变 RDD 中的数据，只能在现有的 RDD 基础上创建新的 RDD 。
+
+**由一个 RDD 转换到另一个 RDD, 可以通过丰富的操作算子实现**，
+不再像 Mapreduce 那样只能写 map 和 reduce 了，如下图所示。
+
+[10:05 什么是算子](https://www.bilibili.com/video/BV174411X7Pk?p=17)
+算子：从认知心理学角度，解决问题其实是将问题的初始状态，通过一系列的操作 (Operate) （算子）对可是题的状态进行转换，然后达到完成（解决）状态 
+（**==其实算子(operator)就是操作，在 spark 中就是方法==**）
+
+Spark 中的所有的 RDD 方法都称之为算子，但是分为 2 大类：**转换算子** & **行动算子**
+- **转换算子**：转换数据结构
+- **行动算子**：真正开始数据处理
+
+<br>
+
+#### 1.3.3 依赖
+[15:44](https://www.bilibili.com/video/BV174411X7Pk?p=17)
+这里直接跳过了，说后面再详细讲
+
+<br>
+
+#### 1.3.4 缓存
+[15:56](https://www.bilibili.com/video/BV174411X7Pk?p=17)
+为什么防止依赖关系在后面数据处理时发生问题导致中断，找不到前面的依赖关系。
+所以将血缘关系缓存起来，防止数据的丢失、血缘的中断
+
+相当于生活中的族谱，方便能找到你的祖先
+
+---
+
+
+
+
+
+
+
+
+
+

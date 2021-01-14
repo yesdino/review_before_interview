@@ -38,37 +38,79 @@
 数据仓库(Data Warehouse)，是**为企业制定决策，提供数据支持**的。
 可以帮助企业，改进业务流程、提高产品质量等。
 
+[00:00](https://www.bilibili.com/video/BV1df4y1U79z?p=4)
+<img width=920 src='https://upload-images.jianshu.io/upload_images/11876740-9edb63d95fddde6e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+
+Azkaban 全流程调度：自动调度数据处理的流程的框架，比如 ODS 层处理完了会自动进行 DWD 层的处理
 
 ### ① 数据来源
 
+[01:00](https://www.bilibili.com/video/BV1df4y1U79z?p=4)
 - 获取数仓数据来源的方式主要是爬虫
 - 获取的数据主要有两种：用户行为数据、业务数据
-    - 用户行为数据通常以文件形式存储在日志服务器
-    - 业务数据通常以数据表形式存储在 javae 后台的 MySQL 数据库中  
-
-<img width=150 src='https://upload-images.jianshu.io/upload_images/11876740-8a6fb31c196bcfc0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
-
-
-
-
+    - **用户行为数据** 通常以文件形式存储在日志服务器
+    - **业务数据** 通常以数据表形式存储在 javae 后台的 MySQL 数据库中  
 
 
 ### ② 中间处理
 
 
+**`Flume`**: 用来处理用户行为数据，导入用户行为数据的日志文件，可以实时采集日志文件，上传到数据仓库中
+**`Sqoop`**: 每天凌晨结束后，采集==前一天==的数据，导入数据仓库中
+
+
+当不同的数据通过  和  进入数据仓库中，会经过 `ODS -> DWD -> DWS -> DWT -> ADS` 的流程
+
+**`ODS`** ：将数据先备份。为了避免后续数据处理出现问题导致需要重复采集数据
+**`DWD`** ：清洗数据。处理过期数据，不完整数据，重复数据等脏数据
+**`DWS`** ：聚合数据。按天进行聚合，既用户在一天中做了什么操作
+**`DWT`** ：聚合数据。累积聚合，既用户从注册开始到现在累积做了什么
+**`ADS`** ：统计数据。统计分析完的数据，这层数据是数据的统计，是输入之前的数据形式。
+
+
+数据仓库，并不是数据的最终目的地，而是为数据最终的目的地做好准备。
+这些准备包括对数据的：备份、清洗、聚合、统计等。
+
+
+### ③ 数据输出
+
+[06:45](https://www.bilibili.com/video/BV1df4y1U79z?p=4)
+
+数据仓库 ADS 层的数据将会输出到下面的出处：
+- **报表系统**：统计好的数据输出到报表中给领导汇报
+- **用户画像**：描绘用户画像
+- **推荐系统**：
+- **机器学习**：为机器学习提供训练数据
 
 
 
 
 
-### ③ 输出用处
 
 
 
 
 
 
-[看到 02：40](https://www.bilibili.com/video/BV1df4y1U79z?p=3)
+
+<br><br><br>
+
+[看到 00:00 项目需求的那一 P](https://www.bilibili.com/video/BV1df4y1U79z?p=5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

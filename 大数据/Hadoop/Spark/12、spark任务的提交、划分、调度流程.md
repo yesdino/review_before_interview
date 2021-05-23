@@ -11,7 +11,7 @@ object WordCount {
     def main(arg:Array[String]) : Unit = {
         val sparkConf = new SparkConf().setAppName("WordCount")
         val sc = new SparkContext(sparkConf)
-        sc.textFile("/words.txt").flatMap(_.split(" ")).map.((_,1)).reduceByKey(_+_).saveAsFile("/out")
+        sc.textFile("/words.txt").flatMap(_.split(" ")).map.((_,1)).reduceByKey(_+_).saveAsTextFile("/out")
         sc.stop
     }
 }
@@ -53,7 +53,7 @@ DAGScheduler 对象
 线程封装在一个 tasksetf 集合中。把一个一个的 taskSet 集合发送给 TaskScheduler 对象
 
 (5) TaskScheduler 对象获取得到了这些 taskSet 集合之后，然后 stage 与 stage 之间的依赖关系，前面 stager 中 task 先运
-行，后面 stage 中的 task 在运行，最后 TaskScheduler 对象依次遍历每个 task Setf 集合，取出每一个 task, 最后提交每
+行，后面 stage 中的 task 在运行，最后 TaskScheduler 对象依次遍历每个 taskSet 集合，取出每一个 task, 最后提交每
 一个 task 到 worker 节点上的 executor 进程中去运行。
 
 

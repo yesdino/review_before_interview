@@ -197,13 +197,13 @@ bin/spark-submit\
 [link](https://www.bilibili.com/video/BV174411X7Pk?p=6)
 <img width='800' src='https://upload-images.jianshu.io/upload_images/11876740-cad2ebb4e054b1da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
 ```scala
-scala> sc.textfile("input").flatMap(_.split(" ").map((_,1)).reduceByKey(_+_). collect
+scala> sc.textFile("input").flatMap(_.split(" ").map((_,1)).reduceByKey(_+_). collect
 res3: Array[(String, Int)] Array((Spark, 1), (World, 1),(Scala, 1), (Hello, 3))
 ```
 
 ### 数据流分析
 [05:53](https://www.bilibili.com/video/BV174411X7Pk?p=7)
-- **`textfile("input")`**：读取本地文件 inpt 文件夹数据；
+- **`textFile("input")`**：读取本地文件 inpt 文件夹数据；
 - **`flatmap(spit(""))`**: 压平操作，按照空格分割符将一行数据映射成一个个单词 
 - **`map((_,1))`** : 对每一个元素操作，将单词映射为元组 
 - **`reduceByKey(_+_)`**: 按照 key 将值进行聚合，相加； 

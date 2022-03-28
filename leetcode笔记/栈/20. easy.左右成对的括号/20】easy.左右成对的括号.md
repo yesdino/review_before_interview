@@ -5,35 +5,32 @@ python:
 ##### 注意python没有栈结构，用列表来模拟栈结构
 ```python
 class Solution(object):
+
     def isValid(self, s):
         """
         :type s: str
         :rtype: bool
         """
-        # The stack to keep track of opening brackets.
         stack = []
         mapping = {
-                        ")": "(", 
-                        "}": "{", 
-                        "]": "["
-                    }
+            ")": "(", 
+            "}": "{", 
+            "]": "["
+        }
         # 遍历 字符串 s
         for char in s:
-            if char in mapping:     # 匹配 key
-                # 如果是右边的括号，把上一个送进去的推出来
+            if char in mapping:     # 如果是右边的括号，把上一个送进去的推出来
                 if stack:                       # 栈是否为空
                     top_element = stack.pop()   # 元素出栈
                 else:
-                    top_element = '#'   
-
-                # 如果括号交叉不配对的话'{{[}]}' 直接返回 false
-                if mapping[char] != top_element:
+                    top_element = '#'
+                
+                if mapping[char] != top_element:    # 如果括号交叉不配对的话'{{[}]}' 直接返回 false
                     return False
-            else:
-                # 如果是左边的括号 送入栈
+            else:                   # 如果是左边的括号 送入栈
                 stack.append(char)
 
-        # stack 为空 返回 Ture
+        # stack 为空 返回 True
         return not stack
 ```
 c++:

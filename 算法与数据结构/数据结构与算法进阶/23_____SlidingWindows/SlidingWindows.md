@@ -4,7 +4,7 @@
 
 ------------------------------------------------------
 
-# 练习
+# 滑动窗口 练习
 
 
 ## 1. 删除重复元素 | Remove Duplicates from Sorted Array
@@ -33,8 +33,8 @@ def removeDuplicates(lis):
         return 0
     
     i = 0
-    for j in range(1, len(lis)):
-        if lis[j] != lis[i]:
+    for j in range(1, len(lis)):    # 时间复杂度 O(n), 只需要循环一遍就可以
+        if lis[j] != lis[i]:        # 跟上一个元素比较
             i += 1
             lis[i] = lis[j]
     return i+1

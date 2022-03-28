@@ -2,7 +2,7 @@
 
 ---
 
-
+<!-- 
 # Recursion
 
 By the end of this chapter, you should be able to answer these questions.
@@ -28,8 +28,9 @@ By the end of this chapter, you should be able to answer these questions.
 <a href='#Ex6'>Ex.6 汉诺塔</a>
 
 <a href='#Ex7'>Ex.7 格雷码</a>
+-->
 
-### <a id='Ex1'>Ex.1 Simple Example 求和 </a>
+### 1 Simple Example 求和 
 
 
 ```python
@@ -74,7 +75,8 @@ print(mysum_recursive(1500))
 
 当你的代码逻辑不对，程序找不到递归出口时，也容易报这个错误。
 
-### <a id='Ex2'>Ex.2 阶乘 </a>
+---
+### 2 阶乘 
 
 - **循环**
 ```python
@@ -109,7 +111,9 @@ factorial_recursive(5)
 递归缺点：吃内存
 <img src="../images/ch03/use_space.png" width="350"/>
 
-### <a id='Ex3'>Ex.3 斐波那契数列 </a>
+---
+
+### 3 斐波那契数列 
 
 1 1 2 3 5 8 13 21 ...
 
@@ -242,7 +246,9 @@ Fibonacci square
 <img src="../images/ch03/shell.jpg" width="250"/>
 <img src="../images/ch03/fibo2.png" width="500"/>
 
-### <a id='Ex4'>Ex.4 打印尺子 </a>
+---
+
+### 4 打印尺子 
 
 1
 
@@ -364,8 +370,9 @@ draw_rule(5,3)   # 打印尺标、数字
 
 
 
+---
 
-### <a id='Ex5'>Ex.5 数学表达式  </a>
+### 5 数学表达式  
 
 Given two integers a ≤ b, write a program  that transforms a into b by a minimum sequence of increment (add 1) and unfolding (multiply by 2) operations.
 
@@ -405,9 +412,10 @@ print(str(b) + " = " + intSeq(a, b))
 ```
 
 
+---
 
 
-### <a id='Ex6'>Ex.6 汉诺塔  </a>
+### 6 汉诺塔  
 
 <img src="../images/ch02/hanoi.jpg" width="350"/>
 
@@ -437,7 +445,7 @@ hanoi(n, "START", "END", "BY")
     Move from START to END
 
 
-### <a id='Ex7'>Ex.7 格雷码  </a>
+### 7 格雷码  
 <img src="../images/ch03/grey.jpg" width="350"/>
 
 

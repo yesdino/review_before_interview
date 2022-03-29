@@ -17,22 +17,47 @@
 
 ## 0. 反转列表 Reverse List
 
-**题：**
+**题：**<sup style="color:#ccc">22-02 00:01:11~</sup>
 给你一个字符串或者列表，把它们反转过来
 
-
-
-
 **思路：**
-<sup>时间</sup>
+头尾两两对调
 
-
-
-
-
-**code：**
+**解法 1：**
 ```python
+def reverse(nums):
+    n = len(nums)
+    for i in range(len(nums) // 2):
+        nums[i], nums[n-1-i] = nums[n-1-i], nums[i]
+    return nums
 
+# ------
+# 测试
+nums = []
+print(reverse(nums))
+nums = [1]
+print(reverse(nums))
+nums = [1, 2]
+print(reverse(nums))
+```
+**解法 2：** 双指针
+```py
+def reverse2(nums):
+    i, j = 0, len(nums)-1
+    while i < j:
+        nums[i], nums[j] = nums[i], nums[i]
+        i += 1
+        j -= 1
+    return nums
+
+# ------
+# 测试
+nums = []
+print(reverse2(nums))
+nums = [1]
+print(reverse2(nums))
+nums = [1, 2]
+print(reverse2(nums))
 ```
 
 ---
@@ -42,7 +67,7 @@
 ## 1. 两数求和
 
 **题：**
-给你一个字符串或者列表，把它们反转过来
+在一个有 **`n`** 个整数的数组 **`S`** 中，要求找出两个数 **`(a,b)`** 相加等于 **`X`** 的组合。
 
 
 
@@ -176,8 +201,8 @@
 **思路：** <sup style="color:#ccc">22-04 00:09:00~00:14:24</sup>
 两个指针从后往前，用后面 A 空出来的位置一个一个双指针排序
 
-注意点：
-1. 什么时候停止 i>=0, j>=0,如果 A 数组先用完了，要把 B 数组全部 copy 到 A 数组前面去；若 B 数组用完了，那就是排完了
+**注意点**：
+什么时候停止 i>=0, j>=0,如果 A 数组先用完了，要把 B 数组全部 copy 到 A 数组前面去；若 B 数组用完了，那就是排完了
 <br>
 
 ==双指针 **变通**：
@@ -438,8 +463,15 @@ maintain 一个 count，一个 candidate 候选。
 
 ## 12. 容纳最多的水 | Container With Most Water
 
+leetcode.11 
+中等难度 分类 [双指针][动态规划]
+
 **题：** <sup style="color:#ccc">22-11 00:00:35~00:02:56</sup>
-<img style="width:600px" src="../img/TwoPointer/Container_With_Most_Water.png"></img>
+给定 n 个非负整数 **`a1, a2 ,.., an`**, 其中每个代表一个点坐标 **`(i, ai)`** ,
+并且有 n 条垂直线段，每条线段的两个端点在 **`(i,ai), (i,0)`** 上，
+请找出两条垂直线段，与 x 轴形成一个容器，使其包含最多的水。n
+
+
 <img style="width:300px" src="../img/TwoPointer/Container_With_Most_Water2.png"></img>
 
 
@@ -447,18 +479,45 @@ maintain 一个 count，一个 candidate 候选。
 
 
 **思路：** <sup style="color:#ccc">22-11 00:03:16~00:11:21</sup>
-法①：brute force
+法①：brute force 暴力解
 两两选择组成 pair，先组成所有棍子的组合
+```python
+def max_area(heights):
+    res = 0
+    for i in range(len(heights)):
+        for j in range(i+1, len(heights)):
+            res = max(res, min(heights[i], heights[j]) * (j - i))
+    return res
+
+heights = [1, 5, 4, 3]
+heights = [3, 1, 2, 4, 5]
+print(max_area(heights))
+```
 
 法②：双指针
-i,j 由两边向中间推进
-<img style="width:300px" src="../img/TwoPointer/Container_With_Most_Water3.png"></img>
-
+1、i, j 由两边向中间推进
+2、每次都移动小的那个元素的索引，因为移动大的容积显然会变小
+<img width=500 src="../img/TwoPointer/Container_With_Most_Water3.png"></img>
 
 **code：** <sup style="color:#ccc">22-11 00:11:21~00:12:02 Ex.6</sup>
 [link](http://localhost:8888/notebooks/MyJupyterNote/old/22_____TwoPointer/21_02_TwoPointersII.ipynb)
 ```python
+def max_area(heights):
+    left, right = 0, len(heights)-1
+    maxres = 0
+    while left < right:
+        height = min(heights[left], heights[right]) # 高度取决于短的棍子
+        area = height * (right-left)
+        maxres = max(maxres, area)
+        if heights[left] < heights[right]:
+            left += 1
+        else:
+            right -= 1
+    return maxres
 
+heights = [1, 5, 4, 3]
+heights = [3, 1, 2, 4, 5]
+print(max_area(heights))
 ```
 
 ---

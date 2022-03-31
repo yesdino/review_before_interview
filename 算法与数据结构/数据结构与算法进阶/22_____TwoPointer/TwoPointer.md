@@ -72,27 +72,59 @@ print(reverse2(nums))
 
 
 
+
+
+- **解 1：** 字典 <sup style="color:#ccc">22-03 00:06:37~00:07:03</sup>
+
+**思路**：跟成对括号的思路差不多
+时间： O(n), 空间: O(n)
+```python
+def two_sum(nums, target):
+    dic = {}
+    for idx, num in enumerate(nums):
+        if num in dic:                  # 2. 遇到了【与它成对的数 (key)】, 返回上一个索引与当前索引
+            print(dic)
+            return [dic[num], idx]
+        else:
+            dic[target - num] = idx     # 1. 遇到了一个数，把【与它成对的数】作为 key, 数的索引作为 val 存入字段
+```
+- **解 2：** 双指针 <sup style="color:#ccc">22-03 00:07:05~00:07:35</sup>
+
 **思路：**
-
-
-
-
-
-
-**解 1：** <sup style="color:#ccc">22-03 00:06:37~00:07:03</sup>
+1. 数组是否排好序
+2. 如果数组有序，用双指针
+3. 第一个数字加最后一个数组，大了，移动小的指针，小了，移动大的指针
 
 ```python
+def two_sum2(lis, target):
+    index = []
+    sorted_lis = lis[:]; 
+    sorted_lis.sort()        # 先排序，时间复杂度 O(nlgn)
+    
+    i = 0;                  # 头尾双指针
+    j = len(sorted_lis) - 1
+    while i < j:
+        if sorted_lis[i] + sorted_lis[j] == target:
+            for k in range(0, len(lis)):            # 要找到左右指针指向的值在 排序之前的 lis 中的位置
+                if lis[k] == sorted_lis[i]:
+                    index.append(k)                 
+                    break
+            for k in range(len(lis)-1, -1, -1):     # 从后边开始往前迭代
+                if lis[k] == sorted_lis[j]:
+                    index.append(k)
+                    break
+            index.sort()
+            break
+        elif sorted_lis[i] + sorted_lis[j] < target:
+            i = i + 1                                   # 小了，移动头指针
+        elif sorted_lis[i] + sorted_lis[j] > target:
+            j = j - 1                                   # 大了，移动尾指针
 
+    return (index[0]+1, index[1]+1)
 ```
- **解 2：** <sup style="color:#ccc">22-03 00:07:05~00:07:35 sup>
-
-```python
-
-```
 
 
 
----
 
 
 
@@ -103,22 +135,52 @@ print(reverse2(nums))
 ## 2. 三数求和
 
 **题：**
-给你一个字符串或者列表，把它们反转过来
-
-
+在一个有 n 个整数的数组 S 中，要求找出三个数 **`(a,b,c)`** 相加等于 0 的组合，
+并且结果中不能包含重复的组合。
 
 
 **思路：**
-
-
-
-
+除了左右两指针之外，
+增加第三个指针，在最外层迭代，迭代每个 item 然后跟左右指针元素和相加
 
 
 **code：** <sup style="color:#ccc">22-03 00:07:35~00:08:05 sup>
 
 ```python
+def three_sum(nums):                            # 注意点
+    res = []
+    nums.sort()                                 # 1. 数组先排序。时间复杂度 O(nlgn) 
+    for i in range(len(nums) - 2):              # 2. i 少两位，因为还有左右两指针各占一个位置
+        if i>=1 and nums[i-1] == nums[i]:       # 3: 注意这里一定要用 i-1, 跳过的是后面重复的那个数，如果 i+1 就直接把前面的跳过去了
+            continue                            # 4. 注意排完序之后会出现重复元素，要跳过，指针要 + 1 
+        
+        left = i + 1
+        right = len(nums) - 1                   # 5. 头指针从第二位开始，尾指针最后一位开始
+        while left < right:
+            cur_sum = nums[i] + nums[left] + nums[right]
+            if cur_sum < 0:
+                left +=1 
+            elif cur_sum > 0:
+                right -= 1
+            else:                               # nums[i] + nums[left] + nums[right] == 0
+                res.append((nums[i], nums[left], nums[right]))
+                if left < right and nums[left] == nums[left+1]:  # 6. 排完序之后会出现重复元素，要跳过，指针要 + 1
+                    left += 1
+                if left < right and nums[right] == nums[right-1]:# 7. 注意 right 指针要 -1 向右移动
+                    right -= 1
+                left += 1
+                right -= 1
+    return res
 
+# ------
+nums = [-1,0,1,2,-1,-4]
+print(three_sum(nums))
+nums = []
+print(three_sum(nums))
+nums = [0]
+print(three_sum(nums))
+nums = [0,0,0]
+print(three_sum(nums))
 ```
 
 
@@ -202,7 +264,9 @@ print(reverse2(nums))
 两个指针从后往前，用后面 A 空出来的位置一个一个双指针排序
 
 **注意点**：
-什么时候停止 i>=0, j>=0,如果 A 数组先用完了，要把 B 数组全部 copy 到 A 数组前面去；若 B 数组用完了，那就是排完了
+什么时候停止 i>=0, j>=0,
+如果 A 数组先用完了，要把 B 数组全部 copy 到 A 数组前面去；
+若 B 数组用完了，那就是排完了
 <br>
 
 ==双指针 **变通**：
@@ -282,7 +346,7 @@ print(reverse2(nums))
 
 
 
-## 6. 连续子数组的最大值
+## 6. 连续子数组的最大值 | Continuous Maximum Subarray
 
 **题：**
 给你一个有 n 个正整数的数组。一个 m
@@ -293,13 +357,30 @@ print(reverse2(nums))
 **思路：** <sup style="color:#ccc">22-06 00:02:43~00:11:28</sup>
 这题其实是一道非常简单的 ==**滑动窗口**==
 
-
-
+1. 首先思考是否能排序。这道题要找连续的子数组，所以排序无用
+2. 
 
 
 **code：** <sup style="color:#ccc">22-06 00:11:28~00:15:15</sup>
 ```python
 # 时间复杂度 O(n) 不管是 i 还是 j 最多从头到尾走一遍
+def max_subarray(numbers, ceiling):
+    
+    cum_sum = [0]
+    cum_sum = cum_sum + numbers
+    cum_sum = list(accumulate(cum_sum))
+
+    l = 0
+    r = 1 # two pointers start at tip of the array.
+    maximum = 0
+    while l < len(cum_sum):
+        while r < len(cum_sum) and cum_sum[r] - cum_sum[l] <= ceiling:
+            r += 1
+        if cum_sum[r - 1] - cum_sum[l] > maximum: # since cum_sum[0] = 0, thus r always > 0.
+            maximum = cum_sum[r - 1] - cum_sum[l]
+            pos = (l, r - 2)
+        l += 1
+    return pos
 ```
 
 ---
@@ -515,6 +596,7 @@ def max_area(heights):
             right -= 1
     return maxres
 
+# -------------------
 heights = [1, 5, 4, 3]
 heights = [3, 1, 2, 4, 5]
 print(max_area(heights))

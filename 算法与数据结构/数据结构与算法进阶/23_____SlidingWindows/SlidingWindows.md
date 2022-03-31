@@ -52,7 +52,7 @@ def removeDuplicates(lis):
 
 **思路：** <sup style="color:#ccc">23-02 00:03:01~00:06:15</sup>
 ==**记住： 
-`i`指向的位置是下一个要置换正确数的位置。
+`j`指向的位置是下一个要置换正确数的位置。
 `i`前面的位置表示已经置换好了的子数组**==
 <img src="../img/SlidingWindow/2_Remove_Duplicates_from_Sorted_ArrayII/00.gif"></img>
 
@@ -60,6 +60,7 @@ def removeDuplicates(lis):
 
 **code：** <sup style="color:#ccc">23-02 00:06:15~00:07:16 Ex.2</sup>
 [link](http://localhost:8888/notebooks/MyJupyterNote/old/23_____SlideWindows/22_01_.ipynb)
+
 ```python
 def removeDuplicates2(nums):
     if not nums:
@@ -94,6 +95,7 @@ def removeDuplicates2(nums):
 
 **code：** <sup style="color:#ccc">23-03 00:02:35~ Ex.</sup>
 [link]()
+
 ```python
 def removeElement(nums, val):
     i = 0
@@ -118,6 +120,7 @@ def removeElement(nums, val):
 （这题在银行中是比较常见的，他们需要知道到了月底手上还有多少现金流，根据手上的钱来做下一步决策。k 就相当于时间，多少个月。）
 
 **思路：** <sup style="color:#ccc">23-04 00:09:12~00::</sup>
+
 1. 第一个 [1~k] 区间的值的总和 
 2. 接下来，每向前移动一个值，就加上 `nums[i]`，减掉 `nums[i-k]`
 
@@ -268,7 +271,7 @@ ret = minsubarray(alist, target)
 找到子串所在的索引
 
 **题：** <sup style="color:#ccc"></sup>
- 
+
 
 
 

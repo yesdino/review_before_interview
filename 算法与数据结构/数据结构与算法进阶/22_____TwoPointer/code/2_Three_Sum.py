@@ -26,7 +26,7 @@ def three_sum(nums):                            # 注意点
                 res.append((nums[i], nums[left], nums[right]))
                 if left < right and nums[left] == nums[left+1]:  # 6. 排完序之后会出现重复元素，要跳过，指针要 + 1
                     left += 1
-                if left < right and nums[right] == nums[right-1]:# 7. 注意 right 指针要 -1 向右移动
+                if left < right and nums[right] == nums[right-1]:# 7. 注意 right 指针要 -1 向前移动
                     right -= 1
                 left += 1
                 right -= 1

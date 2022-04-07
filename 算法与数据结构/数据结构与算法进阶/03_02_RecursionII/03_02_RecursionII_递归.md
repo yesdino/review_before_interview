@@ -2,13 +2,30 @@
 
 By the end of this chapter, you should be able to answer these questions. (They are the most interviewed questions in recursion.)
 
+**Backtracking 回溯**
+
+在使用递归解决问题时，我们==将给定的问题分解为更小的问题。==
+假设我们有一个问题，我们把它分成三个较小的问题，
+然后。现在的情况可能是，问题的解决方案并不取决于所有三个子问题，
+事实上，我们甚至不知道它取决于哪一个子问题。
+假设你站在三条隧道前，其中一条隧道末端有一袋金子，但你不知道是哪一条。
+所以你要三个都试试。
+
+==首先进入隧道，如果不是那个，那么走出隧道，进入隧道，
+如果不是那个，再次走出隧道，进入隧道。==
+
+所以基本上在回溯过程中，我们试图解决一个子问题，
+如果我们没有达到期望的解决方案，那么撤销我们为解决该子问题所做的一切，
+然后尝试解决另一个子问题。
+
 - Subset
 - Permutation
 - Combination
 - N Queens
 
+[toc]
 
-
+<!-- 
 - <a href='#Ex1'>Ex.1 Subset 求子集</a>
 - <a href='#Ex2'>Ex.2 Subset II 求子集</a>
 - <a href='#Ex3'>Ex.3 Permutation 排列组合</a>
@@ -16,27 +33,35 @@ By the end of this chapter, you should be able to answer these questions. (They 
 - <a href='#Ex5'>Ex.5 Permutation of Size K</a>
 - <a href='#Ex6'>Ex.6 Letter Case Permutation</a>
 - <a href='#Ex9'>Ex.9 Parentheses 括号</a>
+ -->
 
 ---
 
 
-### <a id='Ex1'>Ex.1 Subset 求子集 </a>
+## Ex.1 Subset 求子集
 
 所有可能出现的子集
 
 **题目：**
 给你一个不含重复元素的集合 nums，要求返回所有可能的子集。
 
+**解法：**
+- **1、迭代解法**
 ```python
+# 解法 1
 def subsets(nums):
     result = [[]]
-    for num in nums:
-        for element in result[:]:  # 注意这里为什么要用切片 切片其实是复制了一个copy
-            x=element[:]           # 注意这里为什么要用切片
-            x.append(num)
-            result.append(x)
-        
+    for item in nums:
+        for sub_lis in result[:]:  # 1. 注意这里为什么要用切片 切片其实是复制了一个copy
+            result.append(sub_lis+[item])   # 2. 注意每一轮的 item, result 都发生了改变
     return result
+
+# 解法 2
+def subsets_2(nums):    # 这种解法可以不使用 : 拷贝元素
+    res = [[]]
+    for num in nums: 
+        res += [ i + [num] for i in res]
+    return res
 ```
 
 
@@ -47,13 +72,10 @@ print(subsets(nums))
 # [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
 ```
 
-
-
 <!-- <img src="../images/ch03/subset1.png" width="440"/> -->
 
-- **问题 1**: 为什么要用 **`result[:]`** ? 
-
-==`result[:]` 相当于拷贝了一个副本，无论 result 增删改查都不会影响循环==
+问题 1: 为什么要用 **`result[:]`** ? 
+==相当于拷贝了一个副本，无论 result 增删改查都不会影响循环==
 
 ```python
 l = [1,2]
@@ -76,24 +98,11 @@ for i in range(len(l)):
 # []
 ```
 
-    
-
-**问题 1**: 为什么用 **`element[:]`** ? 
-
+问题 2: 为什么用 **`element[:]`** ? 
 ==拷贝数组中的元素==
-```python
-lis = [[1],[2],[3]]
-for e in lis[:]:
-    e.append(0)     # 如果不拷贝直接操作就是下面的结果
-    print(e)
-# [1, 0]
-# [2, 0]
-# [3, 0]
-```
-
 
 ```python
-# 看一下如果不拷贝会出来什么结果
+# 看一下如果不用 element[:] 拷贝会出来什么结果
 def subsets(nums):
     result = [[]]
     for num in nums:
@@ -104,52 +113,19 @@ def subsets(nums):
             result.append(element)
     return result
 
-# ---------
-# 测试
 nums = [1, 2, 3]
 ret = subsets(nums)
 print("ret: ", ret)
-# before:  []
-# after:  [1]
-# before:  [1]
-# after:  [1, 2]
-# before:  [1, 2]
-# after:  [1, 2, 2]
-# before:  [1, 2, 2]
-# after:  [1, 2, 2, 3]
-# before:  [1, 2, 2, 3]
-# after:  [1, 2, 2, 3, 3]
-# before:  [1, 2, 2, 3, 3]
-# after:  [1, 2, 2, 3, 3, 3]
-# before:  [1, 2, 2, 3, 3, 3]
-# after:  [1, 2, 2, 3, 3, 3, 3]
-# ret: [[1, 2, 2, 3, 3, 3, 3], [1, 2, 2, 3, 3, 3, 3], [1, 2, 2, 3, 3, 3, 3], [1, 2, 2, 3, 3, 3, 3], [1, 2, 2, 3, 3, 3, 3], [1, 2, 2, 3, 3, 3, 3], [1, 2, 2, 3, 3, 3, 3], [1, 2, 2, 3, 3, 3, 3]]
 ```
 
 
-- **解法 2**：这种解法可以不使用 `:` 拷贝元素
+<!-- <img src="../images/ch03/subset2.png" width="440"/> -->
+<!-- <img src="../images/ch03/Backtracking.jpg" width="440"/> -->
+
+
+==以下两道编程题 尽量要理解，不能理解？也要背下来，面试考的概率高==
+- **2、递归解法**
 ```python
-def subsets_2(nums):
-    res = [[]]
-    for num in nums: 
-        res += [ i + [num] for i in res]
-    return res
-```
-
----
-
-**Backtracking 回溯**
-
-So, while solving a problem using recursion, we break the given problem into smaller ones. Let's say we have a problem  and we divided it into three smaller problems ,  and . Now it may be the case that the solution to  does not depend on all the three subproblems, in fact we don't even know on which one it depends.
-
-Let's take a situation. Suppose you are standing in front of three tunnels, one of which is having a bag of gold at its end, but you don't know which one. So you'll try all three. First go in tunnel , if that is not the one, then come out of it, and go into tunnel , and again if that is not the one, come out of it and go into tunnel . So basically in backtracking we attempt solving a subproblem, and if we don't reach the desired solution, then <font color="red">**undo**</font> whatever we did for solving that subproblem, and try solving another subproblem.
-
-<img src="../images/ch03/subset2.png" width="440"/>
-<img src="../images/ch03/Backtracking.jpg" width="440"/>
-
-
-```python
-# 以下两道编程题 尽量要理解，不能理解也要背下来，面试考的概率高
 def subsets_recursive(nums):
     lis = []
     result = []
@@ -163,129 +139,112 @@ def subset_recursive_helper(result, lis, nums, start_idx):
     nums     : input 的源集
     start_idx: 控制遍历源集 nums 时的位置索引，避免访问已经访问过的元素
     """
-    result.append(lis[:])       # 2. 每一层递归最重要的就是这一步：把新的子集 lis 加入结果集中
+    result.append(lis[:])           # 2. 每一层递归最重要的就是这一步：把新的子集 lis 加入结果集中
     for i in range(start_idx, len(nums)):    # start_idx ~ len(nums)-1 从 start_idx 已经访问过的元素不再重新访问
-        sub_lis = lis+[nums[i]] # 1. sub_lis 构成所有可能出现的子集，在下一层递归中加入到结果集中
+        sub_lis = lis + [nums[i]]   # 1. sub_lis 构成所有可能出现的子集，在下一层递归中加入到结果集中
         subset_recursive_helper(result, sub_lis, nums, i+1) # 3. 下一层递归所以从当前 i 的下一个索引开始，访问过的索引不再访问
 ```
 
 
 ```python
+# 测试
 nums = ['a', 'b', 'c']
 print(subsets_recursive(nums))
 # [[], ['a'], ['a', 'b'], ['a', 'b', 'c'], ['a', 'c'], ['b'], ['b', 'c'], ['c']]
 ```
 
-
-    
-
+---
 
 
-### <a id='Ex2'>Ex.2 Subset II 求子集 </a>
+## Ex.2 Subset II 求子集
 
-Given a collection of integers that might contain duplicates, nums, return all possible subsets.
+**题目：**
+给你一个不含重复元素的集合 nums, 要求返回所有可能的子集。
+nums 的集合中可能会包含重复的元素，返回的子集中去掉重复的元素
 
-input 的集合中可能会包含重复的元素，返回的子集中去掉重复的元素
+<!-- <img src="../images/ch03/Subset II.jpg" width="440"/> -->
 
-<img src="../images/ch03/Subset II.jpg" width="440"/>
+**解法：**
 
-
+- 1、迭代解法
 ```python
 def subsets2(nums):
     res = [[]]
     for num in nums: 
         res += [ i + [num] for i in res if i + [num] not in res]
     return res
-
+```
+- 2、递归解法
+```py
 def subsets_recursive2(nums):
-    lst = []
+    lis = []
     result = []
-    nums.sort()   # 排序
-    print(nums)
-    subsets2_recursive_helper(result, lst, nums, 0)
+    nums.sort()                 # 1. 先排序
+    subsets2_recursive_helper(result, lis, nums, 0)
     return result
 
-def subsets2_recursive_helper(result, lst, nums, pos):
-    result.append(lst[:])
-    for i in range(pos, len(nums)):
-        if (i != pos and nums[i] == nums[i-1]):  # 与前面一个数相同时，跳过不要
+def subsets2_recursive_helper(result, lis, nums, start_idx):
+    result.append(lis[:])
+    for i in range(start_idx, len(nums)):
+        if (i != start_idx and nums[i] == nums[i-1]):  # 2. 与前面一个数相同时，跳过不要
             continue
-        
-        lst.append(nums[i])
-        subsets2_recursive_helper(result, lst, nums, i+1)
-        lst.pop()
+        sub_lis = lis + [nums[i]]
+        subsets2_recursive_helper(result, sub_lis, nums, i+1)
 ```
 
-[[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
-[1, 2, 3]
-[[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]
-[[], [1], [2], [1, 2], [2, 2], [1, 2, 2]]
-[1, 2, 2]
-[[], [1], [1, 2], [1, 2, 2], [2], [2, 2]]
-    
 
 
 ```python
-nums = [1, 2, 3]
-print(subsets2(nums))
-print(subsets_recursive2(nums))
-```
-
-    [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
-    [1, 2, 3]
-    [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]
-    
-
-
-```python
+# 测试
 nums = [1,2,2]
 print(subsets2(nums))
 print(subsets_recursive2(nums))
+# [[], [1], [2], [1, 2], [2, 2], [1, 2, 2]]
+# [1, 2, 2]
+# [[], [1], [1, 2], [1, 2, 2], [2], [2, 2]]
 ```
 
-    [[], [1], [2], [1, 2], [2, 2], [1, 2, 2]]
-    [1, 2, 2]
-    [[], [1], [1, 2], [1, 2, 2], [2], [2, 2]]
-    
+---
 
+## Ex.3 Permutation 全排列
 
-
-### <a id='Ex3'>Ex.3 Permutation 排列组合</a>
-
-Given abc:
-
-Output: bca cba cab acb bac abc
 
 给你一个字符串，把字符串所有排列组合打印出来
 
-<img src="../images/ch03/Permutation.jpg" width="440"/>
+input `abc`
+output: `bca cba cab acb bac abc`
 
-**Solution 1:**
+<img src="..//images/ch03/Permutation.jpg" width="300"/>
 
+**解法：**
 
+- **1、递归解法**
 ```python
-def perm(result, nums):
-    if (len(nums)==0):
-        print(result)  # 回头出口
+def permute(nums):
+    result = []
+    sub_lis = []
+    permute_helper(result, sub_lis, nums)
+    return result
 
-    for i in range(len(nums)):
-        perm(result+str(nums[i]), nums[0:i]+nums[i+1:])  #
+def permute_helper(result, sub_lis, nums):
+    if len(nums) == 0:
+        result.append(sub_lis)
+    for i in range(len(nums)):                  # 1. 索引 i = 上一层下来的 nums
+        next_sub_lis = sub_lis + [nums[i]]      # 2. 下一层的 sub_lis = 加上索引元素
+        next_nums = nums[0:i] + nums[i+1:]      # 3. 下一层的 nums 剔除索引元素
+        permute_helper(result, next_sub_lis, next_nums)
     
 nums = [1, 2, 3]
-perm('', nums)
+ret = permute(nums)
+print(ret)
+# [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
 ```
 
-    123
-    132
-    213
-    231
-    312
-    321
     
 
-<img src="../images/ch03/permutation.gif" width="640"/>
+<img src="../images/ch03/permutation.gif" width=""/>
 
-**Solution 2**
+- **2、迭代解法**
 
 the basic idea is, to permute n numbers, we can add the nth number into the resulting list from the n-1 numbers, in every possible position.
 
@@ -295,6 +254,11 @@ Then, 2 can be added in front or after 1. So we have to copy the List in answer 
 
 Then we have to add 3. first copy {2,1} and {1,2}, add 3 in position 0; then copy {2,1} and {1,2}, and add 3 into position 1, then do the same thing for position 3. Finally we have 2*3=6 lists in answer, which is what we want.
 
+其基本思想是，为了排列n个数字，我们可以在每个可能的位置将n-1个数字添加到结果列表中。
+例如，如果输入num[]是{1,2,3}：首先，将1添加到初始列表中（我们称之为“应答”）。
+然后，可以在1之前或之后添加2。所以我们必须复制答案中的列表（它只是{1}），在{1}的位置0添加2，然后再次复制原始的{1}，并在位置1添加2。现在我们有了
+一个{2,1}，{1,2}的答案。当前答案中有两个列表。
+然后我们必须加上3。第一次拷贝{2,1}和{1,2}，在0位置加上3；然后复制{2,1}和{1,2}，将3添加到位置1，然后对位置3执行相同的操作。最后我们有2*3=6个列表作为答案，这就是我们想要的。
 
 ```python
 def permute(nums):
@@ -309,15 +273,10 @@ def permute(nums):
 
 nums = [1, 2, 3]
 print(permute(nums))
+# [[3, 2, 1], [2, 3, 1], [2, 1, 3], [3, 1, 2], [1, 3, 2], [1, 2, 3]]
 ```
-
-    [[3, 2, 1], [2, 3, 1], [2, 1, 3], [3, 1, 2], [1, 3, 2], [1, 2, 3]]
     
 
-
-```python
-
-```
 
 
 ```python
@@ -333,18 +292,13 @@ def getPermutation(n, k):
     return ans
 
 nums = [1, 2, 3]
-print(getPermutation(3,5))
+print(getPermutation(3,5))  # 312
 ```
 
-    312
     
+---
 
-
-```python
-
-```
-
-### <a id='Ex4'>Ex.4 Permutation Unique</a>
+## Ex.4 Permutation Unique
 
 去重
 
@@ -407,7 +361,7 @@ print(permuteUnique(nums))
 
 ```
 
-### <a id="Ex5"> Ex.5 Permutation of Size K </a>
+## Ex.5 Permutation of Size K
 
 takes two parameters n and k, and prints out all P(n, k) = n! / (n-k)! permutations that contain exactly k of the n elements.
 when k = 2 and n = 4 
@@ -449,7 +403,7 @@ permSizeK('', nums, k)
     43
     
 
-### <a id="Ex6">Ex.6 Letter Case Permutation</a>
+## Ex.6 Letter Case Permutation
 
 Enumerate all uppercase/lowercase permutation for any letter specified in input
 
@@ -649,7 +603,7 @@ comb2(candidates, t)
 
 ```
 
-### <a id="Ex9">Ex.9 Parentheses 括号</a>
+## Ex.9 Parentheses 括号
 
 Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 
@@ -708,7 +662,7 @@ Given an integer n, return all distinct solutions to the n-queens puzzle.
 
 Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space respectively.
 
-<img src="../images/ch03/nqueens.png" width="230"/>
+<img src="..//images/ch03/nqueens.png" width="230"/>
 
 
 ```python

@@ -374,11 +374,11 @@ ab ac ad ba bc bd ca cb cd da db dc
 
 
 ```python
-def permSizeK(result, nums, k):
+def permSizeK(sub_lis, nums, k):
     if k == 0:
-        print(result)
+        print(sub_lis)
     for i in range(len(nums)):
-        permSizeK(result+str(nums[i]), nums[0:i] + nums[i+1:], k - 1)
+        permSizeK(sub_lis+str(nums[i]), nums[0:i] + nums[i+1:], k - 1)
 ```
 
 
@@ -407,15 +407,15 @@ permSizeK('', nums, k)
 
 Enumerate all uppercase/lowercase permutation for any letter specified in input
 
-For example, 	
-
-word = “medium-one”
-
-Rule = “io”
-
-solutions = [“medium-one”, “medIum-one”, “medium-One”, “medIum-One”]
-
 把 Rule 的字母在 word 中出现的位置用大写和小写的不同排列组合
+
+例如：
+```py
+word = "medium-one"
+Rule = "io"
+result = ["medium-one", "medIum-one", "medium-One", "medIum-One"]
+```
+
 
 
 ```python
@@ -452,9 +452,9 @@ rule = "nm"
 
 permLetter(word, rule)
 print(results)
+# {'medium-one', 'medium-oNe', 'mediuM-oNe', 'Medium-one', 'Medium-oNe', 'mediuM-one', 'MediuM-one', 'MediuM-oNe'}
 ```
 
-    {'medium-one', 'medium-oNe', 'mediuM-oNe', 'Medium-one', 'Medium-oNe', 'mediuM-one', 'MediuM-one', 'MediuM-oNe'}
     
 
 
@@ -462,7 +462,7 @@ print(results)
 
 ```
 
-**Ex.7 Combination Sum**
+## Ex.7 Combination Sum
 
 Given a set of candidate numbers (candidates) (without duplicates) and a target number (target), find all unique combinations in candidates where the candidate numbers sums to target.
 
@@ -523,7 +523,7 @@ comb(candidates, t)
 
 ```
 
-**Ex.8 Combination Sum II**
+## Ex.8 Combination Sum II
 
 Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sums to target.
 
@@ -617,9 +617,12 @@ n 对括号，有几种组合方式
 ```python
 def generateParenthesis(n):
     def generate(prefix, left, right, parens=[]):
-        if right == 0:   parens.append(prefix)
-        if left > 0:     generate(prefix + '(', left-1, right)
-        if right > left: generate(prefix + ')', left, right-1)
+        if right == 0:   
+            parens.append(prefix)
+        if left > 0:     
+            generate(prefix + '(', left-1, right)
+        if right > left: 
+            generate(prefix + ')', left, right-1)
         return parens
     return generate('', n, n)
 ```
@@ -654,7 +657,7 @@ generateParenthesis(4)
 
 ```
 
-**Ex.10 N Queens**
+## Ex.10 N Queens
 
 The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
 

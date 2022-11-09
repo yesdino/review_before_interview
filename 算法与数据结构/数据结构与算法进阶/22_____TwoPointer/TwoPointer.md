@@ -85,7 +85,7 @@ def two_sum(nums, target):
         if num in dic:                  # 2. 遇到了【与它成对的数 (key)】, 返回上一个索引与当前索引
             print(dic)
             return [dic[num], idx]
-        else:
+        else: 
             dic[target - num] = idx     # 1. 遇到了一个数，把【与它成对的数】作为 key, 数的索引作为 val 存入字段
 ```
 - **解 2：** 双指针 <sup style="color:#ccc">22-03 00:07:05~00:07:35</sup>
@@ -193,7 +193,6 @@ print(three_sum(nums))
 ## 3. 四数求和
 
 **题：**
-给你一个字符串或者列表，把它们反转过来
 
 
 
@@ -281,7 +280,6 @@ print(three_sum(nums))
 
 ```
 
----
 
 
 
@@ -346,7 +344,7 @@ print(three_sum(nums))
 
 
 
-## 6. 连续子数组的最大值 | Continuous Maximum Subarray
+## 7. 连续子数组的最大值 | Continuous Maximum Subarray
 
 **题：**
 给你一个有 n 个正整数的数组。一个 m

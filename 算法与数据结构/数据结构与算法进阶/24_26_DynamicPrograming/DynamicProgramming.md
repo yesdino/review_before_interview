@@ -4,6 +4,32 @@
 
 ---
 
+# 动态规划 dp (dynamic programming)
+
+**什么是动态规划 ？**
+- 与分治法类似，都是将大问题拆分为相同的子问题
+- 不同的是：
+  - 分治法是从上往下，计算所有子问题的结果最后一层一层合并的到大问题的结果
+  - 动态规划是从下往上，**考虑到会有==相同的子问题==**，
+    先计算出子问题的结果，==**大问题直接引用下层就算出来的子问题结果**==，极大的精简了计算量
+
+**经典的 dp 问题**
+- 斐波那契序列 f(n) = f(n-1) + f(n-2)
+- 汉诺塔
+- 子序列最大和
+
+**求解动态规划问题的难点：**
+1. ==**找到公式**==，然后直接复用。比如斐波那契的公式就是 **`f(n) = f(n-1) + f(n-2)`**
+2. **先找到最小的 base**。 比如 **`f(1)=1, f(2)=1`**
+
+
+
+
+
+
+
+
+---
 
 # 练习
 
@@ -14,7 +40,7 @@
 **题：**
 给一个 n, 求 1,3,4 相加得到 n 的所有相加方式
 
-**思路：**
+**思路：**<sup style="color:#ccc">24-03 00:04:00~</sup>
 <img style="width:300px" 
 src="../img/DynamicProgramming/Number_Problem.jpg"></img>
 
@@ -166,11 +192,11 @@ def robRange(nums, start, end):         # helper
 **思路：**
 从每一条分支的 叶子节点从下往上，按照上面一排房子的思路来解
 对除了叶子节点的每一个 node 进行下面操作：
-<img style="width:300px" 
+<img style="width:500px" 
 src="../img/DynamicProgramming/Planning_Party_2.jpg"></img>
-```
+```py
 抢当前节点   = 所有子节点都不抢的和 + 当前节点的值
-不抢当前节点 = 所以子节点求和（max（每个子节点抢/不抢））
+不抢当前节点 = 所有子节点求和（max（每个子节点抢/不抢））
 
 Yes(CurNode)= No(all childNode)加和 + CurNodeValue
 No(CurNode) = max( Yes(i), No(i)(每个子节点抢/不抢的max) )加和 
@@ -209,7 +235,7 @@ TODO:
 
 
 **思路：**
-<img style="width:200px" 
+<img style="width:300px"  
 src="../img/DynamicProgramming/Tiles_Problem.jpg"></img>
 
 这题没讲 code 下面的 code 是自己写的

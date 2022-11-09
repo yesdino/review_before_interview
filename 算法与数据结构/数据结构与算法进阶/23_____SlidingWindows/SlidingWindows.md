@@ -110,7 +110,7 @@ def removeElement(nums, val):
 ------------------------------------------------------
 
 
-## 4. 每k个元素求一个平均值 | Maximum Average Subarray
+## 4. 每k个元素求一个平均值, 求最大的均值 | Maximum Average Subarray
 **题：** <sup style="color:#ccc">23-04 00:00:08~00:06:27</sup>
 
 给一个数组 nums, 一个窗口大小 k。
@@ -125,6 +125,8 @@ def removeElement(nums, val):
 2. 接下来，每向前移动一个值，就加上 `nums[i]`，减掉 `nums[i-k]`
 
 <img src="../img/SlidingWindow/4_Maximum_Average_Subarray.png" width=400></img>
+[](../img/SlidingWindow/4_Maximum_Average_Subarray.png)
+
 
 **code：** <sup style="color:#ccc"> Ex.</sup>
 [link]()
@@ -138,7 +140,7 @@ def findMaxnumsverage(nums, k):
     # 2. 接下来，每向前移动一个值，就加上 nums[i]，减掉 nums[i-k]
     res = moving_sum
     for i in range(k, len(nums)):
-        moving_sum += nums[i] - nums[i-k]
+        moving_sum = moving_sum + nums[i] - nums[i-k]
         res = max(res, moving_sum)  # 挑大的那个？？
     return (res / k)
 
@@ -153,10 +155,8 @@ ret = findMaxnumsverage(nums, 4)
 
 ## 5. 最长的连续的、递增的子数组的长度 | Longest Continuous Increasing Subsequence
 **题：** <sup style="color:#ccc"></sup>
-`Given an unsorted array of integers, `
-`find the length of longest continuous increasing subsequence(subarray)`
 给你一个没有排序的数组，
-要求你在数组中找到最长的 **连续的**、**递增的** 子数组的<u>**长度**</u>。
+要求你在数组中找到最长的 **连续的**、**递增的** 子数组的<u>==**长度**==</u>。
 
 
 **思路：** <sup style="color:#ccc">23-05 00:00:03~00::</sup>
@@ -186,17 +186,13 @@ ret = findLengthOfLCIS(nums)
 
 ------------------------------------------------------
 
-## 6. 大于s的最小的连续的子数组的长度 | Minimum Size Subarray Sum（模板）
+## 6. 最短的连续子数组 | Minimum Size Subarray Sum（模板）
 <!-- 6_Minimum_Size_Subarray_Sum -->
 
 **题：** <sup style="color:#ccc"></sup>
 
-`Given an array of n positive integers and a positive integer s, `
-`find the minimal length of a contiguous subarray of which the sum >= s. `
-`If there isn't one, return 0 instead`
-
-给你一个正整数数组，一个整数 s,
-要求找到能够大于 s 的 **最小的连续的子数组** 的长度。
+给你一个正整数数组，一个整数 target,
+要求找到一个 **长度最小的连续的子数组**，使得这个子数组的和大于 target
 没有就返回 0。
 
 Example：
@@ -231,30 +227,30 @@ while j < len(nums):
 ```python
 import sys
 
-def minsubarray(alist, target):
-    if not len(alist):
+def minsubarray(lis, target):
+    if not len(lis):
         return 0
 
     i = j = 0
     sums = 0
     min_len = sys.maxsize
     
-    while j < len(alist):
-        sums += alist[j]
+    while j < len(lis):
+        sums += lis[j]
         j += 1                      # 扩展窗口
         while sums >= target:       # 找到有效窗口了
             cur_len = j - i
             min_len = min(min_len, cur_len) # 更新全局的最小长度
-            sums -= alist[i]
+            sums -= lis[i]
             i += 1                  # 打破窗口
 
     if min_len == sys.maxsize:
         min_len = 0
     return min_len
 
-alist = [2, 3, 1, 2, 8]
+lis = [2, 3, 1, 2, 8]
 target = 7
-ret = minsubarray(alist, target)
+ret = minsubarray(lis, target)
 ```
 
 
@@ -314,11 +310,9 @@ def strStr(string, substr):
 <!-- 8_Subarray_Product_Less_Than_K -->
 **题：** <sup style="color:#ccc">23-08 00:00:11~</sup>
 
-`You are given an array of positive integers nums`
-`Count and print the number of (contiguous) subarrays where the product(乘积) of all the elements in the subarray is less than k`
-
-求乘积小于 k 的子数组的个数
-
+给你一个正整数数组 `nums`, 
+要求你找到所有连续子数组，使得数组所有子元素的乘积小于 k
+要求你返回符合条件的子数组的个数
 
 
 
@@ -335,14 +329,21 @@ def bruteforce(nums, k):
     count = 0
     for i in range(len(nums)):
         product = 1
-        for j in range(i, len(nums)):
+        for j in range(i, len(nums)):   # 从 i 开始，前面遍历过的 i 不再继续遍历
             product *= nums[j]
             if (product >= k):
                 break
-            count += 1 
+            else:
+                count += 1 
     return count
-```
 
+# --------------------------
+nums1 = [10, 5, 2, 6]
+k = 100
+print(bruteforce(nums1, k))
+nums2 = [1, 5, 4, 3, 2, 7]
+print(bruteforce(num, k))
+```
 
 ------------------------------------------------------
 
@@ -352,17 +353,15 @@ def bruteforce(nums, k):
 
 ## 1. 最小窗口子串 | Longest Substring Without Repeating Characters 
 **题：** <sup style="color:#ccc">23-09 00:00:29</sup>
+从字符串中找到**最长**的子串，这个子串没有重复的字母，
+要求你返回这个字符串的长度
 ```py
-Given a string, find the length of the longest substring without repeating characters
-
-Example:
+例子:
 Given 'abcabcbb', the answer is 'abc', which the length is 3.
 Given 'bbbbb', the answer is 'b', which the length is 1.
 Given 'pwwkew', the answer is 'wke', which the length is 3.
 (Note that the answer must be a substring, 'pwke' is a subsequence and not a substring)
 ```
-从字符串中找到**最长**的子串，这个子串没有重复的字母，
-要求你返回这个字符串的长度
 
 
 **思路：** <sup style="color:#ccc">23-09 00:04:47</sup>
@@ -382,12 +381,12 @@ def lengthOfLongestSubstring(string):
     max_len = 0
     n = len(string)
     while i < n and j < n:
-        if string[j] in char_s:     # 遇到了重复的字符
+        if string[j] in char_s:     
             char_s.remove(string[i])
-            i += 1
-        else:                       # 没有重复
+            i += 1                  # 遇到了重复的字符，打破窗口，移动 i, j 不用重置
+        else:                       
             char_s.add(string[j])
-            j += 1
+            j += 1                  # 没有重复, 扩大
             # 更新最大子串长度
             cur_len = j - i
             max_len = max(max_len, cur_len)
@@ -398,7 +397,7 @@ def lengthOfLongestSubstring(string):
 ------------------------------------------------------
 
 
-## . 
+## 2. 
 **题：** <sup style="color:#ccc"></sup>
 
 
@@ -418,12 +417,10 @@ def lengthOfLongestSubstring(string):
 ------------------------------------------------------
 
 
-## . 
+## 3. 最小的窗口子串 II
 **题：** <sup style="color:#ccc"></sup>
-
-
-
-
+给你一个字符串 a，和一个字符串 b，
+要求你在 a 中找到最小的子串，使得子串中包含 b 中的所有字母
 
 **思路：** <sup style="color:#ccc"></sup>
 
@@ -431,6 +428,44 @@ def lengthOfLongestSubstring(string):
 **code：** <sup style="color:#ccc"> Ex.</sup>
 [link]()
 ```python
+import sys
+
+def minWindow(s, t):
+    if len(t) > len(s):
+        return ""
+    lt = len(t)
+    count = lt
+    ct = collections.Counter(t)
+    left = 0
+    right = 0
+    minLength = sys.maxsize
+    notfound = 1
+    ansleft = 0
+    ansright = 0
+    print(ct)
+    for i in range(len(s)):
+        # found in t
+        if ct[s[i]] > 0:
+            count -= 1
+        ct[s[i]] -= 1
+        #print(s[i], ct)
+        # found a window, containing all chars from t
+        while count == 0:
+            right = i
+            notfound = 0
+            if right - left < minLength:
+                minLength = right-left
+                ansleft = left
+                ansright = right
+            # when map[left] is 0, meaning the exit char is in t, then count++
+            if ct[s[left]] == 0:
+                count += 1
+            ct[s[left]] += 1
+            #print("left: ", s[left], ct)
+            left += 1
+    if notfound == 1:
+        return ""
+    return s[ansleft:ansright+1]
 
 ```
 

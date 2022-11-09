@@ -338,10 +338,10 @@ def uglyNumber(num):
 **思路：**
 1、给定一个序列 list，放符合的候选 UglyNumber。先给一个基本的 Ugly Number : 2, 3, 5 放入 list
 2、取出序列 list 中最前面的数
-3、在取出数的同时，将 当前取出的数 i*2, i*3, i*5 得到的数依次放入 list
+3、在取出数的同时，将 当前取出的数 **`i*2`, `i*3`, `i*5`** 得到的数依次放入 list
 4、重复步骤 2,3
 
-<img style="width:350px" src="../img/Heap/Ugly_Number_2.png"></img>
+<img style="width:550px" src="../img/Heap/Ugly_Number_2.png"></img>
 ==**TODO :**== iPad 上补充步骤
 
 **解：**
